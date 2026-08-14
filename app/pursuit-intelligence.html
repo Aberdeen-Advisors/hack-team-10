@@ -1905,8 +1905,7 @@ function renderDashboard() {
     <p class="viewsub">All ${ABERDEEN.accounts.length} companies in the signal corpus, scored on detected buying signals,
       relationship position, and Aberdeen's proof strength for the offerings each signal triggers. Click a row for the full pursuit brief.</p>
 
-    <div class="statrow">
-      <div class="stat"><div class="v">${ABERDEEN.accounts.length}</div><div class="l">Accounts assessed</div></div>
+    <div class="statrow" style="grid-template-columns:repeat(3,1fr)">
       <div class="stat"><div class="v">${totalSignals}</div><div class="l">Evidenced buying signals</div></div>
       <div class="stat"><div class="v">${pursue}</div><div class="l">Pursue-now accounts</div></div>
       <div class="stat"><div class="v">${flagged}</div><div class="l">Flagged for human confirmation</div></div>
