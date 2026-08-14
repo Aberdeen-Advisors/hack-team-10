@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    Aberdeen Pursuit Intelligence — application logic
    Zero network calls. All data is embedded locally (Level 3).
    ============================================================ */
@@ -135,7 +135,6 @@ function setView(view, acctId) {
   if (view === "invest") renderInvestments();
   else if (view === "dashboard" && !acctId) renderDashboard();
   else if (view === "dashboard" && acctId) renderAccount(acctId);
-  else if (view === "offerings") renderOfferings();
   else if (view === "sources") renderSources();
   window.scrollTo(0, 0);
 }
@@ -577,45 +576,6 @@ ${credLines}
    Agreement on one narrow, dated next step — a diagnostic sprint or working session, not a proposal.
 
 Reminders: no unsourced percentages; empty CRM fields stay empty; nothing leaves the building without human approval.`;
-}
-
-/* ---------- offerings view ---------- */
-function renderOfferings() {
-  main.innerHTML = `
-    <h2 class="viewtitle">Offerings &amp; proof strength</h2>
-    <p class="viewsub">The five sellable service areas with their §10 proof ratings, and the credential inventory each can draw on.
-      Ratings are never upgraded — a THIN badge with an honest proof line beats a STRONG badge a buyer can puncture.</p>
-
-    ${ABERDEEN.offerings.map(o => {
-      const creds = ABERDEEN.credentials.filter(c => c.offering === o.id);
-      return `<div class="card">
-        <h3 style="display:flex;align-items:center;gap:10px;border-bottom:none;padding-bottom:0;text-transform:none;font-size:15px">
-          ${esc(o.name)} ${badge(o.strength)}</h3>
-        <div class="osub" style="margin-top:2px">${esc(o.subServices)}</div>
-        <p class="small" style="margin:8px 0">${esc(o.proofNote)}</p>
-        ${creds.map(c => `<div class="cred">${esc(c.text)} ${c.inFlight ? `<span class="inflight"> · IN FLIGHT</span>` : ""}
-          <div class="ct">${esc(c.clientType)} · ${esc(c.band)} · sector: ${esc(c.sector)}${c.quantified ? " · quantified outcome" : ""}</div></div>`).join("")}
-      </div>`;
-    }).join("")}
-
-    <div class="card">
-      <h3>Six top-level capabilities &middot; fourteen industries</h3>
-      <p class="small" style="margin-bottom:8px">On tailored material, relevant items are highlighted in Signal Cyan and the rest stay visible — breadth and focus at once (the Pattern B mechanic).</p>
-      <div class="grid2">
-        <div>${ABERDEEN.capabilities.map(c => `<div class="guardrail" style="border-bottom:1px dotted var(--grey-light)"><span style="color:var(--cyan);font-weight:700">&#9632;</span> ${esc(c)}</div>`).join("")}</div>
-        <div class="rolechips" style="align-content:flex-start">${ABERDEEN.industries.map(i => `<span class="rolechip">${esc(i)}</span>`).join("")}</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Firm profile</h3>
-      <div class="finrow">
-        ${ABERDEEN.firm.profile.map(f => `<div class="fin"><div class="fl">${esc(f.label)}</div><div class="fv" style="font-size:14px">${esc(f.value)}</div><div class="fd muted">${esc(f.note)}</div></div>`).join("")}
-      </div>
-      <p class="small" style="margin-top:10px">${esc(ABERDEEN.firm.positioning)}</p>
-      <p class="small muted" style="margin-top:4px">${esc(ABERDEEN.firm.aberdeenRivals)}</p>
-    </div>
-  `;
 }
 
 /* ---------- sources & guardrails ---------- */
