@@ -1,0 +1,1761 @@
+<title>Aberdeen Pursuit Intelligence</title>
+<style>
+/* Aberdeen Pursuit Intelligence — CURRENT brand system (SKILL.md §2.1)
+   Flat, dense, navy-dominant, confident. No shadows, no gradients (except
+   where a surface needs separation), no decoration. */
+
+:root {
+  --navy: #09375F;
+  --navy-dark: #091C4D;
+  --navy-mid: #094E78;
+  --teal-heritage: #44B0B1;
+  --teal-signal: #03C0C1;
+  --teal-light: #E7F5F5;
+  --amber: #F7CE01;
+  --blue-cta: #027BCE;
+  --white: #FFFFFF;
+  --grey-light: #D1D4DD;
+  --body: #404040;
+  --grey-dark: #5F5F5F;
+  --cyan: #03CBFF;
+  --green: #00A676;
+  --purple: #BD8CFF;
+  --red: #D85049;
+  --bg: #F7F7FC;
+  --font: "Poppins", "Montserrat", "Segoe UI", Calibri, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  color: var(--body);
+  background: var(--bg);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ---------- header ---------- */
+.topbar {
+  background: var(--navy);
+  color: var(--white);
+  border-top: 4px solid var(--teal-heritage);
+  padding: 14px 28px 0;
+}
+.topbar-row { display: flex; align-items: center; gap: 16px; }
+.brandmark { display: flex; align-items: baseline; gap: 10px; }
+.brandmark .chev { color: var(--teal-signal); font-weight: 700; font-size: 20px; }
+.brandmark h1 { font-size: 17px; font-weight: 600; letter-spacing: .2px; }
+.brandmark .sub { font-size: 11px; color: var(--grey-light); font-weight: 400; }
+.level3 {
+  margin-left: auto; font-size: 10px; font-weight: 600; letter-spacing: .6px;
+  color: var(--navy); background: var(--amber); padding: 3px 10px; border-radius: 2px;
+}
+.tabs { display: flex; gap: 2px; margin-top: 12px; }
+.tab {
+  background: transparent; border: none; color: var(--grey-light);
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  padding: 9px 16px; cursor: pointer; border-bottom: 3px solid transparent;
+}
+.tab:hover { color: var(--white); }
+.tab.active { color: var(--white); border-bottom-color: var(--teal-signal); font-weight: 600; }
+
+.container { max-width: 1240px; margin: 0 auto; padding: 22px 28px 60px; }
+
+/* ---------- generic ---------- */
+h2.viewtitle { color: var(--navy); font-size: 21px; font-weight: 600; margin-bottom: 2px; }
+.viewsub { color: var(--grey-dark); font-size: 12.5px; margin-bottom: 18px; }
+.card {
+  background: var(--white); border: 1px solid var(--grey-light);
+  border-radius: 3px; padding: 16px 18px; margin-bottom: 14px;
+}
+.card h3 {
+  color: var(--navy); font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .5px; margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 2px solid var(--teal-heritage);
+}
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+.muted { color: var(--grey-dark); font-size: 12px; }
+.small { font-size: 11.5px; }
+
+/* ---------- chips & badges ---------- */
+.chip {
+  display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: .4px;
+  padding: 2px 8px; border-radius: 2px; text-transform: uppercase; white-space: nowrap;
+}
+.chip.filing        { background: var(--navy); color: var(--white); }
+.chip.pressrelease  { background: var(--navy-mid); color: var(--white); }
+.chip.digest        { background: var(--grey-light); color: var(--body); }
+.chip.instruction   { background: var(--teal-heritage); color: var(--white); }
+.chip.inference     { background: var(--white); color: var(--grey-dark); border: 1px dashed var(--grey-dark); }
+
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .5px;
+  padding: 2px 9px; border-radius: 2px;
+}
+.badge.STRONG   { background: var(--green); color: var(--white); }
+.badge.MODERATE { background: var(--teal-heritage); color: var(--white); }
+.badge.THIN     { background: var(--amber); color: var(--navy); }
+.badge.NONE     { background: var(--red); color: var(--white); }
+
+.tier {
+  display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .4px;
+  padding: 3px 10px; border-radius: 2px; text-transform: uppercase;
+}
+.tier.pursue   { background: var(--green); color: var(--white); }
+.tier.develop  { background: var(--teal-signal); color: var(--navy-dark); }
+.tier.qualify  { background: var(--amber); color: var(--navy); }
+.tier.monitor  { background: var(--grey-light); color: var(--body); }
+
+.flag {
+  display: inline-block; font-size: 10px; font-weight: 600; color: var(--red);
+  border: 1px solid var(--red); padding: 1px 7px; border-radius: 2px; letter-spacing: .3px;
+}
+
+.delta-up { color: var(--green); font-weight: 600; }
+.delta-down { color: var(--red); font-weight: 600; }
+.delta-flat { color: var(--grey-dark); }
+
+/* ---------- dashboard ---------- */
+.statrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+@media (max-width: 900px) { .statrow { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  background: var(--navy); color: var(--white); border-radius: 3px;
+  padding: 14px 16px; border-left: 4px solid var(--teal-signal);
+}
+.stat .v { font-size: 26px; font-weight: 700; color: var(--teal-signal); line-height: 1.15; }
+.stat .l { font-size: 11px; color: var(--grey-light); margin-top: 3px; }
+
+table.accounts { width: 100%; border-collapse: collapse; background: var(--white); }
+table.accounts th {
+  background: var(--navy); color: var(--white); text-align: left;
+  font-size: 11px; font-weight: 600; letter-spacing: .4px; text-transform: uppercase;
+  padding: 9px 12px;
+}
+table.accounts td { padding: 10px 12px; border-bottom: 1px solid var(--grey-light); vertical-align: middle; font-size: 12.5px; }
+table.accounts tr.acct-row { cursor: pointer; }
+table.accounts tr.acct-row:hover td { background: var(--teal-light); }
+.acct-name { color: var(--navy); font-weight: 600; font-size: 13.5px; }
+.scorebar-wrap { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+.scorebar { flex: 1; height: 7px; background: var(--grey-light); border-radius: 2px; overflow: hidden; }
+.scorebar > div { height: 100%; }
+.scoreval { font-weight: 700; color: var(--navy); width: 26px; text-align: right; }
+
+/* ---------- account detail ---------- */
+.backlink {
+  background: none; border: none; color: var(--blue-cta); font-family: var(--font);
+  font-size: 12.5px; cursor: pointer; padding: 0; margin-bottom: 12px;
+}
+.acct-header { border-left: 5px solid var(--teal-heritage); padding-left: 16px; margin-bottom: 16px; }
+.acct-header h2 { color: var(--navy); font-size: 24px; font-weight: 600; }
+.acct-header .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; align-items: center; }
+.playline { margin-top: 8px; font-size: 13.5px; color: var(--navy); font-weight: 500; }
+.playline b { color: var(--teal-signal); }
+
+.scorebreak { display: flex; gap: 0; border: 1px solid var(--grey-light); border-radius: 3px; overflow: hidden; margin-bottom: 14px; }
+.scorebreak .seg { flex: 1; padding: 10px 14px; background: var(--white); border-right: 1px solid var(--grey-light); }
+.scorebreak .seg:last-child { border-right: none; }
+.scorebreak .seg .n { font-size: 20px; font-weight: 700; color: var(--navy); }
+.scorebreak .seg .cap { font-size: 10.5px; color: var(--grey-dark); text-transform: uppercase; letter-spacing: .4px; }
+.scorebreak .seg.total { background: var(--navy); }
+.scorebreak .seg.total .n { color: var(--teal-signal); }
+.scorebreak .seg.total .cap { color: var(--grey-light); }
+
+.signal { border: 1px solid var(--grey-light); border-left: 4px solid var(--teal-heritage); border-radius: 2px; padding: 12px 14px; margin-bottom: 10px; background: var(--white); }
+.signal .sig-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.signal .sig-title { font-weight: 600; color: var(--navy); font-size: 13.5px; }
+.signal .evidence { margin-top: 5px; }
+.signal .quote {
+  margin-top: 7px; padding: 7px 12px; background: var(--teal-light);
+  border-left: 3px solid var(--teal-signal); font-style: italic; font-size: 12.5px;
+}
+.signal .maps { margin-top: 7px; font-size: 12px; }
+.signal .maps b { color: var(--navy-mid); }
+.sig-src { font-size: 10.5px; color: var(--grey-dark); margin-left: auto; }
+
+.finrow { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
+.fin {
+  background: var(--white); border: 1px solid var(--grey-light); border-radius: 2px;
+  padding: 8px 12px; min-width: 120px;
+}
+.fin .fl { font-size: 10.5px; color: var(--grey-dark); text-transform: uppercase; letter-spacing: .3px; }
+.fin .fv { font-size: 16px; font-weight: 700; color: var(--navy); }
+.fin .fd { font-size: 11px; }
+
+.offer-rec { border: 1px solid var(--grey-light); border-radius: 2px; padding: 12px 14px; margin-bottom: 10px; background: var(--white); }
+.offer-rec .oh { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.offer-rec .oname { font-weight: 600; color: var(--navy); }
+.offer-rec .osub { font-size: 11.5px; color: var(--grey-dark); }
+.cred { margin-top: 8px; padding: 8px 12px; background: var(--bg); border-left: 3px solid var(--navy-mid); font-size: 12px; }
+.cred .ct { color: var(--grey-dark); font-size: 11px; margin-top: 2px; }
+.inflight { color: var(--red); font-weight: 600; font-size: 10.5px; letter-spacing: .3px; }
+
+.gap {
+  padding: 8px 12px; background: #FDF6DA; border: 1px solid var(--amber);
+  border-radius: 2px; font-size: 12px; margin-bottom: 8px;
+}
+.gap b { color: var(--navy); }
+
+dl.kv { display: grid; grid-template-columns: 160px 1fr; row-gap: 7px; column-gap: 12px; }
+dl.kv dt { color: var(--grey-dark); font-size: 11.5px; text-transform: uppercase; letter-spacing: .3px; padding-top: 1px; }
+dl.kv dd { font-size: 12.5px; }
+.empty-field { color: var(--grey-dark); font-style: italic; }
+.empty-field::before { content: "— "; }
+
+.rolechips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.rolechip { background: var(--teal-light); color: var(--navy); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
+
+/* ---------- outreach ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; align-items: flex-end; }
+.control label { display: block; font-size: 10.5px; color: var(--grey-dark); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }
+.control select {
+  font-family: var(--font); font-size: 12.5px; color: var(--body);
+  padding: 7px 10px; border: 1px solid var(--grey-light); border-radius: 2px; background: var(--white);
+  min-width: 180px;
+}
+.btn {
+  font-family: var(--font); font-size: 12.5px; font-weight: 600; cursor: pointer;
+  border: none; border-radius: 2px; padding: 9px 18px;
+}
+.btn.primary { background: var(--navy); color: var(--white); }
+.btn.primary:hover { background: var(--navy-mid); }
+.btn.ghost { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
+
+.provisional {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--amber); color: var(--navy); font-weight: 700; font-size: 11px;
+  letter-spacing: .6px; padding: 7px 14px; border-radius: 2px 2px 0 0;
+}
+.draft {
+  background: var(--white); border: 1px solid var(--amber); border-top: none;
+  padding: 18px 22px; font-size: 13px; white-space: pre-wrap;
+  font-family: var(--font); border-radius: 0 0 2px 2px;
+}
+.draft-meta { font-size: 11px; color: var(--grey-dark); margin-top: 8px; }
+
+/* ---------- sources view ---------- */
+table.srcs { width: 100%; border-collapse: collapse; background: var(--white); font-size: 12px; }
+table.srcs th { background: var(--navy-mid); color: var(--white); text-align: left; padding: 8px 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .4px; }
+table.srcs td { padding: 8px 10px; border-bottom: 1px solid var(--grey-light); vertical-align: top; }
+
+.guardrail { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px dotted var(--grey-light); font-size: 12.5px; }
+.guardrail .gnum {
+  flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--navy); color: var(--white); font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+footer.confid {
+  margin-top: 30px; padding: 10px 28px; background: var(--navy-dark); color: var(--grey-light);
+  font-size: 10.5px; letter-spacing: .5px; display: flex; justify-content: space-between;
+}
+
+</style>
+<header class="topbar">
+    <div class="topbar-row">
+      <div class="brandmark">
+        <span class="chev">&#10095;&#10095;</span>
+        <h1>Aberdeen Pursuit Intelligence</h1>
+        <span class="sub">TENacious AI &middot; hack-team-10</span>
+      </div>
+      <span class="level3">LEVEL 3 &middot; LOCAL ONLY &middot; NO EXTERNAL CALLS</span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-view="dashboard">Pipeline</button>
+      <button class="tab" data-view="offerings">Offerings &amp; Proof</button>
+      <button class="tab" data-view="sources">Sources &amp; Guardrails</button>
+    </nav>
+  </header>
+
+  <main class="container" id="main"></main>
+
+  <footer class="confid">
+    <span>CONFIDENTIAL &middot; Aberdeen Advisors &middot; 2026</span>
+    <span>All output PROVISIONAL — PENDING REVIEW &middot; AI Use Policy Draft 0.4</span>
+  </footer>
+<script>
+/* ============================================================
+   Aberdeen Pursuit Intelligence — Aberdeen-side knowledge base
+   Source: hack-team-10/agent-instructions/AberdeenOfferings.md,
+           AGENT_WORKFLOW.md, SKILL.md  (all facts trace to those files)
+   Level 3 — local only. No external calls anywhere in this app.
+   ============================================================ */
+
+const ABERDEEN = {
+
+  firm: {
+    name: "Aberdeen Advisors",
+    profile: [
+      { label: "Team", value: "250+ (2026)", note: "2 in 2019 → 250+ in 2026" },
+      { label: "Recognition", value: "Inc. 5000", note: "Top 20 fastest-growing tech services co. in US" },
+      { label: "Model", value: "Virtual-first", note: "HQ Chicago · offshore engineering Hyderabad" },
+      { label: "Revenue 2026 (thru 8/6)", value: "$23.4M", note: "+32% vs 2025 same period ($17.7M), 30 accounts" },
+    ],
+    positioning: "Boutique speed and senior-practitioner delivery against Big-4 cost and timelines. 2–6 week sprints, not 3–9 month programs.",
+    aberdeenRivals: "Per the CoE strategy session: the real competitive threat is Regional Boutiques (Slalom, West Monroe, Protiviti) and Pure-Play AI shops — not the Big-4.",
+  },
+
+  capabilities: [
+    "Strategy & Transformation",
+    "Deal Enablement & Growth",
+    "Organizational & Operational Efficiency",
+    "Financial Transparency",
+    "Platform Implementation & Modernization",
+    "Product & Application Services",
+  ],
+
+  industries: [
+    "Construction", "Consumer Products", "Education", "Financial Services",
+    "Healthcare", "Infrastructure", "Life Sciences", "Manufacturing",
+    "Private Equity", "Public Sector", "Real Estate", "Retail",
+    "Technology", "Transportation",
+  ],
+
+  /* The five sellable service areas + proof strength from AberdeenOfferings.md §10.
+     Strength ratings are NEVER upgraded in this app — honesty mechanic. */
+  offerings: [
+    {
+      id: "tso",
+      name: "Technology Strategy & Operations",
+      subServices: "Strategic Planning · Product Mgmt. · Value Tracking",
+      strength: "MODERATE",
+      proofNote: "3 Growth Strategy engagements + portfolio management content.",
+    },
+    {
+      id: "itfm",
+      name: "IT Financial Mgmt. & Optimization",
+      subServices: "Cost Transparency · FP&A · Cost Transformation",
+      strength: "THIN",
+      proofNote: "Capability asserted, proof indirect (global sourcing business case; Orgill IT financial model). Sell the capability — do not imply a track record.",
+    },
+    {
+      id: "aidata",
+      name: "Technology Future-Proofing (AI & Data)",
+      subServices: "AI & Data Readiness · Governance · Transformation",
+      strength: "MODERATE",
+      proofNote: "Delivered BI/MDM/data-platform work; ONE live AI engagement (Arkema KM Copilot & Energy Mgmt, Clear Lake) — citable as in progress, never as a delivered outcome.",
+    },
+    {
+      id: "lpa",
+      name: "Large Program Assurance, Delivery & Change",
+      subServices: "EHR · ERP · Digital Transformations",
+      strength: "STRONG",
+      proofNote: "8 EHR/Epic credentials with quantified outcomes; ERP credentials cross-industry incl. brand-name retail.",
+    },
+    {
+      id: "ma",
+      name: "M&A Enablement",
+      subServices: "IT Due Diligence · Integration Planning · Value Creation",
+      strength: "STRONG",
+      proofNote: "4 credentials spanning provider and PE, $4B transaction to <$50M — buy-side diligence and post-merger execution.",
+    },
+  ],
+
+  /* Credential inventory highlights — anonymised per house convention
+     ("Client is a [size] [sector] [type]…"). From AberdeenOfferings.md §7–§8. */
+  credentials: [
+    { id: "epic18", offering: "lpa", sector: "Healthcare",
+      text: "Epic Foundations implementation of 18 modules over 12 months, achieving 9 stars", clientType: "Payvider", band: "$1B–$5B", quantified: true },
+    { id: "apprat", offering: "lpa", sector: "Healthcare",
+      text: "Application rationalization strategy & execution after Epic implementation — $50M+ savings over 5 years", clientType: "Provider", band: "$500M–$999M", quantified: true },
+    { id: "dmo4b", offering: "ma", sector: "Healthcare",
+      text: "Stood up a digital management office to guide post-merger IT integration planning in a $4B transaction", clientType: "Provider", band: "$5B+", quantified: true },
+    { id: "pedd", offering: "ma", sector: "Private Equity",
+      text: "IT due diligence for acquisition of an independent dermatology practice operator", clientType: "Private Equity", band: "$50–500M", quantified: false },
+    { id: "ocio", offering: "tso", sector: "Healthcare",
+      text: "Business case and operating model for global sourcing transformation across all IT towers (Apps, Infra, Data, Cyber)", clientType: "Provider", band: "$10B+", quantified: false },
+    { id: "digstrat", offering: "tso", sector: "Healthcare",
+      text: "Built and rolled out digital strategy — patient access, digital operations, community health — incl. cross-functional operating model", clientType: "Payvider", band: "$1B–$5B", quantified: false },
+    { id: "pbicockpit", offering: "aidata", sector: "Healthcare",
+      text: "Power BI analytics cockpit for all in-flight projects and requested demand across 4 source systems", clientType: "Provider", band: "$5B+", quantified: false },
+    { id: "mdm", offering: "aidata", sector: "Healthcare",
+      text: "Data Governance and MDM strategy using Azure Fabric, Informatica MDM, and Databricks", clientType: "Payvider", band: "$1B–$5B", quantified: false },
+    { id: "arkemalive", offering: "aidata", sector: "Manufacturing",
+      text: "KM Copilot & Energy Management engagement (Clear Lake) — Phase 1 kickoff Nov 2025, tech discovery Aug 2026. IN FLIGHT — cite as in progress only", clientType: "Specialty chemicals", band: "Enterprise", quantified: false, inFlight: true },
+    { id: "walmarterp", offering: "lpa", sector: "Retail",
+      text: "Led ERP transformation at the world's largest retailer — finance and supply chain for food manufacturing across Central America, Mexico and a US greenfield plant", clientType: "Retail", band: "Enterprise", quantified: false },
+    { id: "unilever", offering: "lpa", sector: "Consumer Products",
+      text: "SAP supply chain across European manufacturing units; global procurement delivering ~$2.5M/year spend impact", clientType: "Consumer goods", band: "Enterprise", quantified: true },
+    { id: "commconn", offering: "tso", sector: "Healthcare",
+      text: "Refined Community Connect expansion into a new state — provider group onboarding reduced from 6 to 3 months", clientType: "Provider", band: "$5B+", quantified: true },
+    { id: "erphcm", offering: "lpa", sector: "Healthcare",
+      text: "ERP & HCM platform strategy and selection incl. program design, activation, implementation assurance", clientType: "Payvider", band: "$1B–$5B", quantified: false },
+    { id: "supchain", offering: "aidata", sector: "Healthcare",
+      text: "Supply chain dashboards improving order funnel visibility, customer experience and SLA performance", clientType: "Provider", band: "$5B+", quantified: false },
+  ],
+
+  /* Account records for the 13 companies in the signal corpus.
+     Buckets follow AGENT_WORKFLOW.md §2. Relationship facts come ONLY from
+     the instruction files — where the repo has no CRM/revenue data, fields
+     are null and the app reports the gap ("empty is a finding", §6.5). */
+  accounts: [
+    {
+      id: "arkema", name: "Arkema", industry: "Manufacturing & Industrial",
+      bucket: "existing-live", play: "Expansion — build on the live engagement",
+      liveEngagementOffering: "aidata",
+      matchNote: { score: 100, basis: "Named in AGENT_WORKFLOW.md §0 as a synced engagement library (Arkema — KM Copilot & Energy Management)." },
+      relationship: {
+        status: "Active Client — engagement in flight",
+        engagement: "KM Copilot & Energy Management (Clear Lake). Phase 1 kickoff Nov 2025; tech discovery Aug 2026.",
+        owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Engagement facts from AGENT_WORKFLOW.md. Owner, strength and contacts live in the CRM, which is not in this repo — reported as unavailable, not guessed.",
+      },
+      rosterEvidence: "On the client roster (AberdeenOfferings.md §9).",
+    },
+    {
+      id: "centene", name: "Centene Corporation", industry: "Healthcare & Life Sciences",
+      bucket: "dormant", play: "Win-back — lead with what changed since we left",
+      matchNote: { score: 100, basis: "Named in AGENT_WORKFLOW.md §2 as dormant/churned (2025 revenue, zero 2026) and on the client roster." },
+      relationship: {
+        status: "Former client — dormant in 2026",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Dormancy is documented; engagement history and contacts are in the CRM/Quals tracker, not in this repo.",
+      },
+      rosterEvidence: "On the client roster, healthcare group (§9).",
+    },
+    {
+      id: "krispykreme", name: "Krispy Kreme", industry: "Consumer & Retail",
+      bucket: "dormant", play: "Win-back — re-open with a cost/turnaround angle",
+      matchNote: { score: 100, basis: "Named in AGENT_WORKFLOW.md §2 as dormant/churned and on the client roster." },
+      relationship: {
+        status: "Former client — dormant in 2026",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Prior engagement detail lives in the Quals tracker, not in this repo.",
+      },
+      rosterEvidence: "On the client roster (§9).",
+    },
+    {
+      id: "constellation", name: "Constellation Energy", industry: "Energy & Utilities",
+      bucket: "new-2026", play: "Land-and-expand — deepen a first-year relationship",
+      matchNote: { score: 88, basis: "\"Constellation\" is listed as a new-2026 account (AGENT_WORKFLOW.md §2) and in past-engagement examples. The filing is Constellation Energy Corp. — probable but unconfirmed match. Flagged per §2.4.", flagged: true },
+      relationship: {
+        status: "New client in 2026 (if match holds)",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Match must be confirmed against the CRM before outreach. Do not proceed on a wrong match (§2.4).",
+      },
+      rosterEvidence: "\"Constellation\" evidenced in engagement folders / past-engagement examples (§9).",
+    },
+    {
+      id: "novant", name: "Novant Health", industry: "Healthcare & Life Sciences",
+      bucket: "roster-active", play: "Expand — healthcare is Aberdeen's credential stronghold",
+      matchNote: { score: 100, basis: "Named on the client roster as a representative healthcare client (§9)." },
+      relationship: {
+        status: "Roster client — 2026 revenue status not in this repo",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Roster presence is documented; current revenue trajectory requires the revenue file (not in repo).",
+      },
+      rosterEvidence: "Representative healthcare client on the roster slide (§9).",
+    },
+    {
+      id: "lpl", name: "LPL Financial", industry: "Financial Services",
+      bucket: "roster-active", play: "Expand — Financial Services is CoE priority sector #1",
+      matchNote: { score: 100, basis: "Named on the client roster (§9)." },
+      relationship: {
+        status: "Roster client — 2026 revenue status not in this repo",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Roster presence documented; trajectory and owner require the CRM/revenue file.",
+      },
+      rosterEvidence: "On the client roster (§9).",
+    },
+    {
+      id: "alphabet", name: "Alphabet (Google)", industry: "Technology & Software",
+      bucket: "roster-active", play: "Targeted expansion — scope a beachhead, not the enterprise",
+      matchNote: { score: 90, basis: "\"Google\" is on the client roster (§9). Scale mismatch with Aberdeen's mid-market motion — treat as a niche/team-level relationship until CRM confirms scope.", flagged: true },
+      relationship: {
+        status: "Roster client — scope of relationship unknown from this repo",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Roster shows the logo; nothing in this repo says what was delivered or for which Google org.",
+      },
+      rosterEvidence: "On the client roster (§9).",
+    },
+    {
+      id: "core", name: "Core Natural Resources", industry: "Energy & Utilities",
+      bucket: "flagged-match", play: "Qualify the match first",
+      matchNote: { score: 72, basis: "Roster lists \"Core\" (§9) — could be Core Natural Resources or a different company. Score in the 60–85 band → per §2.4 the workflow requires asking which account is meant before proceeding.", flagged: true },
+      relationship: {
+        status: "Unconfirmed — possible roster match",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Do not build outreach on an unconfirmed identity.",
+      },
+      rosterEvidence: "\"Core\" appears on the roster (§9) with no further detail.",
+    },
+    {
+      id: "cornerstone", name: "Cornerstone Building Brands", industry: "Manufacturing & Industrial",
+      bucket: "prospect", play: "Qualify — near-name collision with a different dormant account",
+      matchNote: { score: 55, basis: "The dormant account in AGENT_WORKFLOW.md §2 is \"Cornerstone Care\" — a DIFFERENT company. Below the 60 threshold → treated as new prospect, collision flagged so no one merges the records.", flagged: true },
+      relationship: {
+        status: "No documented Aberdeen relationship",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Not on the roster. The similarly-named \"Cornerstone Care\" is a former client — keep the records separate.",
+      },
+      rosterEvidence: "None.",
+    },
+    {
+      id: "cpk", name: "Chesapeake Utilities Corporation", industry: "Energy & Utilities",
+      bucket: "prospect", play: "Qualify — fits CoE priority sector #2 (Energy & Industrials)",
+      matchNote: { score: 0, basis: "No match in roster or instruction files. Cold prospect; Energy & Industrials is a CoE priority sector where credentials are thin — Arkema is the visible engagement." },
+      relationship: {
+        status: "No documented Aberdeen relationship",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+      },
+      rosterEvidence: "None.",
+    },
+    {
+      id: "dauch", name: "Dauch Corporation", industry: "Manufacturing & Industrial",
+      bucket: "cold", play: "Cold — requires external research before pursuit",
+      matchNote: { score: 0, basis: "No match anywhere in the instruction set. Per §2 this is Unknown — external research required; said plainly." },
+      relationship: {
+        status: "No documented Aberdeen relationship",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+      },
+      rosterEvidence: "None.",
+    },
+    {
+      id: "lsf", name: "Livestock Feeds Plc", industry: "Agriculture & Food",
+      bucket: "cold", play: "Deprioritize — outside geographic focus",
+      matchNote: { score: 0, basis: "No match. Nigerian-listed company (figures in ₦'000); Aberdeen's geography vocabulary covers US regions, India, Europe, Global — no African footprint documented." },
+      relationship: {
+        status: "No documented Aberdeen relationship",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+      },
+      rosterEvidence: "None.",
+    },
+    {
+      id: "lomalinda", name: "Loma Linda University Health", industry: "Healthcare & Life Sciences",
+      bucket: "new-2026", play: "Land-and-expand — but the signal document is unusable",
+      matchNote: { score: 100, basis: "Named as a new-2026 account (AGENT_WORKFLOW.md §2) and on the healthcare roster (§9)." },
+      relationship: {
+        status: "New client in 2026",
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Relationship exists per the instruction files; detail requires the CRM.",
+      },
+      rosterEvidence: "On the healthcare roster (§9); listed among 2026 new accounts (§2).",
+      dataQualityFlag: "The file named after Loma Linda in client-data/ is a third-party market-news digest from July 2023 — NOT their financials. No buying signals can be extracted for this account from this corpus.",
+    },
+  ],
+
+  /* Decision-maker mapping: the CRM's Key Contacts / Decision Makers /
+     Executive Sponsorship columns are empty on nearly every account and the
+     CRM itself is not in this repo. Per guardrail §6.5 the app reports the
+     gap and offers ROLE-level guidance only — never invented names. */
+  buyerRolesByOffering: {
+    tso:   ["CIO / CDIO", "COO", "Head of PMO / Portfolio"],
+    itfm:  ["CFO", "CIO", "VP IT Finance"],
+    aidata:["Chief Data / AI Officer", "CIO", "CISO (governance)", "Functional VP sponsoring the use case"],
+    lpa:   ["CIO", "Program executive sponsor", "CHRO (HCM) / CFO (ERP)"],
+    ma:    ["CFO", "Corp Dev / Strategy lead", "PE deal team / operating partner"],
+  },
+
+  guardrails: [
+    "Level 3 — all account, revenue and relationship data stays local. No external model, no external API. This app makes zero network calls.",
+    "Empty is a finding: CRM contact fields are reported as unavailable, never filled with a plausible guess. A fabricated decision-maker name is the single worst failure mode.",
+    "Proof-strength badges come from AberdeenOfferings.md §10 and are never upgraded to flatter the page.",
+    "Every signal carries a provenance tag (filing · press release · aggregator · CRM · inference) and a source reference.",
+    "The CRM's Fake Data sheet (1,000 fabricated rows) is excluded by construction — this app was built without it.",
+    "All generated outreach is PROVISIONAL — PENDING REVIEW. Nothing leaves the building without explicit human approval (AI Use Policy Draft 0.4).",
+    "AI credentials are in flight, not delivered: Arkema KM Copilot & Energy Management is citable as in progress only. CARES and 'Building Trusted AI at Enterprise Scale' are frameworks, not engagements.",
+    "Fuzzy matches between 60–85 are flagged for confirmation; below 60 treated as Unknown (workflow §2.4).",
+  ],
+
+  dataCoverage: {
+    available: [
+      "Signal corpus: 13 public documents in client-data/ (12 usable, 1 flagged)",
+      "Offering taxonomy, credential inventory and proof-strength map (AberdeenOfferings.md)",
+      "Account classification facts and revenue baseline (AGENT_WORKFLOW.md)",
+      "Brand system for generated collateral (SKILL.md)",
+    ],
+    missing: [
+      "CRM 'Active Accounts' (43 fields × 30 accounts) — lives at the CoE base path, not in this repo",
+      "Revenue file (2026 vs 2025 by account) — only the firm-level baseline is documented",
+      "Pipeline sheet (named opportunities with values)",
+      "Engagement libraries (kickoff decks, minutes) — local-only by policy, never committed",
+      "Key Contacts / Decision Makers / Executive Sponsorship — largely blank in the CRM itself",
+    ],
+  },
+};
+
+</script>
+<script>
+/* ============================================================
+   Aberdeen Pursuit Intelligence — signal corpus
+   Extracted from the 13 public documents in hack-team-10/client-data/.
+   Every signal carries evidence, a source reference and a provenance tag.
+   Nothing here is invented; coverage gaps are stated on the account.
+   ============================================================ */
+
+const SIGNALS = [
+
+  /* ---------------- ALPHABET ---------------- */
+  {
+    accountId: "alphabet",
+    company: "Alphabet Inc.",
+    docFile: "2026q2-alphabet-earnings-release.pdf",
+    docType: "earnings release",
+    period: "Q2 2026 (quarter ended June 30, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Revenue", value: "$119.8B", delta: "+24% YoY", sentiment: "up" },
+      { label: "Google Cloud", value: "$24.8B", delta: "+82% YoY", sentiment: "up" },
+      { label: "Operating income", value: "$40.8B", delta: "+30% YoY · margin 34%", sentiment: "up" },
+      { label: "Q2 capex", value: "$44.9B", delta: "+100% YoY", sentiment: "up" },
+      { label: "Q2 free cash flow", value: "-$5.9B", delta: "vs +$24.6B in Q4 2025", sentiment: "down" },
+    ],
+    managementQuote: "Our AI investments are redefining what's possible across every part of our business. Q2 was an amazing quarter, with Alphabet revenues growing 24% year-over-year and Google Cloud revenues accelerating to 82% growth, driven by demand for AI infrastructure and AI solutions. — Sundar Pichai, CEO",
+    signals: [
+      { headline: "Capex surge for AI infrastructure turns free cash flow negative",
+        evidence: "Q2 purchases of property and equipment doubled YoY to $44.9B ($80.6B YTD), driving Q2 free cash flow to negative $5.9B.",
+        quote: null, sourceRef: "pp. 7, 9 (cash flow; FCF reconciliation)", provenance: "press release",
+        category: "technology-investment", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "A capex program of this scale creates urgent need for technology cost governance and infrastructure investment ROI tracking." },
+      { headline: "$70B capital raise earmarked for AI infrastructure scaling",
+        evidence: "June 2026: $49.6B net raised via common and mandatory convertible preferred stock, plus $20.3B of senior notes and a $40B ATM program.",
+        quote: "aggregate net proceeds of $49.6 billion... including capital expenditures to scale AI infrastructure and global compute",
+        sourceRef: "p. 2 (Equity Capital Raise)", provenance: "press release",
+        category: "capital-allocation", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "Capital raised specifically to fund a massive multi-year infrastructure build-out signals mega-program delivery and assurance needs." },
+      { headline: "Google Cloud accelerates 82% on enterprise AI demand",
+        evidence: "Cloud revenue rose 82% YoY to $24.8B with segment operating income tripling to $8.8B; nearly 90% of the Fortune 100 use Gemini Enterprise.",
+        quote: "Google Cloud saw a meaningful acceleration in growth as revenues increased 82% to $24.8 billion",
+        sourceRef: "pp. 1, 8 (highlights; segment results)", provenance: "press release",
+        category: "data-AI", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "Explosive enterprise AI platform adoption signals ecosystem-wide AI transformation work." },
+      { headline: "$33.7B in YTD acquisitions",
+        evidence: "Acquisitions net of cash totaled $33.7B YTD 2026 (vs $353M in H1 2025); goodwill grew from $33.4B to $57.8B since December 2025.",
+        quote: null, sourceRef: "pp. 5, 7 (balance sheet; investing)", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "~$34B of acquisition spend in six months implies significant post-merger technology and operations integration workstreams." },
+      { headline: "R&D and shared AI research spend escalating sharply",
+        evidence: "Q2 R&D rose 32% YoY to $18.2B; unallocated Alphabet-level shared AI R&D grew 72% YoY to $5.8B.",
+        quote: null, sourceRef: "pp. 2, 6, 8", provenance: "press release",
+        category: "technology-investment", offering: "Technology Strategy & Operations",
+        whyItMaps: "Rapidly scaling central AI R&D cost pools require operating-model and portfolio-prioritization discipline." },
+    ],
+    headwinds: ["Q2 FCF negative at -$5.9B on capex acceleration", "Other Bets loss widened to $1.8B", "Interest expense up to $1.28B as long-term debt hits $98.2B"],
+    notes: "Headline net income is heavily distorted by a $98.0B one-time unrealized gain on equity securities. First-ever mandatory convertible preferred issuance underscores the scale of AI funding needs.",
+  },
+
+  /* ---------------- ARKEMA ---------------- */
+  {
+    accountId: "arkema",
+    company: "Arkema",
+    docFile: "arkema-press-release-results-q2-2026.pdf",
+    docType: "press release + condensed interim financials",
+    period: "Q2 2026 (published 30 July 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Sales", value: "€2,428M", delta: "+1.3% YoY (+3.2% organic)", sentiment: "up" },
+      { label: "EBITDA", value: "€391M", delta: "+7.4% YoY · margin 16.1%", sentiment: "up" },
+      { label: "Adjusted net income", value: "€129M", delta: "+7.8% YoY", sentiment: "up" },
+      { label: "Recurring cash flow", value: "€78M", delta: "-29.3% YoY", sentiment: "down" },
+      { label: "Net debt + hybrids", value: "€3,605M", delta: "2.9x EBITDA", sentiment: "flat" },
+    ],
+    managementQuote: "Our priorities will continue to combine strict discipline on costs and operational excellence with the ramp-up of our major projects, including the recent acquisition of Dow adhesives, our PA11 and Rilsan Clear plants in Singapore, the PVDF expansion in Calvert City... — Thierry Le Hénaff, Chairman & CEO",
+    signals: [
+      { headline: "Major capital projects ramping toward €50M incremental EBITDA",
+        evidence: "Dow adhesives, PA11/Rilsan Clear Singapore, PVDF Calvert City, acrylics France and HF at Nutrien contributed ~€25M EBITDA in H1, expected ~€50M in 2026 vs 2025.",
+        quote: "ramp up its major projects, which are expected to deliver around EUR 50 million additional EBITDA in 2026 versus 2025",
+        sourceRef: "pp. 2, 5 (business performance; Outlook)", provenance: "press release",
+        category: "growth-expansion", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A portfolio of simultaneous global plant ramp-ups with quantified EBITDA commitments needs program delivery assurance and benefits tracking." },
+      { headline: "Dow adhesives acquisition entering integration phase",
+        evidence: "The CEO names the 'recent acquisition of Dow adhesives' among major projects ramping in H2 2026, in a segment already delivering 30.5% of group sales.",
+        quote: "the ramp-up of our major projects, including the recent acquisition of Dow adhesives",
+        sourceRef: "pp. 1, 3 (CEO statement; Adhesive Solutions)", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "A recently closed carve-out from Dow creates classic integration needs — IT separation/integration, systems cutover, synergy realization." },
+      { headline: "Organization streamlining and site reorganizations to offset fixed-cost inflation",
+        evidence: "€46M of exceptional expenses in Q2, mainly reorganization of the Jarrie and Pierre-Bénite sites; full-year target of offsetting fixed cost inflation.",
+        quote: "strict cost discipline and continued progress in streamlining the organization",
+        sourceRef: "pp. 1–3", provenance: "press release",
+        category: "restructuring", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "Enterprise-wide streamlining extends to technology cost baselines, where IT financial management directly supports the savings agenda." },
+      { headline: "Raw-material cost shock driving rapid repricing — a data/analytics problem",
+        evidence: "The Middle East conflict triggered sharp raw-material inflation, forcing swift pricing adjustments: +5.1% group price effect, +16.0% in Primary Materials, while volumes fell 1.8%.",
+        quote: "Sharp increase of raw material costs following the start of the conflict in the Middle East leading to swift pricing adjustments",
+        sourceRef: "pp. 1–2, 5", provenance: "press release",
+        category: "cost-pressure", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "Fast, granular pricing responses to volatile input costs depend on advanced pricing analytics — a natural extension of the live KM Copilot / Energy Management work." },
+      { headline: "Growth concentrated in batteries, electronics, 3D printing, datacenter-linked markets",
+        evidence: "Batteries, electronics and 3D printing sales grew ~15% YoY; Coating Solutions EBITDA jumped 52.9% to €78M.",
+        quote: "A few pockets of growth continuing to contribute meaningfully, in particular batteries, electronics and 3D printing",
+        sourceRef: "pp. 1–2, 4", provenance: "press release",
+        category: "growth-expansion", offering: "Technology Strategy & Operations",
+        whyItMaps: "Pivoting the portfolio toward high-growth advanced-technology end-markets requires technology and operations strategy behind the growth segments." },
+      { headline: "Tight capital allocation — capex capped at €600M",
+        evidence: "Q2 capex fell to €117M from €152M YoY; 2026 capex limited to €600M; net debt/EBITDA rose to 2.9x from 2.5x.",
+        quote: "capital expenditure limited to EUR 600 million in 2026",
+        sourceRef: "pp. 3, 5, 16", provenance: "press release",
+        category: "capital-allocation", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "Hard capex ceilings put every spend category, including IT, under value-for-money scrutiny." },
+    ],
+    headwinds: ["Middle East conflict: raw-material inflation and supply disruption", "Volumes down 1.8% YoY; weak Europe (France, Germany)", "€10M FX headwind on EBITDA", "Acrylic spreads at low levels in Asia since May"],
+    notes: "Aberdeen is already inside: KM Copilot & Energy Management engagement at Clear Lake, in flight. Full 20-page package including interim financial statements.",
+  },
+
+  /* ---------------- CENTENE ---------------- */
+  {
+    accountId: "centene",
+    company: "Centene Corporation",
+    docFile: "CENTENE CORPORATION REPORTS SECOND QUARTER 2026 RESULTS - Jul 28, 2026.pdf",
+    docType: "press release (web printout)",
+    period: "Q2 2026 (reported July 28, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Total revenues", value: "$53.6B", delta: "+9.9% YoY", sentiment: "up" },
+      { label: "Adjusted diluted EPS", value: "$2.51", delta: "vs $(0.16) in Q2 2025", sentiment: "up" },
+      { label: "Health benefits ratio", value: "89.6%", delta: "improved from 93.0%", sentiment: "up" },
+      { label: "At-risk membership", value: "25.9M", delta: "-7.6% YoY", sentiment: "down" },
+    ],
+    managementQuote: "Our second quarter results and improved full-year outlook represent meaningful milestones on our path to restoring profitability... focused on our goal of delivering industry-leading health outcomes with an industry-leading cost structure. — Sarah M. London, CEO",
+    signals: [
+      { headline: "Named enterprise optimization program with ~$100M of third-party vendor spend",
+        evidence: "Q2 included $37M of enterprise optimization costs and $15M severance; FY2026 guidance excludes $355–405M of severance (incl. a voluntary separation program) and $85–115M of enterprise-optimization third-party vendor costs.",
+        quote: "severance costs due to enterprise optimization and contract exits of approximately $355 million to $405 million, enterprise optimization third-party vendor costs of approximately $85 million to $115 million",
+        sourceRef: "pp. 4–5 (non-GAAP reconciliation; guidance footnotes)", provenance: "press release",
+        category: "restructuring", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "An active, named optimization program already buying ~$100M of external help is live demand for cost-structure and technology optimization advisory." },
+      { headline: "Turnaround momentum drives $6B guidance raise",
+        evidence: "FY26 revenue guidance raised $6.0B to $193.5–197.5B; swung from a $(253)M loss in Q2 2025 to $1,091M net earnings.",
+        quote: "The Company is increasing total revenues guidance range by $6.0 billion",
+        sourceRef: "p. 3 (Outlook)", provenance: "press release",
+        category: "growth-expansion", offering: "Technology Strategy & Operations",
+        whyItMaps: "A profitability turnaround anchored on an 'industry-leading cost structure' requires technology operating-model work to sustain the margin recovery." },
+      { headline: "Medical cost trend management as the core execution lever",
+        evidence: "Consolidated HBR improved 340bps to 89.6%; Medicaid HBR 93.9% 'reflecting continued execution in management of medical cost trend' across 25.9M members.",
+        quote: "Medicaid HBR of 93.9%, in-line with expectations and reflecting continued execution in management of medical cost trend",
+        sourceRef: "pp. 1–2", provenance: "press release",
+        category: "data-AI", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "Managing medical cost trend at this scale is fundamentally a data, analytics, and predictive-modeling capability problem." },
+      { headline: "Marketplace membership down 40% — per-member cost structures must shrink",
+        evidence: "Marketplace membership fell 40% YoY to 3.49M; total at-risk membership dropped 2.1M; Commercial premium revenue declined 7% to $9.4B.",
+        quote: null, sourceRef: "pp. 2, 11 (membership; supplemental)", provenance: "press release",
+        category: "margin-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "A shrinking membership base forces right-sizing of per-member technology and administrative cost." },
+      { headline: "Portfolio pruning via contract exits and divestitures",
+        evidence: "H1 2026 includes a $10M gain on sale of a provider network, contract-exit severance, and $109M of medical claims liability removed via divestitures; workforce down to 59,800.",
+        quote: null, sourceRef: "pp. 4–5, 11–12", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "Ongoing divestitures and contract exits require separation support, TSA management, and systems disentanglement." },
+    ],
+    headwinds: ["Marketplace membership -40% YoY", "Medical cost trend / utilization pressure", "Policy uncertainty: eAPTC renewal, CMS Stars, state rate adequacy", "$355–405M severance expected in FY26"],
+    notes: "Browser printout of the IR page — carries cookie-banner text and truncated table columns at page edges. Former Aberdeen client, dormant in 2026 (win-back target).",
+  },
+
+  /* ---------------- CONSTELLATION ---------------- */
+  {
+    accountId: "constellation",
+    company: "Constellation Energy Corporation",
+    docFile: "Constellation Reports Second Quarter 2026 Results.pdf",
+    docType: "earnings release (web printout)",
+    period: "Q2 2026 (released Aug 6, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "GAAP net income", value: "$513M", delta: "-47% YoY", sentiment: "down" },
+      { label: "Adjusted operating EPS", value: "$2.55", delta: "+34% YoY", sentiment: "up" },
+      { label: "FY26 EPS guidance", value: "$11.50–12.50", delta: "raised", sentiment: "up" },
+      { label: "Nuclear capacity factor", value: "93.0%", delta: "vs 94.8% Q2 2025", sentiment: "down" },
+      { label: "New long-term PPAs", value: "920 MW", delta: "15–20 yr terms", sentiment: "up" },
+    ],
+    managementQuote: "We remain focused on integrating Calpine, capturing the value of our expanded fleet and investing in opportunities that generate attractive returns. — Shane Smith, EVP & CFO",
+    signals: [
+      { headline: "Calpine mega-merger integration in full swing",
+        evidence: "Calpine acquired January 2026; Q2 shows $84M of merger/integration costs (up from $9M) plus $149M amortization of acquired commodity contracts; share count grew 314M → 360M.",
+        quote: "We remain focused on integrating Calpine, capturing the value of our expanded fleet",
+        sourceRef: "pp. 2, 6 (reconciliation)", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "A multi-billion-dollar merger mid-integration with rising costs is a direct trigger for post-merger integration and synergy-capture support." },
+      { headline: "Crane Clean Energy Center nuclear restart advancing toward 2027",
+        evidence: "FERC waiver granted to transfer Capacity Interconnection Rights from Eddystone to Crane; NRC approved Crane's fuel license amendment.",
+        quote: "a major milestone moving us closer to restarting operations in 2027",
+        sourceRef: "pp. 1–3 (Highlights; Recent Developments)", provenance: "press release",
+        category: "growth-expansion", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A first-of-its-kind nuclear restart with hard regulatory milestones is a high-stakes program needing delivery assurance and schedule/risk governance." },
+      { headline: "920 MW of new 15–20 year PPAs with corporate customers (incl. Walmart)",
+        evidence: "Signed 920 MW of long-term PPAs with investment-grade customers starting 2029–2032, including a 176 MW Walmart agreement enabling a 30 MW Dresden expansion.",
+        quote: "executing long-term agreements with our corporate customers",
+        sourceRef: "pp. 1–3", provenance: "press release",
+        category: "growth-expansion", offering: "Technology Strategy & Operations",
+        whyItMaps: "Scaling a differentiated customer-facing commercial platform requires modernized commercial operations and contract management technology." },
+      { headline: "$860M Brazos Valley divestiture closes out Calpine regulatory commitments",
+        evidence: "Agreement with LS Power to divest the 606 MW Brazos Valley Energy Center for $860M — the last asset sale required under the Calpine deal; closing by year-end pending DOJ.",
+        quote: "This marks the last asset sale required by our regulatory commitments under the acquisition.",
+        sourceRef: "p. 3", provenance: "press release",
+        category: "capital-allocation", offering: "M&A Enablement",
+        whyItMaps: "A carve-out on a regulatory deadline needs separation planning, TSA management, and IT/data disentanglement." },
+      { headline: "New fleet-wide operational metrics after portfolio transformation",
+        evidence: "Post-Calpine, Constellation introduced Equivalent Forced Outage Factor as a new key metric for a 55 GW fleet powering the equivalent of 27 million homes.",
+        quote: "we now consider Equivalent Forced Outage Factor (EFOF) to be a key operational metric beginning in 2026",
+        sourceRef: "p. 4", provenance: "press release",
+        category: "data-AI", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "Standing up new fleet-wide KPIs across a newly combined portfolio implies integrating operational data platforms and analytics across two legacy companies." },
+    ],
+    headwinds: ["86 planned refueling outage days vs 41 in Q2 2025", "GAAP EPS nearly halved on $340M unrealized fair-value losses", "Rising merger/integration cost drag"],
+    notes: "\"Constellation\" appears both as a 2026 new account and in Aberdeen's past-engagement examples — identity must be confirmed against the CRM before outreach.",
+  },
+
+  /* ---------------- CORE NATURAL RESOURCES ---------------- */
+  {
+    accountId: "core",
+    company: "Core Natural Resources, Inc.",
+    docFile: "Core Natural Resources Reports Second Quarter 2026 Results - Aug 6, 2026.pdf",
+    docType: "earnings release (web printout)",
+    period: "Q2 2026 (released Aug 6, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Revenue", value: "$1.1B", delta: "roughly flat", sentiment: "flat" },
+      { label: "Net income", value: "$126.5M", delta: "boosted by $125.4M insurance proceeds", sentiment: "up" },
+      { label: "Adjusted EBITDA", value: "$323.6M", delta: "", sentiment: "up" },
+      { label: "Free cash flow", value: "$148.0M", delta: "", sentiment: "up" },
+      { label: "Liquidity", value: "$1.0B", delta: "incl. $474M cash", sentiment: "up" },
+    ],
+    managementQuote: "Looking ahead, we remain laser-focused on achieving world-class productivity and industry-leading cost performance across our entire mining portfolio. — Jimmy Brock, Chairman & CEO",
+    signals: [
+      { headline: "CONSOL–Arch merger integration still maturing",
+        evidence: "Core was created Jan 2025 from the CONSOL/Arch merger; risk factors still flag integration and synergy-realization risk, and EBITDA remains adjusted for merger-related expenses.",
+        quote: "the risk that the businesses of the company and Arch Resources, Inc. will not be integrated successfully",
+        sourceRef: "pp. 6, 11–13", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "An 18-month-old merger of equals with flagged synergy risk is a prime candidate for integration management and synergy tracking." },
+      { headline: "Aggressive per-ton cost reduction drive",
+        evidence: "High-c.v. thermal cash cost/ton improved 9% QoQ to $38.58; metallurgical improved 7% to $85.65; management describes a 'step-change in operational execution'.",
+        quote: "Drives significant per-ton cost and operating margin improvements",
+        sourceRef: "pp. 1–3", provenance: "press release",
+        category: "cost-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "A company-wide unit-cost agenda extends naturally to G&A and technology cost optimization." },
+      { headline: "Recently announced CEO transition",
+        evidence: "Forward-looking statements disclose 'risks related to the recently announced CEO transition' — a leadership change not discussed in the release body.",
+        quote: "risks related to the recently announced CEO transition",
+        sourceRef: "p. 13 (forward-looking statements)", provenance: "press release",
+        category: "leadership-change", offering: "Technology Strategy & Operations",
+        whyItMaps: "An incoming CEO typically triggers a strategy and operating-model refresh — a window for advisory entry." },
+      { headline: "Rare earth elements / critical minerals ambition surfacing",
+        evidence: "Risk factors reference uncertainties in Core's ability to 'mine, upgrade, process, and extract rare earth elements and critical minerals from its existing mines'.",
+        quote: "the ability of Core to mine, upgrade, process, and extract rare earth elements and critical minerals",
+        sourceRef: "p. 13", provenance: "press release",
+        category: "growth-expansion", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "Standing up an entirely new extraction business line is a major capital program requiring business-case validation and delivery governance." },
+      { headline: "Betting on AI-data-center-driven power demand",
+        evidence: "Market update cites grid operators projecting demand growth 'spurred by reindustrialization and the AI-driven data center build-out'.",
+        quote: "spurred by reindustrialization and the AI-driven data center build-out",
+        sourceRef: "p. 3 (Market Update)", provenance: "press release",
+        category: "growth-expansion", offering: "Technology Strategy & Operations",
+        whyItMaps: "Positioning for AI-era load growth requires market analytics and demand-forecasting capability." },
+    ],
+    headwinds: ["Soft US thermal market: low gas prices, inflated stockpiles", "PRB negative cash margin -$0.57/ton", "Muted seaborne metallurgical markets", "Leer South combustion-related gas risk"],
+    notes: "Q2 flattered by the $125.4M final Leer South insurance tranche. Most actionable signals (CEO transition, rare earths) appear only in forward-looking boilerplate. Roster match 'Core' is UNCONFIRMED.",
+  },
+
+  /* ---------------- CHESAPEAKE UTILITIES ---------------- */
+  {
+    accountId: "cpk",
+    company: "Chesapeake Utilities Corporation",
+    docFile: "CPK+Q2+2026+Earnings+Release.pdf",
+    docType: "earnings release",
+    period: "Q2 2026 (released Aug 6, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Operating revenues", value: "$201.9M", delta: "+4.7% YoY", sentiment: "up" },
+      { label: "Net income", value: "$25.4M", delta: "+6.3% YoY", sentiment: "up" },
+      { label: "YTD adjusted EPS", value: "$3.51", delta: "+8.0% YoY", sentiment: "up" },
+      { label: "2026 capex guidance", value: "$550–600M", delta: "raised by $100M", sentiment: "up" },
+    ],
+    managementQuote: "Our second quarter results demonstrate consistent operational and financial performance as we make substantial progress on transforming for the next phase of sustained enterprise growth. — Jeff Householder, Chair, President & CEO",
+    signals: [
+      { headline: "Florida Energy Pathway: $1.2B flagship pipeline program launched",
+        evidence: "Announced a $1.2B natural gas pipeline project in south Florida with ~250,000 Dts/d committed capacity and a 2030 in-service date; initial investments already in the raised 2026 capex guidance.",
+        quote: "This represents a significant investment opportunity to bring capacity and reliability to south Florida",
+        sourceRef: "pp. 1–2 (Highlights; guidance)", provenance: "press release",
+        category: "growth-expansion", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A $1.2B multi-year megaproject — the company's largest — needs program governance and delivery assurance from day one." },
+      { headline: "Five-year capital program stepped up beyond $2.2B",
+        evidence: "2026 capex raised $100M to $550–600M; ~$1.4B invested through 2026 and >$2.2B expected for the five years ended 2028, above original $1.5–1.8B guidance.",
+        quote: "The Company is increasing its 2026 capital expenditure guidance by $100 million",
+        sourceRef: "p. 2", provenance: "press release",
+        category: "capital-allocation", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A rapidly expanding multi-project capital portfolio raises portfolio-level delivery, prioritization and benefits-tracking needs." },
+      { headline: "Florida City Gas integration winding down but still shaping results",
+        evidence: "Adjusted EPS excludes FCG transition costs explicitly including 'transition services, consulting, system integration, rebranding'; the FCG rate case won interim rates of $16.2M annualized from July 2026.",
+        quote: "transition services, consulting, system integration, rebranding, and legal fees",
+        sourceRef: "pp. 1, 3", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "The FCG acquisition's system-integration workstream and follow-on rate case show live post-acquisition value-capture activity." },
+      { headline: "Operating cost creep eroding margin gains",
+        evidence: "YTD opex growth of $16.5M — payroll +$7.8M, D&A/property taxes +$5.0M, facilities/outside services +$3.7M, customer service +$2.7M — offsets about half the $30.3M YTD margin gain.",
+        quote: null, sourceRef: "pp. 4–5 (variance tables)", provenance: "press release",
+        category: "cost-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "Rising service and outside-services costs against a regulated-returns model create a clear case for technology-enabled efficiency." },
+      { headline: "Dense regulatory agenda across five jurisdictions",
+        evidence: "Regulatory initiatives generated $31.0M of YTD adjusted gross margin (vs $18.2M prior year) across GUARD, SAFE, storm-protection and multiple rate cases.",
+        quote: null, sourceRef: "pp. 1, 6", provenance: "press release",
+        category: "regulatory", offering: "Technology Strategy & Operations",
+        whyItMaps: "Managing simultaneous rate cases demands robust regulatory data, cost-allocation systems and reporting operations." },
+    ],
+    headwinds: ["CNG/RNG/LNG services margin declines", "Unfavorable customer consumption in Q2", "Rising interest charges and short-term borrowing", "EPS dilution from equity offerings"],
+    notes: "Clean native PDF. No documented Aberdeen relationship — but Energy & Industrials is CoE priority sector #2, where credentials are thin.",
+  },
+
+  /* ---------------- DAUCH ---------------- */
+  {
+    accountId: "dauch",
+    company: "Dauch Corporation",
+    docFile: "Dauch Reports Second Quarter 2026 Financial Results.pdf",
+    docType: "press release (PR Newswire capture)",
+    period: "Q2 2026 (released Aug 7, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Sales", value: "$2.96B", delta: "+92% YoY", sentiment: "up" },
+      { label: "Net income", value: "$1.0M", delta: "down from $39.3M", sentiment: "down" },
+      { label: "Adjusted EBITDA", value: "$389.6M", delta: "+93% YoY · margin 13.2%", sentiment: "up" },
+      { label: "Adjusted FCF", value: "$148.4M", delta: "+205% YoY", sentiment: "up" },
+      { label: "Long-term debt", value: "$5.03B", delta: "up from $4.04B", sentiment: "down" },
+    ],
+    managementQuote: "The company's strong second-quarter results highlight the continued positive acceleration for the new Dauch Corporation. We are focused on unlocking the full strategic potential of the transformational acquisition we completed earlier in the year. — David C. Dauch, Chairman & CEO",
+    signals: [
+      { headline: "Transformational Dowlais acquisition — post-merger integration at scale",
+        evidence: "The Feb 2026 combination with Dowlais (GKN Automotive, GKN Powder Metallurgy) nearly doubled sales to $2.96B; restructuring/acquisition costs hit $148.7M in H1; total assets jumped $6.7B → $11.05B.",
+        quote: "We are focused on unlocking the full strategic potential of the transformational acquisition",
+        sourceRef: "pp. 1, 7–8, 14", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "A company mid-flight on an acquisition that doubled its size needs integration management, systems consolidation, and Day-2 operating model support." },
+      { headline: "Formal synergy program with raised targets — >$100M run rate by end of year one",
+        evidence: "2026 outlook raised synergy benefits to $60–75M, targeting >$100M run rate, backed by $95–110M synergy implementation payments and $115–150M restructuring payments.",
+        quote: "synergy benefits of $60 - $75 million... equating to a run rate of greater than $100 million by the end of year one",
+        sourceRef: "pp. 2, 13 (outlook)", provenance: "press release",
+        category: "restructuring", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A multi-hundred-million-dollar synergy program with public run-rate commitments needs program assurance to hit targets." },
+      { headline: "Segment and footprint reorganization across 175+ locations",
+        evidence: "Q1 2026 moved plants from Metal Forming to Driveline 'to better align our product and process technologies'; operations span 24 countries and 175+ locations.",
+        quote: "to better align our product and process technologies",
+        sourceRef: "pp. 4, 14", provenance: "press release",
+        category: "restructuring", offering: "Technology Strategy & Operations",
+        whyItMaps: "Re-segmenting a newly combined global manufacturer implies harmonizing operating models, ERP/reporting structures, and technology stacks." },
+      { headline: "Elevated debt and interest burden post-acquisition",
+        evidence: "Long-term debt at $5.03B; Q2 interest expense doubled YoY to $89.8M; FY outlook assumes $350M interest against a projected GAAP net loss of $135–200M.",
+        quote: null, sourceRef: "pp. 7–8, 13", provenance: "press release",
+        category: "cost-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "Heavy leverage and a GAAP loss create urgent pressure to rationalize duplicated IT spend across the combined Dauch/Dowlais estate." },
+      { headline: "AI-enhanced cyber threats and IT-systems risk called out explicitly",
+        evidence: "Risk factors flag IT systems/cloud failure risk and 'increasingly sophisticated cyber attacks incorporating use of artificial intelligence' — mid-way through merging two global IT environments.",
+        quote: "increasingly sophisticated cyber attacks incorporating use of artificial intelligence",
+        sourceRef: "p. 5 (risk factors)", provenance: "press release",
+        category: "technology-investment", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "Board-level acknowledgment of AI-driven cyber risk during a two-company IT integration signals demand for resilient technology and data architecture." },
+    ],
+    headwinds: ["Interest expense doubled to $89.8M on $5.0B debt", "FY26 GAAP net loss of $135–200M projected", "Tariff/USMCA exposure", "Chinese OEM competition; ICE-to-EV transition risk"],
+    notes: "Dauch is the renamed American Axle & Manufacturing entity (contacts still use @aam.com). No Aberdeen relationship documented — cold, but the signal density is exceptional.",
+  },
+
+  /* ---------------- KRISPY KREME ---------------- */
+  {
+    accountId: "krispykreme",
+    company: "Krispy Kreme, Inc.",
+    docFile: "Krispy Kreme Reports Second Quarter 2026 Financial Results.pdf",
+    docType: "press release (Business Wire capture)",
+    period: "Q2 2026 (quarter ended June 28, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Net revenue", value: "$331.0M", delta: "-12.8% YoY", sentiment: "down" },
+      { label: "GAAP net loss", value: "$(19.8)M", delta: "improved $421.3M YoY", sentiment: "up" },
+      { label: "Adjusted EBITDA", value: "$28.8M", delta: "+43.2% YoY · margin 8.7% (+340bps)", sentiment: "up" },
+      { label: "Net leverage", value: "5.4x", delta: "-1.3x vs Q4 2025", sentiment: "up" },
+      { label: "Cash on hand", value: "$21.8M", delta: "$263.9M total liquidity", sentiment: "down" },
+    ],
+    managementQuote: "Our results demonstrate the success of the actions we are taking to grow the business and improve profitability, including a significant expansion in Adjusted EBITDA margin of 340 basis points. — Josh Charlesworth, CEO",
+    signals: [
+      { headline: "Four-part turnaround plan in active execution",
+        evidence: "The August 2025 plan (refranchising, ROIC, margin expansion, sustainable growth) is delivering: capex down 70% in H1, EBITDA margin +340bps, $10.3M YTD of strategic-initiative costs.",
+        quote: "The Company's comprehensive turnaround plan... is designed to deleverage the balance sheet and deliver sustainable, profitable growth.",
+        sourceRef: "pp. 1–2, 16", provenance: "press release",
+        category: "restructuring", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A publicly committed multi-workstream turnaround with quarterly-scrutinized milestones needs independent program assurance and change delivery capacity." },
+      { headline: "Aggressive refranchising reshaping the operating model",
+        evidence: "Japan and western-US JV refranchised in March 2026 for $111.4M net proceeds YTD; franchised share of systemwide sales jumped ~25% → ~42%, targeting ~50% by fiscal 2027.",
+        quote: "the Company's goal remains to reach approximately 50% of systemwide sales generated by franchisees",
+        sourceRef: "pp. 5–6, 14", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "Serial divestiture/refranchising deals require carve-out execution, TSAs, and systems separation — classic M&A enablement work." },
+      { headline: "US logistics just outsourced to a third party",
+        evidence: "Completed 3PL outsourcing April 2026; $4.2M YTD transition costs; US segment EBITDA margin rose ~370bps to 8.0%.",
+        quote: "Completed outsourcing of U.S. logistics in April 2026.",
+        sourceRef: "pp. 2, 18", provenance: "press release",
+        category: "cost-pressure", offering: "Technology Strategy & Operations",
+        whyItMaps: "A just-completed 3PL transition creates follow-on needs in supply-chain systems integration and vendor governance." },
+      { headline: "Digital becoming a core growth engine",
+        evidence: "Digital sales reached 19.8% of retail sales (+190bps YoY); US average revenue per door per week up 33.2% to ~$697; 448 fresh delivery doors added in H1.",
+        quote: null, sourceRef: "pp. 2–3 (Key Operating Metrics)", provenance: "press release",
+        category: "data-AI", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "A fast-growing digital/omnichannel business across 15,665 points of access needs modern data and channel analytics to sustain growth." },
+      { headline: "Residual cybersecurity remediation history",
+        evidence: "Prior-year costs included $5.3M (H1 2025) remediating the 2024 Cybersecurity Incident; IT failure and cyber risk remain lead risk factors.",
+        quote: "costs related to remediation of the 2024 Cybersecurity Incident",
+        sourceRef: "pp. 9, 19", provenance: "press release",
+        category: "technology-investment", offering: "Technology Strategy & Operations",
+        whyItMaps: "A recent material cyber incident plus ongoing IT-risk disclosure signals appetite for technology resilience investment." },
+    ],
+    headwinds: ["Revenue -12.8% on refranchising and ~2,400 door closures (ended McDonald's USA partnership)", "International organic revenue -5.1% (UK, Australia)", "Leverage 5.4x with only $21.8M cash", "Commodity, tariff, FX risks"],
+    notes: "Former Aberdeen client, dormant in 2026 — the turnaround creates a concrete win-back opening. Prior-year comparison flattered by a $356M goodwill impairment in Q2 2025.",
+  },
+
+  /* ---------------- LPL FINANCIAL ---------------- */
+  {
+    accountId: "lpl",
+    company: "LPL Financial Holdings Inc.",
+    docFile: "lpl_financial_q2_2026_earnings_release.pdf",
+    docType: "earnings release",
+    period: "Q2 2026 (released July 30, 2026)",
+    provenanceClass: "press release",
+    keyFinancials: [
+      { label: "Net income", value: "$379M", delta: "+39% YoY", sentiment: "up" },
+      { label: "Adjusted EPS", value: "$5.84", delta: "+29% YoY (record)", sentiment: "up" },
+      { label: "Total client assets", value: "$2.6T", delta: "+34% YoY", sentiment: "up" },
+      { label: "Q2 capex", value: "$199.4M", delta: "+46% YoY", sentiment: "up" },
+      { label: "Organic net new assets", value: "$23B", delta: "4% annualized", sentiment: "up" },
+    ],
+    managementQuote: "We remain focused on our strategic priorities, and are on track to onboard Commonwealth later this year. — Rich Steinmeier, CEO",
+    signals: [
+      { headline: "Commonwealth conversion — a massive Q4 2026 onboarding program",
+        evidence: "Conversion on track for Q4 2026 with ~90% asset retention expected; estimated run-rate EBITDA raised from $410M to $435M; onboarding delay flagged as a top risk.",
+        quote: "On track to complete the conversion in the fourth quarter of 2026... Estimated run-rate EBITDA has increased from $410 million to $435 million",
+        sourceRef: "pp. 1, 3–4", provenance: "press release",
+        category: "M&A", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A single-quarter conversion of an entire broker-dealer with a public 90% retention target is exactly the migration that demands program assurance." },
+      { headline: "Serial acquirer cadence continues (Mariner, Liquidity & Succession)",
+        evidence: "Closed Mariner Advisor Network (367 advisors, ~$31B client assets) and four Liquidity & Succession deals in Q2; acquisition costs ran $49.0M in the quarter.",
+        quote: "Closed on the acquisition of Mariner Advisor Network... 367 advisors who collectively manage $31 billion",
+        sourceRef: "pp. 1, 19", provenance: "press release",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "Continuous multi-deal M&A requires repeatable integration playbooks, diligence support, and synergy tracking." },
+      { headline: "Technology capex accelerating +46% YoY",
+        evidence: "Q2 capex hit $199.4M (vs $137.0M); occupancy/equipment expense +54% YoY; the firm provides 'fintech tools' to 32,475 advisors across ~1,100 institutions.",
+        quote: null, sourceRef: "pp. 2, 5, 15", provenance: "press release",
+        category: "technology-investment", offering: "Technology Strategy & Operations",
+        whyItMaps: "Capex growing 46% to support a scaling advisor platform signals major in-flight technology build-out that benefits from operating-model guidance." },
+      { headline: "Active cost discipline — Core G&A outlook lowered mid-acquisition",
+        evidence: "2026 Core G&A outlook lowered to $2,140–2,165M; Core G&A fell 2% sequentially to $519M despite the M&A onboarding load.",
+        quote: "record adjusted earnings per share and further progress driving improved operating leverage — Matt Audette, President & CFO",
+        sourceRef: "pp. 1–2, 8", provenance: "press release",
+        category: "cost-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "A public, lowered expense commitment while absorbing acquisitions creates demand for technology cost transparency and benchmarking." },
+      { headline: "Third-party provider and IT/cyber/sourcing risk flagged",
+        evidence: "Risk factors cite 'the performance of third-party service providers to which business processes have been transitioned' and IT, cyber and sourcing risks.",
+        quote: "the Company's ability to control operating risks, information technology systems risks, cybersecurity risks and sourcing risks",
+        sourceRef: "p. 4", provenance: "press release",
+        category: "regulatory", offering: "Technology Strategy & Operations",
+        whyItMaps: "Outsourced processes plus stated IT risk in a regulated wealth manager point to vendor governance and technology-risk operating models." },
+    ],
+    headwinds: ["Net interest income -40% YoY as rates fell", "Client cash % of assets declining", "Brokerage net new assets negative $(7.1)B", "Commonwealth execution risk concentrated in Q4 2026"],
+    notes: "Roster client. Growth/integration-driven signals rather than distress-driven — Financial Services is CoE priority sector #1.",
+  },
+
+  /* ---------------- CORNERSTONE BUILDING BRANDS ---------------- */
+  {
+    accountId: "cornerstone",
+    company: "Cornerstone Building Brands, Inc.",
+    docFile: "Cornerstone report.pdf",
+    docType: "SEC Form 10-Q (51 pages)",
+    period: "Q1 FY2026 (three months ended April 4, 2026)",
+    provenanceClass: "filing",
+    keyFinancials: [
+      { label: "Net sales", value: "$1,209.3M", delta: "+2.9% YoY", sentiment: "up" },
+      { label: "Gross margin", value: "13.2%", delta: "down from 20.1%", sentiment: "down" },
+      { label: "Net loss", value: "$(192.5)M", delta: "widened from $(110.6)M", sentiment: "down" },
+      { label: "Adjusted EBITDA", value: "$1.1M", delta: "collapsed from $91.9M", sentiment: "down" },
+      { label: "Total equity", value: "$(707.9)M", delta: "deficit", sentiment: "down" },
+    ],
+    managementQuote: "We continue to evaluate opportunities to mitigate the impact of tariffs... however, there can be no assurance that such efforts will be successful.",
+    signals: [
+      { headline: "ERP go-live failure created an SEC-disclosed material weakness",
+        evidence: "Disclosure controls deemed not effective: the Metal Solutions ERP implementation failed because assigned team members lacked the knowledge to develop requirements, configure the system, and complete UAT before go-live. An outside firm was retained; new SDLC policy and governance implemented.",
+        quote: "the assigned team members lacked the requisite knowledge and experience to develop functional requirements, configure the system, and complete user acceptance tests sufficient to fully test the enterprise resource planning system prior to going live",
+        sourceRef: "Item 4, Controls and Procedures, pp. 30–31", provenance: "filing",
+        category: "technology-investment", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A failed ERP go-live with SEC-disclosed material weakness and ongoing remediation is the single most direct trigger for independent program assurance in this corpus." },
+      { headline: "Unintegrated 2024 acquisitions still lack effective IT controls",
+        evidence: "A second material weakness persists: IT general controls and journal-entry controls never effectively implemented at Harvey Building Products and Mueller Supply (both acquired 2024).",
+        quote: "The Company did not design, implement, and maintain effective information technology general controls... at Harvey Building Products Corp. and Mueller Supply Company, Inc.",
+        sourceRef: "Item 4, p. 31", provenance: "filing",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "Post-merger IT/controls integration incomplete two years after close — classic M&A technology-integration enablement work." },
+      { headline: "Metal Sales integration adds 21 facilities to a strained platform",
+        evidence: "Metal Sales Manufacturing acquired Sept 2025 for ~$181.8M, adding ~900 employees at 21 US facilities to the same segment that just failed its ERP rollout.",
+        quote: "Metal Sales had approximately 900 employees at 21 facilities across the United States",
+        sourceRef: "Note 3; MD&A p. 23", provenance: "filing",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "A large in-flight integration into a segment with a live ERP material weakness needs integration planning and systems consolidation." },
+      { headline: "Margin collapse from tariffs forcing cost action",
+        evidence: "Gross margin fell 20.1% → 13.2%; Adjusted EBITDA fell $91.9M → $1.1M on steel/PVC/aluminum/glass inflation; Windows & Doors EBITDA swung to $(5.1)M from $42.4M.",
+        quote: "These rapidly changing policies and dynamics pose a risk to our supply chain and cost structure.",
+        sourceRef: "MD&A pp. 22–25", provenance: "filing",
+        category: "margin-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "Near-zero EBITDA with active cost-management mandates makes IT cost takeout an immediate, fundable priority." },
+      { headline: "Interim CFO installed; executive retention program launched",
+        evidence: "Christian Storch became Interim CFO Feb 6, 2026; base salary raised $500K → $700K in May; a form Executive Officer Retention Letter was filed.",
+        quote: null, sourceRef: "Part II Item 5, p. 32; Exhibits 10.1–10.2", provenance: "filing",
+        category: "leadership-change", offering: "Technology Strategy & Operations",
+        whyItMaps: "An interim CFO stabilizing a distressed finance function is a natural buyer of external transformation support." },
+    ],
+    headwinds: ["$5.4B future debt payments; $125.9M quarterly interest; $(707.9)M equity deficit", "Tariff and commodity inflation compressing all segments", "Negative operating cash flow $(107.6)M", "Two unresolved material weaknesses in ICFR"],
+    notes: "Privately held (CD&R) but SEC-reporting due to debt — a PE-sponsored distressed asset. NOT the same company as Aberdeen's former client 'Cornerstone Care'; records must stay separate.",
+  },
+
+  /* ---------------- NOVANT HEALTH ---------------- */
+  {
+    accountId: "novant",
+    company: "Novant Health, Inc.",
+    docFile: "novant-health-q1-2026-combined-group-pkg.pdf",
+    docType: "quarterly financial & statistical report (municipal-bond continuing disclosure)",
+    period: "Q1 2026 (three months ended March 31, 2026)",
+    provenanceClass: "filing",
+    keyFinancials: [
+      { label: "Operating revenues", value: "$3,088.0M", delta: "+13.4% YoY", sentiment: "up" },
+      { label: "Operating income", value: "$91.3M", delta: "margin 3.0%", sentiment: "up" },
+      { label: "Salaries & benefits", value: "$1,522.1M", delta: "+12.9% YoY", sentiment: "down" },
+      { label: "Capex", value: "$277.7M", delta: "+50% YoY", sentiment: "up" },
+      { label: "Cash & equivalents", value: "$588.1M", delta: "down from $945.6M at year-end", sentiment: "down" },
+    ],
+    managementQuote: "Salaries and benefits increased $173,682, or 12.9%, compared to the same period for the prior year, primarily due to merit and market-based pay adjustments and acquisitions. (MD&A)",
+    signals: [
+      { headline: "Capex surge of +50% with major capital projects entering service",
+        evidence: "Q1 capex of $277.7M vs $185.1M YoY; D&A rose 14.8% 'primarily due to capital projects placed in service and acquisitions' across a 19-medical-center, 900+ location network.",
+        quote: "Capital expenditures were $277,742 for the three months ended March 31, 2026.",
+        sourceRef: "MD&A p. 8; cash flows p. 3", provenance: "filing",
+        category: "growth-expansion", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A rapidly expanding capital program across a multi-hospital system creates demand for program assurance, PMO and delivery governance." },
+      { headline: "$839M energy monetization with a $172M four-year upgrade program",
+        evidence: "Received $838.95M in June 2025 for a 30-year Energy Services Agreement; separately committed to a $172.0M energy-efficiency upgrade program over four years (up to $200M more elective), $102.6M advanced by March 31, 2026.",
+        quote: "The total project cost is anticipated to be $172,000 [thousand], which is being advanced on a fixed schedule over four years.",
+        sourceRef: "MD&A pp. 8–9 (Debt Structure)", provenance: "filing",
+        category: "capital-allocation", offering: "Large Program Assurance, Delivery & Change",
+        whyItMaps: "A multi-year, third-party-operated infrastructure program with staged funding needs independent delivery assurance and vendor governance." },
+      { headline: "Labor inflation at 12.9% squeezing a 3.0% operating margin",
+        evidence: "Salaries +$173.7M (+12.9%) YoY; other opex +$164.1M (+14.1%) on HASP assessments and supplies; operating activities used $66.5M of cash.",
+        quote: "Other operating expenses increased $164,115, or 14.1%... primarily due to increases in expenses accrued for HASP assessments, inflation, increased medical supplies expense",
+        sourceRef: "MD&A p. 7", provenance: "filing",
+        category: "cost-pressure", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "Double-digit expense growth on thin margins makes technology cost transparency a compelling, quantifiable pitch." },
+      { headline: "Growth-by-acquisition continues to reshape the system",
+        evidence: "Revenue, salaries and D&A growth each partly attributed to acquisitions; network now includes recently added East Cooper, SC Coastal and Hilton Head medical centers.",
+        quote: null, sourceRef: "MD&A p. 7; statistics p. 4", provenance: "filing",
+        category: "M&A", offering: "M&A Enablement",
+        whyItMaps: "Ongoing hospital acquisitions require systems integration, day-1/day-100 planning and synergy capture — where Aberdeen's healthcare M&A credentials are strongest." },
+      { headline: "New treasury sophistication: CP program, repo, expanded revolver",
+        evidence: "Established a $500M taxable commercial paper program ($350M outstanding), a securities repurchase program ($104.8M), and upsized the revolver $250M → $500M against $5,280.3M total long-term debt.",
+        quote: "Under the program, the Company may issue Taxable Commercial Paper Notes up to $500,000 [thousand] in face value.",
+        sourceRef: "Liquidity table p. 5; MD&A pp. 8–9", provenance: "filing",
+        category: "capital-allocation", offering: "Technology Strategy & Operations",
+        whyItMaps: "An increasingly complex capital structure funding growth signals appetite for technology-enabled finance and operating-model support." },
+    ],
+    headwinds: ["Investment income fell to $16.5M from $36.7M; cash down $357.5M in the quarter", "Operating activities used $66.5M cash on an AR build", "Wage inflation outpacing patient revenue growth", "Average daily census and ED visits both lower YoY"],
+    notes: "Not-for-profit health system (NC/SC), figures in $ thousands. Representative healthcare roster client — squarely in Aberdeen's credential stronghold.",
+  },
+
+  /* ---------------- LIVESTOCK FEEDS ---------------- */
+  {
+    accountId: "lsf",
+    company: "Livestock Feeds Plc",
+    docFile: "LSF-UNAUDITED-FS-JUNE-2026.pdf",
+    docType: "unaudited interim financial statements (IAS 34, Nigerian Exchange)",
+    period: "H1 2026 (six months ended 30 June 2026) — figures in ₦'000",
+    provenanceClass: "filing",
+    keyFinancials: [
+      { label: "Revenue", value: "₦14.82bn", delta: "-28.7% YoY", sentiment: "down" },
+      { label: "Profit before tax", value: "₦1.33bn", delta: "up ~8.7x YoY", sentiment: "up" },
+      { label: "Inventories", value: "₦11.28bn", delta: "+68% vs FY2025", sentiment: "down" },
+      { label: "Gearing", value: "88%", delta: "vs sub-60% policy", sentiment: "down" },
+    ],
+    managementQuote: null,
+    signals: [
+      { headline: "Balance-sheet turnaround after a ₦3.0bn FY2025 loss",
+        evidence: "H1 2026 delivered ₦1.14bn profit, rebuilding total equity to ₦1.53bn after FY2025 losses wiped equity to ₦387.7M.",
+        quote: null, sourceRef: "Statement of Changes in Equity p. 4", provenance: "filing",
+        category: "restructuring", offering: "Technology Strategy & Operations",
+        whyItMaps: "A company mid-turnaround needs operating-model and performance-management support to lock in the recovery." },
+      { headline: "Debt restructured through parent: ₦7.0bn commercial paper via UAC",
+        evidence: "All bank borrowings (₦13.7bn in 2025) fully repaid by 30 June 2026; parent UAC of Nigeria sourced a ₦7.0bn 270-day CP maturing July 2026 as an intercompany loan.",
+        quote: "As of 30th June 2026, there is no outstanding bank borrowing as all loans have been fully settled.",
+        sourceRef: "Notes 28, 11, 29", provenance: "filing",
+        category: "capital-allocation", offering: "IT Financial Mgmt. & Optimization",
+        whyItMaps: "A parent-funded refinancing with a near-term CP maturity puts a premium on cost discipline and cash visibility." },
+      { headline: "Rising technology and R&D spend on a small base (SAP)",
+        evidence: "IT expense of ₦116.9M in admin costs; prepayments include SAP licence fees; R&D spend jumped 6x to ₦44.0M.",
+        quote: "Others relates to SAP licence fee, internet services, generator maintenance and training etc",
+        sourceRef: "Notes 8, 20", provenance: "filing",
+        category: "technology-investment", offering: "Technology Future-Proofing (AI & Data)",
+        whyItMaps: "An SAP-running manufacturer stepping up IT spend is a candidate for ERP value-optimization advisory — though geography rules this one out for Aberdeen." },
+    ],
+    headwinds: ["Naira currency risk and near-term ₦7.0bn CP maturity", "Working-capital squeeze: current liabilities exceed current assets", "Revenue -29% across all three regions"],
+    notes: "Figures in Nigerian naira thousands, not USD. Subsidiary of UAC of Nigeria (73.29%). Outside Aberdeen's documented geographic footprint — deprioritized.",
+  },
+
+  /* ---------------- LOMA LINDA ---------------- */
+  {
+    accountId: "lomalinda",
+    company: "Loma Linda University Health",
+    docFile: "Loma Linda University Health july 2026 release.html",
+    docType: "third-party market-news digest (Crescendo Interactive content on llulegacy.org)",
+    period: "Published July 7, 2023 — NOT a 2026 document, NOT Loma Linda's financials",
+    provenanceClass: "third-party digest",
+    keyFinancials: [],
+    managementQuote: null,
+    signals: [],
+    headwinds: [],
+    notes: "Confirmed unusable: despite the filename, the file contains zero Loma Linda financial data. It is a saved donor-website news page covering Q2 2023 earnings of McCormick, Levi Strauss and Goodfellow, plus 2023 Treasury-yield commentary. No figures from this page may be attributed to Loma Linda. The account itself is real (2026 new client, healthcare roster) — the signal gap is a data-collection action item, not a reason to drop the account.",
+  },
+];
+
+</script>
+<script>
+/* ============================================================
+   Aberdeen Pursuit Intelligence — application logic
+   Zero network calls. All data is embedded locally (Level 3).
+   ============================================================ */
+
+"use strict";
+
+/* ---------- lookups ---------- */
+const offeringById = Object.fromEntries(ABERDEEN.offerings.map(o => [o.id, o]));
+const offeringByName = Object.fromEntries(ABERDEEN.offerings.map(o => [o.name, o]));
+const signalsByAccount = Object.fromEntries(SIGNALS.map(s => [s.accountId, s]));
+
+const STRENGTH_PTS = { STRONG: 30, MODERATE: 20, THIN: 10, NONE: 0 };
+const BUCKET_PTS = {
+  "existing-live": 30, "roster-active": 22, "new-2026": 20,
+  "dormant": 14, "flagged-match": 8, "prospect": 6, "cold": 0,
+};
+const BUCKET_LABEL = {
+  "existing-live": "Active — engagement in flight",
+  "roster-active": "Roster client",
+  "new-2026": "New client (2026)",
+  "dormant": "Dormant / churned",
+  "flagged-match": "Unconfirmed match",
+  "prospect": "Prospect",
+  "cold": "Cold / unknown",
+};
+const HOT_CATEGORIES = new Set(["technology-investment", "data-AI", "M&A", "restructuring"]);
+
+/* ---------- scoring (transparent, shown in the UI) ---------- */
+function scoreAccount(acct) {
+  const doc = signalsByAccount[acct.id];
+  const sigs = (doc && !acct.dataQualityFlag) ? doc.signals : [];
+
+  let signalScore = 0;
+  sigs.forEach(s => { signalScore += HOT_CATEGORIES.has(s.category) ? 10 : 7; });
+  signalScore = Math.min(40, signalScore);
+
+  const relScore = BUCKET_PTS[acct.bucket] ?? 0;
+
+  let proofFit = 0;
+  if (sigs.length) {
+    const pts = sigs.map(s => {
+      const off = offeringByName[s.offering];
+      return off ? STRENGTH_PTS[off.strength] : 0;
+    });
+    proofFit = Math.round(pts.reduce((a, b) => a + b, 0) / pts.length);
+  }
+
+  const total = signalScore + relScore + proofFit;
+  const tier = total >= 72 ? ["pursue", "Pursue now"]
+             : total >= 52 ? ["develop", "Develop"]
+             : total >= 30 ? ["qualify", "Qualify"]
+             : ["monitor", "Monitor"];
+  return { signalScore, relScore, proofFit, total, tierClass: tier[0], tierLabel: tier[1], sigCount: sigs.length };
+}
+
+/* Rank the offerings a target's signals trigger.
+   Signal count dominates, but proof strength breaks ties and a live
+   engagement outranks both — proposing from zero when Aberdeen is already
+   inside reads as though the firm does not know its own book (workflow §3.2). */
+function rankOfferings(acct) {
+  const doc = signalsByAccount[acct.id];
+  if (!doc || acct.dataQualityFlag || !doc.signals.length) return [];
+  const counts = {};
+  doc.signals.forEach(s => { counts[s.offering] = (counts[s.offering] || 0) + 1; });
+  return Object.entries(counts)
+    .map(([name, n]) => {
+      const off = offeringByName[name];
+      if (!off) return null;
+      const live = acct.liveEngagementOffering === off.id;
+      return { off, n, live, rank: n * 10 + STRENGTH_PTS[off.strength] / 3 + (live ? 12 : 0) };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.rank - a.rank);
+}
+const topOffering = acct => (rankOfferings(acct)[0] || {}).off || null;
+
+/* Credential selection: prefer a credential from the target's own sector,
+   then a quantified one. Cross-sector credentials are still shown — Aberdeen's
+   ERP and M&A proof travels — but never ahead of a same-sector proof point. */
+const SECTOR_AFFINITY = {
+  "Healthcare & Life Sciences": ["Healthcare"],
+  "Consumer & Retail": ["Retail", "Consumer Products"],
+  "Manufacturing & Industrial": ["Manufacturing", "Consumer Products", "Retail"],
+  "Energy & Utilities": ["Manufacturing"],
+  "Agriculture & Food": ["Consumer Products", "Manufacturing"],
+  "Financial Services": ["Private Equity"],
+  "Technology & Software": [],
+};
+
+function pickCredentials(offeringId, industry, limit = 2) {
+  const pref = SECTOR_AFFINITY[industry] || [];
+  return ABERDEEN.credentials
+    .filter(c => c.offering === offeringId)
+    .map(c => {
+      const idx = pref.indexOf(c.sector);
+      return { c, aff: idx === -1 ? 99 : idx, sectorMatch: idx !== -1 };
+    })
+    .sort((x, y) => x.aff - y.aff || (y.c.quantified ? 1 : 0) - (x.c.quantified ? 1 : 0))
+    .slice(0, limit);
+}
+
+/* ---------- helpers ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function provChip(p) {
+  const cls = p === "filing" ? "filing" : p === "press release" ? "pressrelease"
+            : p === "third-party digest" ? "digest" : p === "instruction file" ? "instruction" : "inference";
+  return `<span class="chip ${cls}">${esc(p)}</span>`;
+}
+const badge = s => `<span class="badge ${s}">${s}</span>`;
+const sentimentCls = s => s === "up" ? "delta-up" : s === "down" ? "delta-down" : "delta-flat";
+
+/* Lowercase a headline for mid-sentence use, but leave acronyms alone
+   ("US logistics…" must not become "uS logistics…"). */
+const midSentence = h =>
+  /^[A-Z]{2}/.test(h) ? h : h.charAt(0).toLowerCase() + h.slice(1);
+
+function emptyField(note) {
+  return `<span class="empty-field">not in repo — reported as a gap, not guessed${note ? "" : ""}</span>`;
+}
+
+/* ============================================================
+   VIEWS
+   ============================================================ */
+const main = document.getElementById("main");
+let currentView = "dashboard";
+let currentAccount = null;
+
+function setView(view, acctId) {
+  currentView = view; currentAccount = acctId || null;
+  document.querySelectorAll(".tab").forEach(t =>
+    t.classList.toggle("active", t.dataset.view === view));
+  if (view === "dashboard" && !acctId) renderDashboard();
+  else if (view === "dashboard" && acctId) renderAccount(acctId);
+  else if (view === "offerings") renderOfferings();
+  else if (view === "sources") renderSources();
+  window.scrollTo(0, 0);
+}
+
+document.getElementById("tabs").addEventListener("click", e => {
+  const t = e.target.closest(".tab"); if (t) setView(t.dataset.view);
+});
+
+/* ---------- dashboard ---------- */
+function renderDashboard() {
+  const rows = ABERDEEN.accounts
+    .map(a => ({ a, s: scoreAccount(a) }))
+    .sort((x, y) => y.s.total - x.s.total);
+
+  const totalSignals = SIGNALS.reduce((n, d) => n + d.signals.length, 0);
+  const pursue = rows.filter(r => r.s.tierClass === "pursue").length;
+  const flagged = ABERDEEN.accounts.filter(a => a.matchNote.flagged || a.dataQualityFlag).length;
+
+  main.innerHTML = `
+    <h2 class="viewtitle">Account pipeline</h2>
+    <p class="viewsub">All ${ABERDEEN.accounts.length} companies in the signal corpus, scored on detected buying signals,
+      relationship position, and Aberdeen's proof strength for the offerings each signal triggers. Click a row for the full pursuit brief.</p>
+
+    <div class="statrow">
+      <div class="stat"><div class="v">${ABERDEEN.accounts.length}</div><div class="l">Accounts assessed</div></div>
+      <div class="stat"><div class="v">${totalSignals}</div><div class="l">Evidenced buying signals</div></div>
+      <div class="stat"><div class="v">${pursue}</div><div class="l">Pursue-now accounts</div></div>
+      <div class="stat"><div class="v">${flagged}</div><div class="l">Flagged for human confirmation</div></div>
+    </div>
+
+    <table class="accounts">
+      <thead><tr>
+        <th>Account</th><th>Industry</th><th>Relationship</th><th>Signals</th>
+        <th>Leading offering</th><th>Score</th><th>Priority</th>
+      </tr></thead>
+      <tbody>
+        ${rows.map(({ a, s }) => {
+          const off = topOffering(a);
+          return `<tr class="acct-row" data-acct="${a.id}">
+            <td><div class="acct-name">${esc(a.name)}</div>
+                ${a.matchNote.flagged ? `<span class="flag">match ${a.matchNote.score} — confirm</span>` : ""}
+                ${a.dataQualityFlag ? `<span class="flag">signal doc unusable</span>` : ""}</td>
+            <td class="small">${esc(a.industry)}</td>
+            <td class="small">${esc(BUCKET_LABEL[a.bucket])}</td>
+            <td>${s.sigCount || "<span class='muted'>0</span>"}</td>
+            <td class="small">${off ? `${esc(off.name)} ${badge(off.strength)}` : "<span class='muted'>—</span>"}</td>
+            <td><div class="scorebar-wrap">
+              <div class="scorebar"><div style="width:${s.total}%;background:${s.total >= 72 ? "var(--green)" : s.total >= 52 ? "var(--teal-signal)" : s.total >= 30 ? "var(--amber)" : "var(--grey-dark)"}"></div></div>
+              <span class="scoreval">${s.total}</span></div></td>
+            <td><span class="tier ${s.tierClass}">${s.tierLabel}</span></td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+    <p class="muted small" style="margin-top:10px">Score = signal evidence (0–40) + relationship position (0–30) + proof-strength fit (0–30).
+      Proof ratings come from AberdeenOfferings.md §10 and are never upgraded. Accounts with flagged matches must be confirmed against the CRM before any outreach (workflow §2.4).</p>
+  `;
+
+  main.querySelectorAll(".acct-row").forEach(r =>
+    r.addEventListener("click", () => setView("dashboard", r.dataset.acct)));
+}
+
+/* ---------- account detail ---------- */
+function renderAccount(id) {
+  const a = ABERDEEN.accounts.find(x => x.id === id);
+  const doc = signalsByAccount[id];
+  const s = scoreAccount(a);
+  const rel = a.relationship;
+
+  const usableSignals = (doc && !a.dataQualityFlag) ? doc.signals : [];
+  const recs = rankOfferings(a);
+
+  main.innerHTML = `
+    <button class="backlink">&larr; Back to pipeline</button>
+
+    <div class="acct-header">
+      <h2>${esc(a.name)}</h2>
+      <div class="meta">
+        <span class="chip instruction">${esc(a.industry)}</span>
+        <span class="tier ${s.tierClass}">${s.tierLabel}</span>
+        <span class="muted">${esc(BUCKET_LABEL[a.bucket])}</span>
+        ${a.matchNote.flagged ? `<span class="flag">MATCH ${a.matchNote.score} — HUMAN CONFIRMATION REQUIRED</span>` : ""}
+      </div>
+      <div class="playline">Play: <b>${esc(a.play)}</b></div>
+    </div>
+
+    ${a.dataQualityFlag ? `<div class="gap"><b>Data-quality finding:</b> ${esc(a.dataQualityFlag)}</div>` : ""}
+    ${a.matchNote.flagged ? `<div class="gap"><b>Identity flag:</b> ${esc(a.matchNote.basis)}</div>` : ""}
+
+    <div class="scorebreak">
+      <div class="seg"><div class="n">${s.signalScore}<span class="muted">/40</span></div><div class="cap">Signal evidence</div></div>
+      <div class="seg"><div class="n">${s.relScore}<span class="muted">/30</span></div><div class="cap">Relationship position</div></div>
+      <div class="seg"><div class="n">${s.proofFit}<span class="muted">/30</span></div><div class="cap">Proof-strength fit</div></div>
+      <div class="seg total"><div class="n">${s.total}</div><div class="cap">Priority score</div></div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        ${doc ? `
+        <div class="card">
+          <h3>Financial snapshot &middot; ${esc(doc.period)}</h3>
+          <div class="finrow">
+            ${doc.keyFinancials.map(f => `
+              <div class="fin"><div class="fl">${esc(f.label)}</div>
+                <div class="fv">${esc(f.value)}</div>
+                <div class="fd ${sentimentCls(f.sentiment)}">${esc(f.delta || "")}</div></div>`).join("")}
+          </div>
+          ${doc.managementQuote ? `<div class="signal" style="border-left-color:var(--amber);margin-top:10px;margin-bottom:0">
+            <div class="quote" style="margin-top:0">&ldquo;${esc(doc.managementQuote)}&rdquo;</div></div>` : ""}
+          <p class="muted small" style="margin-top:8px">Source: ${esc(doc.docFile)} (${esc(doc.docType)})</p>
+        </div>` : ""}
+
+        <div class="card">
+          <h3>Buying signals ${usableSignals.length ? `(${usableSignals.length})` : ""}</h3>
+          ${usableSignals.length ? usableSignals.map(sig => `
+            <div class="signal">
+              <div class="sig-head">
+                <span class="sig-title">${esc(sig.headline)}</span>
+                ${provChip(sig.provenance)}
+                <span class="sig-src">${esc(sig.sourceRef)}</span>
+              </div>
+              <div class="evidence">${esc(sig.evidence)}</div>
+              ${sig.quote ? `<div class="quote">&ldquo;${esc(sig.quote)}&rdquo;</div>` : ""}
+              <div class="maps">&rarr; triggers <b>${esc(sig.offering)}</b> ${offeringByName[sig.offering] ? badge(offeringByName[sig.offering].strength) : ""}<br>
+                <span class="muted">${esc(sig.whyItMaps)}</span></div>
+            </div>`).join("")
+          : `<p class="muted">No usable signals in the corpus for this account. ${a.dataQualityFlag ? "The document carrying this account's name is not their financial data — see the flag above." : "No document in client-data/ covers this company."} Per the workflow: the coverage gap is stated, not glossed.</p>`}
+          ${doc && doc.headwinds && doc.headwinds.length ? `
+            <p class="small" style="margin-top:8px"><b style="color:var(--navy)">Stated headwinds:</b> ${doc.headwinds.map(esc).join(" · ")}</p>` : ""}
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h3>Recommended offerings &amp; credentials</h3>
+          ${recs.length ? recs.map(({ off, n, live }) => {
+            const creds = pickCredentials(off.id, a.industry);
+            return `<div class="offer-rec"${live ? ` style="border-left:4px solid var(--teal-signal)"` : ""}>
+              <div class="oh"><span class="oname">${esc(off.name)}</span> ${badge(off.strength)}
+                <span class="muted small">${n} signal${n > 1 ? "s" : ""}</span>
+                ${live ? `<span class="chip instruction">Aberdeen already delivering here</span>` : ""}</div>
+              <div class="osub">${esc(off.subServices)}</div>
+              <div class="small" style="margin-top:5px">${esc(off.proofNote)}</div>
+              ${off.strength === "THIN" ? `<div class="small" style="color:var(--navy);margin-top:4px"><b>Honesty rule:</b> sell the capability — do not imply a track record.</div>` : ""}
+              ${creds.map(({ c, sectorMatch }) => `<div class="cred">${esc(c.text)}
+                ${c.inFlight ? `<span class="inflight"> · IN FLIGHT</span>` : ""}
+                <div class="ct">${esc(c.clientType)} · ${esc(c.band)} · ${sectorMatch
+                  ? `<b style="color:var(--navy)">same-sector proof (${esc(c.sector)})</b>`
+                  : `cross-sector — ${esc(c.sector)} engagement, say so rather than implying sector depth`}</div></div>`).join("")}
+            </div>`;
+          }).join("")
+          : `<p class="muted">No signal-driven recommendation available. Qualify the account before selecting offerings.</p>`}
+        </div>
+
+        <div class="card">
+          <h3>Relationship &amp; decision-makers</h3>
+          <dl class="kv">
+            <dt>Status</dt><dd>${esc(rel.status)}</dd>
+            <dt>Live engagement</dt><dd>${rel.engagement ? esc(rel.engagement) : emptyField()}</dd>
+            <dt>Relationship owner</dt><dd>${rel.owner ? esc(rel.owner) : emptyField()}</dd>
+            <dt>Strength</dt><dd>${rel.strengthField ? esc(rel.strengthField) : emptyField()}</dd>
+            <dt>Key contacts</dt><dd>${rel.contacts ? esc(rel.contacts) : emptyField()}</dd>
+            <dt>Last interaction</dt><dd>${rel.lastInteraction ? esc(rel.lastInteraction) : emptyField()}</dd>
+            <dt>Roster evidence</dt><dd>${esc(a.rosterEvidence)}</dd>
+          </dl>
+          ${rel.note ? `<p class="muted small" style="margin-top:8px">${esc(rel.note)}</p>` : ""}
+          <div class="gap" style="margin-top:10px"><b>Guardrail §6.5:</b> empty CRM fields are findings, not gaps to fill.
+            Names are never invented. Owner and contact data require the CRM at the CoE base path.</div>
+          ${recs.length ? `
+          <p class="small" style="margin-top:4px"><b style="color:var(--navy)">Buyer roles to map for ${esc(recs[0].off.name)}</b>
+            <span class="muted">(role guidance only — not actual people)</span></p>
+          <div class="rolechips">${(ABERDEEN.buyerRolesByOffering[recs[0].off.id] || []).map(r => `<span class="rolechip">${esc(r)}</span>`).join("")}</div>` : ""}
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Generate outreach</h3>
+      <div class="controls">
+        <div class="control"><label>Audience</label>
+          <select id="oud">
+            <option value="internal">Internal pursuit brief (partner + team)</option>
+            <option value="email">Client outreach email (draft for partner)</option>
+            <option value="meeting">First-meeting talking points</option>
+          </select></div>
+        <div class="control"><label>Offering focus</label>
+          <select id="ofocus">
+            ${recs.length ? recs.map((r, i) => `<option value="${r.off.id}" ${i === 0 ? "selected" : ""}>${esc(r.off.name)}</option>`).join("")
+              : ABERDEEN.offerings.map(o => `<option value="${o.id}">${esc(o.name)}</option>`).join("")}
+          </select></div>
+        <button class="btn primary" id="genbtn">Generate draft</button>
+        <button class="btn ghost" id="copybtn" style="display:none">Copy to clipboard</button>
+      </div>
+      <div id="draftwrap"></div>
+    </div>
+  `;
+
+  main.querySelector(".backlink").addEventListener("click", () => setView("dashboard"));
+  const genbtn = document.getElementById("genbtn");
+  const copybtn = document.getElementById("copybtn");
+  let lastDraft = "";
+
+  genbtn.addEventListener("click", () => {
+    const aud = document.getElementById("oud").value;
+    const focusId = document.getElementById("ofocus").value;
+    lastDraft = generateOutreach(a, doc, usableSignals, focusId, aud);
+    document.getElementById("draftwrap").innerHTML = `
+      <div class="provisional">&#9888; PROVISIONAL — PENDING REVIEW &middot; requires explicit human approval before anything leaves the building (AI Use Policy Draft 0.4)</div>
+      <div class="draft">${esc(lastDraft)}</div>
+      <div class="draft-meta">Generated locally from embedded data — no external model was called. Sources: ${doc ? esc(doc.docFile) : "instruction files only"}; AberdeenOfferings.md §2/§7–§10; AGENT_WORKFLOW.md §2.</div>`;
+    copybtn.style.display = "";
+  });
+  copybtn.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(lastDraft); copybtn.textContent = "Copied ✓"; }
+    catch { copybtn.textContent = "Select & copy manually"; }
+    setTimeout(() => copybtn.textContent = "Copy to clipboard", 1800);
+  });
+}
+
+/* ---------- outreach generation (deterministic, template-driven, local) ---------- */
+function generateOutreach(a, doc, sigs, focusId, audience) {
+  const off = offeringById[focusId];
+  const focusSigs = sigs.filter(s => s.offering === off.name);
+  const useSigs = (focusSigs.length ? focusSigs : sigs).slice(0, 3);
+  const creds = pickCredentials(off.id, a.industry);
+  const today = "August 14, 2026";
+
+  const sigLines = useSigs.map(s =>
+    `  • ${s.headline} — ${s.evidence} [${s.provenance}: ${s.sourceRef}]`).join("\n");
+  const credLines = creds.map(({ c, sectorMatch }) =>
+    `  • ${c.text} (${c.clientType}, ${c.band})` +
+    (c.inFlight ? " — IN PROGRESS, cite as in flight only" : "") +
+    (sectorMatch ? "" : ` — CROSS-SECTOR (${c.sector}); present it as such`)).join("\n");
+  const proofCaveat = off.strength === "THIN"
+    ? `\nPROOF NOTE: this offering is rated THIN in the credential map. Sell the capability; do not imply a delivery track record.\n`
+    : off.strength === "MODERATE"
+    ? `\nPROOF NOTE: rated MODERATE — evidence is real but thin or adjacent. Frame credentials precisely.\n` : "";
+
+  const relLine = a.relationship.engagement
+    ? `Aberdeen is currently delivering at this account: ${a.relationship.engagement} Lead with continuity — a proposal written from zero reads as though the firm does not know its own book (workflow §3.2).`
+    : a.bucket === "dormant"
+    ? `Former client, dormant in 2026. This is a win-back: open with what has changed on their side since we last worked together, not with new scope.`
+    : a.bucket === "roster-active" || a.bucket === "new-2026"
+    ? `Existing roster relationship (${a.rosterEvidence}) — position as expansion, not introduction.`
+    : `No documented relationship. This is a cold pursuit; the first goal is a qualified conversation, not a proposal.`;
+
+  const matchWarn = a.matchNote.flagged
+    ? `\n⚠ IDENTITY UNCONFIRMED (match score ${a.matchNote.score}): ${a.matchNote.basis} Confirm against the CRM before sending anything.\n` : "";
+
+  if (audience === "internal") {
+    return `PURSUIT BRIEF — ${a.name}
+Prepared ${today} · Aberdeen Pursuit Intelligence · CONFIDENTIAL — Level 3
+${matchWarn}
+CLASSIFICATION: ${BUCKET_LABEL[a.bucket]} → ${a.play}
+
+RELATIONSHIP POSITION
+${relLine}
+Relationship owner / contacts: not present in this repo — pull from CRM before pursuit. Do not fabricate names.
+
+WHY NOW — EVIDENCED SIGNALS (${doc ? doc.period : "no filing in corpus"})
+${sigLines || "  • No usable signals in the corpus. Qualify externally before investing pursuit time."}
+
+RECOMMENDED ENTRY: ${off.name}
+Sub-services: ${off.subServices}
+Proof strength: ${off.strength} — ${off.proofNote}${proofCaveat}
+CREDENTIALS TO CITE (anonymised per house convention)
+${credLines || "  • None mapped — check Quals/ before claiming experience."}
+
+PROPOSED NEXT STEP
+${a.relationship.engagement
+  ? "30-minute expansion conversation with the current engagement sponsor; bring the in-flight work as the proof point."
+  : a.bucket === "dormant"
+  ? "Relationship owner places a re-connect call referencing the specific Q2 development above; no deck until interest is confirmed."
+  : "Partner-led qualification call. 2–6 week diagnostic sprint as the entry offer — boutique speed against Big-4 timelines."}
+
+Open questions: CRM owner and strength; open pipeline value; approved-name status for credentials.
+PROVISIONAL — PENDING REVIEW.`;
+  }
+
+  if (audience === "email") {
+    const sig0 = useSigs[0];
+    return `SUBJECT: ${a.name} — ${sig0 ? sig0.headline : off.name}
+
+[DRAFT for the relationship owner to personalise. Recipient intentionally left blank — contact names are not in this repo and are never invented.]
+
+Dear [Contact — from CRM],
+
+${sig0 ? `One line in your latest results stood out to us: ${midSentence(sig0.headline)}. ${sig0.evidence}` : `We have been following ${a.name}'s recent results.`}${useSigs[1] ? `\n\nSet against ${midSentence(useSigs[1].headline)}, that points to decisions ahead which are difficult to staff from inside.` : ""}
+
+${a.relationship.engagement
+  ? `As you know, our team is already working with you on ${a.relationship.engagement.split(".")[0]}. The natural next conversation is how that foundation extends to ${off.name.toLowerCase()}.`
+  : a.bucket === "dormant"
+  ? `It has been some time since Aberdeen last worked with ${a.name}, and enough has changed on your side that a short reconnect feels worthwhile.`
+  : `Aberdeen works with organizations at exactly this decision point.`}
+
+Recent, relevant experience:
+${creds.map(({ c }) => `  – ${c.text} (${c.clientType}, ${c.band})`).join("\n") || "  – [pull from Quals/]"}
+
+Would a 30-minute conversation in the next two weeks be useful? We work in 2–6 week sprints with senior practitioners, not multi-quarter programs.
+
+Best regards,
+[Relationship owner — from CRM]
+Aberdeen Advisors
+
+---
+PROVISIONAL — PENDING REVIEW. Human approval required before sending (AI Use Policy Draft 0.4).${matchWarn}`;
+  }
+
+  /* meeting talking points */
+  return `FIRST-MEETING TALKING POINTS — ${a.name}
+${today} · CONFIDENTIAL — Level 3 · PROVISIONAL — PENDING REVIEW
+${matchWarn}
+1. OPEN WITH THEIR SITUATION (their words, not ours)
+${doc && doc.managementQuote ? `   Management framing: "${doc.managementQuote}"` : "   No management quote available in the corpus."}
+${sigLines}
+
+2. THE BRIDGE
+   ${relLine}
+
+3. WHAT WE'D PROPOSE EXPLORING — ${off.name}
+   ${off.subServices}
+   Positioning: boutique speed, senior practitioners, 2–6 week sprints. Never disparage a named competitor.
+   Aberdeen's likely rivals for this work: Regional Boutiques (Slalom, West Monroe, Protiviti) and pure-play AI shops — differentiate on hands-on delivery.${proofCaveat}
+4. PROOF POINTS (anonymised)
+${credLines}
+
+5. ASK
+   Agreement on one narrow, dated next step — a diagnostic sprint or working session, not a proposal.
+
+Reminders: no unsourced percentages; empty CRM fields stay empty; nothing leaves the building without human approval.`;
+}
+
+/* ---------- offerings view ---------- */
+function renderOfferings() {
+  main.innerHTML = `
+    <h2 class="viewtitle">Offerings &amp; proof strength</h2>
+    <p class="viewsub">The five sellable service areas with their §10 proof ratings, and the credential inventory each can draw on.
+      Ratings are never upgraded — a THIN badge with an honest proof line beats a STRONG badge a buyer can puncture.</p>
+
+    ${ABERDEEN.offerings.map(o => {
+      const creds = ABERDEEN.credentials.filter(c => c.offering === o.id);
+      return `<div class="card">
+        <h3 style="display:flex;align-items:center;gap:10px;border-bottom:none;padding-bottom:0;text-transform:none;font-size:15px">
+          ${esc(o.name)} ${badge(o.strength)}</h3>
+        <div class="osub" style="margin-top:2px">${esc(o.subServices)}</div>
+        <p class="small" style="margin:8px 0">${esc(o.proofNote)}</p>
+        ${creds.map(c => `<div class="cred">${esc(c.text)} ${c.inFlight ? `<span class="inflight"> · IN FLIGHT</span>` : ""}
+          <div class="ct">${esc(c.clientType)} · ${esc(c.band)} · sector: ${esc(c.sector)}${c.quantified ? " · quantified outcome" : ""}</div></div>`).join("")}
+      </div>`;
+    }).join("")}
+
+    <div class="card">
+      <h3>Six top-level capabilities &middot; fourteen industries</h3>
+      <p class="small" style="margin-bottom:8px">On tailored material, relevant items are highlighted in Signal Cyan and the rest stay visible — breadth and focus at once (the Pattern B mechanic).</p>
+      <div class="grid2">
+        <div>${ABERDEEN.capabilities.map(c => `<div class="guardrail" style="border-bottom:1px dotted var(--grey-light)"><span style="color:var(--cyan);font-weight:700">&#9632;</span> ${esc(c)}</div>`).join("")}</div>
+        <div class="rolechips" style="align-content:flex-start">${ABERDEEN.industries.map(i => `<span class="rolechip">${esc(i)}</span>`).join("")}</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Firm profile</h3>
+      <div class="finrow">
+        ${ABERDEEN.firm.profile.map(f => `<div class="fin"><div class="fl">${esc(f.label)}</div><div class="fv" style="font-size:14px">${esc(f.value)}</div><div class="fd muted">${esc(f.note)}</div></div>`).join("")}
+      </div>
+      <p class="small" style="margin-top:10px">${esc(ABERDEEN.firm.positioning)}</p>
+      <p class="small muted" style="margin-top:4px">${esc(ABERDEEN.firm.aberdeenRivals)}</p>
+    </div>
+  `;
+}
+
+/* ---------- sources & guardrails ---------- */
+function renderSources() {
+  main.innerHTML = `
+    <h2 class="viewtitle">Sources &amp; guardrails</h2>
+    <p class="viewsub">Every claim in this tool traces to a document. This page is the registry — including the three documents that are not what their filenames suggest.</p>
+
+    <div class="card">
+      <h3>Signal corpus — client-data/ (${SIGNALS.length} documents)</h3>
+      <table class="srcs">
+        <thead><tr><th>Company</th><th>Document</th><th>Type</th><th>Period</th><th>Signals</th><th>Notes</th></tr></thead>
+        <tbody>${SIGNALS.map(d => `<tr>
+          <td><b>${esc(d.company)}</b></td>
+          <td class="small">${esc(d.docFile)}</td>
+          <td>${provChip(d.provenanceClass || (d.docType.includes("10-Q") ? "filing" : "press release"))}</td>
+          <td class="small">${esc(d.period)}</td>
+          <td>${d.signals.length}</td>
+          <td class="small">${esc(d.notes || "")}</td></tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Data available to this build</h3>
+        ${ABERDEEN.dataCoverage.available.map(x => `<div class="guardrail"><span style="color:var(--green);font-weight:700">&#10003;</span> ${esc(x)}</div>`).join("")}
+      </div>
+      <div class="card">
+        <h3>Data NOT in this repo — reported, not guessed</h3>
+        ${ABERDEEN.dataCoverage.missing.map(x => `<div class="guardrail"><span style="color:var(--amber);font-weight:700">&#9888;</span> ${esc(x)}</div>`).join("")}
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Guardrails honored (AGENT_WORKFLOW.md §6 · AI Use Policy Draft 0.4)</h3>
+      ${ABERDEEN.guardrails.map((g, i) => `<div class="guardrail"><span class="gnum">${i + 1}</span><span>${esc(g)}</span></div>`).join("")}
+    </div>
+  `;
+}
+
+/* ---------- boot ---------- */
+renderDashboard();
+
+</script>
