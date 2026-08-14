@@ -1,26 +1,27 @@
-/* Aberdeen Pursuit Intelligence — CURRENT brand system (SKILL.md §2.1)
-   Flat, dense, navy-dominant, confident. No shadows, no gradients (except
-   where a surface needs separation), no decoration. */
+/* Aberdeen Pursuit Intelligence — styled per the official theme extracted
+   from "Aberdeen Slide Template_July 2025.pptx" (ppt/theme/theme1.xml):
+   colour scheme "Aberdeen Colors", font scheme "Aberdeen Poppins"
+   (Poppins major AND minor), title 24pt regular navy, body 14pt #404040.
+   Flat, dense, navy-dominant, confident. */
 
 :root {
-  --navy: #09375F;
-  --navy-dark: #091C4D;
-  --navy-mid: #094E78;
-  --teal-heritage: #44B0B1;
-  --teal-signal: #03C0C1;
-  --teal-light: #E7F5F5;
-  --amber: #F7CE01;
-  --blue-cta: #027BCE;
-  --white: #FFFFFF;
-  --grey-light: #D1D4DD;
-  --body: #404040;
-  --grey-dark: #5F5F5F;
-  --cyan: #03CBFF;
-  --green: #00A676;
-  --purple: #BD8CFF;
-  --red: #D85049;
+  --navy: #09375F;         /* lt2 / accent1 — titles, dark surfaces */
+  --navy-dark: #041B2F;    /* folHlink — deepest brand value */
+  --teal-heritage: #44B0B1;/* dk2 — surface teal */
+  --teal-signal: #03CBFF;  /* accent2 — THE bright accent of this theme */
+  --teal-light: #E7F5F5;   /* derived tint of dk2 for panel fills */
+  --amber: #F7CE01;        /* accent4 */
+  --blue-cta: #0072AD;     /* hlink */
+  --white: #FFFFFF;        /* lt1 */
+  --grey-light: #D1D4DD;   /* derived neutral (borders) */
+  --body: #404040;         /* dk1 / tx1 — all body copy */
+  --grey-dark: #5F5F5F;    /* derived neutral (captions) */
+  --cyan: #03CBFF;         /* accent2 */
+  --green: #00A676;        /* accent3 */
+  --purple: #BD8CFF;       /* accent5 */
+  --red: #D85049;          /* accent6 */
   --bg: #F7F7FC;
-  --font: "Poppins", "Montserrat", "Segoe UI", Calibri, sans-serif;
+  --font: "Poppins", Arial, sans-serif; /* template fallback chain */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,7 +30,7 @@ body {
   font-family: var(--font);
   color: var(--body);
   background: var(--bg);
-  font-size: 13.5px;
+  font-size: 14px;   /* template body style lvl1 = 14pt */
   line-height: 1.5;
 }
 
@@ -61,7 +62,8 @@ body {
 .container { max-width: 1240px; margin: 0 auto; padding: 22px 28px 60px; }
 
 /* ---------- generic ---------- */
-h2.viewtitle { color: var(--navy); font-size: 21px; font-weight: 600; margin-bottom: 2px; }
+/* Template title style: 24pt, regular weight, Deep Navy */
+h2.viewtitle { color: var(--navy); font-size: 24px; font-weight: 400; margin-bottom: 2px; }
 .viewsub { color: var(--grey-dark); font-size: 12.5px; margin-bottom: 18px; }
 .card {
   background: var(--white); border: 1px solid var(--grey-light);
@@ -77,7 +79,7 @@ h2.viewtitle { color: var(--navy); font-size: 21px; font-weight: 600; margin-bot
 @media (max-width: 900px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
 
 .muted { color: var(--grey-dark); font-size: 12px; }
-.small { font-size: 11.5px; }
+.small { font-size: 12px; } /* template sub-level = 12pt */
 
 /* ---------- chips & badges ---------- */
 .chip {
@@ -85,7 +87,7 @@ h2.viewtitle { color: var(--navy); font-size: 21px; font-weight: 600; margin-bot
   padding: 2px 8px; border-radius: 2px; text-transform: uppercase; white-space: nowrap;
 }
 .chip.filing        { background: var(--navy); color: var(--white); }
-.chip.pressrelease  { background: var(--navy-mid); color: var(--white); }
+.chip.pressrelease  { background: var(--cyan); color: var(--navy-dark); }
 .chip.digest        { background: var(--grey-light); color: var(--body); }
 .chip.instruction   { background: var(--teal-heritage); color: var(--white); }
 .chip.inference     { background: var(--white); color: var(--grey-dark); border: 1px dashed var(--grey-dark); }
@@ -165,7 +167,7 @@ table.accounts tr.acct-row:hover td { background: var(--teal-light); }
   font-size: 12.5px; cursor: pointer; padding: 0; margin-bottom: 12px;
 }
 .acct-header { border-left: 5px solid var(--teal-heritage); padding-left: 16px; margin-bottom: 16px; }
-.acct-header h2 { color: var(--navy); font-size: 24px; font-weight: 600; }
+.acct-header h2 { color: var(--navy); font-size: 24px; font-weight: 400; }
 .acct-header .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; align-items: center; }
 .playline { margin-top: 8px; font-size: 13.5px; color: var(--navy); font-weight: 500; }
 .playline b { color: var(--teal-signal); }
@@ -179,7 +181,7 @@ table.accounts tr.acct-row:hover td { background: var(--teal-light); }
   border-left: 3px solid var(--teal-signal); font-style: italic; font-size: 12.5px;
 }
 .signal .maps { margin-top: 7px; font-size: 12px; }
-.signal .maps b { color: var(--navy-mid); }
+.signal .maps b { color: var(--navy); }
 .sig-src { font-size: 10.5px; color: var(--grey-dark); margin-left: auto; }
 
 .finrow { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
@@ -195,7 +197,7 @@ table.accounts tr.acct-row:hover td { background: var(--teal-light); }
 .offer-rec .oh { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .offer-rec .oname { font-weight: 600; color: var(--navy); }
 .offer-rec .osub { font-size: 11.5px; color: var(--grey-dark); }
-.cred { margin-top: 8px; padding: 8px 12px; background: var(--bg); border-left: 3px solid var(--navy-mid); font-size: 12px; }
+.cred { margin-top: 8px; padding: 8px 12px; background: var(--bg); border-left: 3px solid var(--teal-heritage); font-size: 12px; }
 .cred .ct { color: var(--grey-dark); font-size: 11px; margin-top: 2px; }
 .inflight { color: var(--red); font-weight: 600; font-size: 10.5px; letter-spacing: .3px; }
 
@@ -231,9 +233,9 @@ dl.kv dd { font-size: 12.5px; }
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   background: var(--navy); color: var(--white); padding: 9px 14px; cursor: pointer;
 }
-.inv-card .inv-head:hover { background: var(--navy-mid); }
+.inv-card .inv-head:hover { background: var(--navy-dark); }
 .inv-card .inv-head:focus-visible {
-  background: var(--navy-mid);
+  background: var(--navy-dark);
   outline: 2px solid var(--teal-signal); outline-offset: -2px;
 }
 .inv-card .inv-head .nm { font-weight: 600; font-size: 14px; }
@@ -244,9 +246,9 @@ dl.kv dd { font-size: 12.5px; }
 .inv-item:last-child { border-bottom: none; }
 .inv-item .row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .inv-item .init { font-weight: 600; color: var(--navy); font-size: 13px; }
-.inv-item .amt { color: var(--navy-mid); font-weight: 700; font-size: 12.5px; }
+.inv-item .amt { color: var(--navy); font-weight: 700; font-size: 12.5px; }
 .inv-item .angle { margin-top: 4px; font-size: 12px; }
-.inv-item .angle b { color: var(--navy-mid); }
+.inv-item .angle b { color: var(--navy); }
 .inv-item .ev { margin-top: 3px; font-size: 11.5px; color: var(--grey-dark); }
 .inv-item.ctx { background: var(--bg); }
 .inv-item.ctx .init { color: var(--grey-dark); font-weight: 500; }
@@ -256,7 +258,7 @@ dl.kv dd { font-size: 12.5px; }
   padding: 2px 7px; border-radius: 2px; text-transform: uppercase; white-space: nowrap;
 }
 .itype.tech-ai         { background: var(--cyan); color: var(--navy-dark); }
-.itype.capital-program { background: var(--navy-mid); color: var(--white); }
+.itype.capital-program { background: var(--navy); color: var(--white); }
 .itype.ma-integration  { background: var(--purple); color: var(--navy-dark); }
 .itype.restructuring   { background: var(--amber); color: var(--navy); }
 .itype.capital-returns { background: var(--green); color: var(--white); }
@@ -286,7 +288,7 @@ dl.kv dd { font-size: 12.5px; }
   border: none; border-radius: 2px; padding: 9px 18px;
 }
 .btn.primary { background: var(--navy); color: var(--white); }
-.btn.primary:hover { background: var(--navy-mid); }
+.btn.primary:hover { background: var(--navy-dark); }
 .btn.ghost { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
 
 .provisional {
@@ -303,7 +305,7 @@ dl.kv dd { font-size: 12.5px; }
 
 /* ---------- sources view ---------- */
 table.srcs { width: 100%; border-collapse: collapse; background: var(--white); font-size: 12px; }
-table.srcs th { background: var(--navy-mid); color: var(--white); text-align: left; padding: 8px 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .4px; }
+table.srcs th { background: var(--navy); color: var(--white); text-align: left; padding: 8px 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .4px; }
 table.srcs td { padding: 8px 10px; border-bottom: 1px solid var(--grey-light); vertical-align: top; }
 
 .guardrail { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px dotted var(--grey-light); font-size: 12.5px; }
@@ -323,11 +325,11 @@ footer.confid {
    where they were. Teal outline, offset so it reads against both the white
    table and the teal-light hover state. */
 :focus-visible {
-  outline: 2px solid var(--teal-signal, #03C0C1);
+  outline: 2px solid var(--teal-signal, #03CBFF);
   outline-offset: 2px;
 }
 table.accounts tr.acct-row:focus-visible {
-  outline: 2px solid var(--teal-signal, #03C0C1);
+  outline: 2px solid var(--teal-signal, #03CBFF);
   outline-offset: -2px;
 }
 table.accounts tr.acct-row:focus-visible td { background: var(--teal-light); }

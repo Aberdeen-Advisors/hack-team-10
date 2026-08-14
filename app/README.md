@@ -29,7 +29,7 @@ python -m http.server 8777
 |---|---|
 | `pursuit-intelligence.html` | The app as one self-contained file. This is the one to open. |
 | `index.html` | Source entry point — loads the CSS and the four scripts separately. |
-| `styles.css` | The CURRENT brand system from [`SKILL.md`](../agent-instructions/SKILL.md) §2.1 as CSS tokens. |
+| `styles.css` | The official theme extracted from [`About Aberdeen/Aberdeen Slide Template_July 2025.pptx`](../About%20Aberdeen/Aberdeen%20Slide%20Template_July%202025.pptx) (colour scheme "Aberdeen Colors", font scheme "Aberdeen Poppins", title/body sizes from the slide master) as CSS tokens. |
 | `data-aberdeen.js` | Offering taxonomy, credential inventory with §10 proof ratings, and the 13 account records. |
 | `data-signals.js` | 59 buying signals extracted from `client-data/`, each with evidence, a source reference and a provenance tag. |
 | `data-investments.js` | 38 forward investments — where each company is diverting capital in coming quarters — each mapped to the Aberdeen service area that can sell against it, or honestly marked context-only. |
