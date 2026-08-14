@@ -2,7 +2,7 @@
 # Level 3 under AI Use Policy Draft 0.4. Revenue, pipeline, contacts,
 # engagement detail. This repo is public.
 *.xlsx
-!About Aberdeen/AberdeenAdv_QUALS*.xlsx
+!About Aberdeen/AberdeenAdv_QUALS_MASTER_enhanced*.xlsx
 Aberdeen Advisors LLC/
 CRM*.xlsx
 *Sales_by_Customer*.xlsx
