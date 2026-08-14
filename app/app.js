@@ -336,13 +336,6 @@ function renderAccount(id) {
     ${a.dataQualityFlag ? `<div class="gap"><b>Data-quality finding:</b> ${esc(a.dataQualityFlag)}</div>` : ""}
     ${a.matchNote.flagged ? `<div class="gap"><b>Identity flag:</b> ${esc(a.matchNote.basis)}</div>` : ""}
 
-    <div class="scorebreak">
-      <div class="seg"><div class="n">${s.signalScore}<span class="muted">/40</span></div><div class="cap">Signal evidence</div></div>
-      <div class="seg"><div class="n">${s.relScore}<span class="muted">/30</span></div><div class="cap">Relationship position</div></div>
-      <div class="seg"><div class="n">${s.proofFit}<span class="muted">/30</span></div><div class="cap">Proof-strength fit</div></div>
-      <div class="seg total"><div class="n">${s.total}</div><div class="cap">Priority score</div></div>
-    </div>
-
     <div class="grid2">
       <div>
         ${(INVESTMENTS[id] || []).length ? `

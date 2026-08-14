@@ -170,15 +170,6 @@ table.accounts tr.acct-row:hover td { background: var(--teal-light); }
 .playline { margin-top: 8px; font-size: 13.5px; color: var(--navy); font-weight: 500; }
 .playline b { color: var(--teal-signal); }
 
-.scorebreak { display: flex; gap: 0; border: 1px solid var(--grey-light); border-radius: 3px; overflow: hidden; margin-bottom: 14px; }
-.scorebreak .seg { flex: 1; padding: 10px 14px; background: var(--white); border-right: 1px solid var(--grey-light); }
-.scorebreak .seg:last-child { border-right: none; }
-.scorebreak .seg .n { font-size: 20px; font-weight: 700; color: var(--navy); }
-.scorebreak .seg .cap { font-size: 10.5px; color: var(--grey-dark); text-transform: uppercase; letter-spacing: .4px; }
-.scorebreak .seg.total { background: var(--navy); }
-.scorebreak .seg.total .n { color: var(--teal-signal); }
-.scorebreak .seg.total .cap { color: var(--grey-light); }
-
 .signal { border: 1px solid var(--grey-light); border-left: 4px solid var(--teal-heritage); border-radius: 2px; padding: 12px 14px; margin-bottom: 10px; background: var(--white); }
 .signal .sig-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .signal .sig-title { font-weight: 600; color: var(--navy); font-size: 13.5px; }
