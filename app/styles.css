@@ -42,9 +42,12 @@ body {
   padding: 14px 28px 0;
 }
 .topbar-row { display: flex; align-items: center; gap: 16px; }
-.brandmark { display: flex; align-items: baseline; gap: 10px; }
-.brandmark .chev { color: var(--teal-signal); font-weight: 700; font-size: 20px; }
-.brandmark h1 { font-size: 17px; font-weight: 600; letter-spacing: .2px; }
+.brandmark { display: flex; align-items: center; gap: 12px; }
+.brandmark .logo { height: 26px; width: auto; display: block; }
+.brandmark h1 {
+  font-size: 16px; font-weight: 500; letter-spacing: .2px;
+  padding-left: 12px; border-left: 1px solid rgba(255,255,255,.35);
+}
 .brandmark .sub { font-size: 11px; color: var(--grey-light); font-weight: 400; }
 .level3 {
   margin-left: auto; font-size: 10px; font-weight: 600; letter-spacing: .6px;
