@@ -1,0 +1,32 @@
+# --- client data: never commit -------------------------------------------
+# Level 3 under AI Use Policy Draft 0.4. Revenue, pipeline, contacts,
+# engagement detail. This repo is public.
+*.xlsx
+!About Aberdeen/AberdeenAdv_QUALS*.xlsx
+Aberdeen Advisors LLC/
+CRM*.xlsx
+*Sales_by_Customer*.xlsx
+*Quals Tracker*.xlsx
+*Healthcare_Tech_Quals*.xlsx
+
+# --- secrets and PII -----------------------------------------------------
+*.local.md
+PII-MAPPING*
+.env
+.env.*
+config.local.json
+
+# --- python --------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- generated output ----------------------------------------------------
+output/*.pdf
+output/*_slide*.png
+toolkit/selftest_*
+toolkit/*_slide*.png
+~$*
+.DS_Store
+Thumbs.db
