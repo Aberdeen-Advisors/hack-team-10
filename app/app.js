@@ -345,20 +345,6 @@ function renderAccount(id) {
 
     <div class="grid2">
       <div>
-        ${doc ? `
-        <div class="card">
-          <h3>Financial snapshot &middot; ${esc(doc.period)}</h3>
-          <div class="finrow">
-            ${doc.keyFinancials.map(f => `
-              <div class="fin"><div class="fl">${esc(f.label)}</div>
-                <div class="fv">${esc(f.value)}</div>
-                <div class="fd ${sentimentCls(f.sentiment)}">${esc(f.delta || "")}</div></div>`).join("")}
-          </div>
-          ${doc.managementQuote ? `<div class="signal" style="border-left-color:var(--amber);margin-top:10px;margin-bottom:0">
-            <div class="quote" style="margin-top:0">&ldquo;${esc(doc.managementQuote)}&rdquo;</div></div>` : ""}
-          <p class="muted small" style="margin-top:8px">Source: ${esc(doc.docFile)} (${esc(doc.docType)})</p>
-        </div>` : ""}
-
         ${(INVESTMENTS[id] || []).length ? `
         <div class="card">
           <h3>Forward investments — where the money is going</h3>
