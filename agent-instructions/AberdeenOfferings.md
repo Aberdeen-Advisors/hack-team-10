@@ -270,7 +270,7 @@ Which offerings can be sold with proof today, and which cannot.
 | Office of the CIO / Digital Strategy | 3, all $1B+ including two $10B+ | **Strong** at enterprise scale |
 | Technology Strategy & Operations | 3 Growth Strategy + portfolio management content | **Moderate** |
 | Large Program Assurance (ERP) | 3 healthcare + 5 named partner quals (Walmart ×2, Sara Lee, Unilever, gases) | **Strong** cross-industry, incl. brand-name retail |
-| Technology Future-Proofing (AI & Data) | 3 Data & Analytics — Power BI cockpit, Azure Fabric/Informatica/Databricks MDM, supply chain dashboards | **Moderate** — real platform work, but **no AI-specific delivered credential** |
+| Technology Future-Proofing (AI & Data) | 3 Data & Analytics — Power BI cockpit, Azure Fabric/Informatica/Databricks MDM, supply chain dashboards — **plus one live AI engagement: Arkema KM Copilot & Energy Management (Clear Lake), Phase 1 kickoff Nov 2025, tech discovery Aug 2026** | **Moderate** — platform work is delivered; the AI engagement is **in flight, citable as in progress, not yet as an outcome** |
 | IT Financial Mgmt. & Optimization | Global sourcing business case; Orgill IT financial model and tech spend baseline | **Thin** — capability asserted, proof indirect |
 | Product & Application Services | Application rationalization ($50m+ savings) | **Thin** — one strong data point |
 | Deal Enablement & Growth | Overlaps M&A Enablement + Growth Strategy | **Moderate** |
@@ -278,10 +278,15 @@ Which offerings can be sold with proof today, and which cannot.
 
 ### Gaps worth closing
 
-1. **No delivered AI credential.** The CARES governance model and "Building Trusted AI at
-   Enterprise Scale" are frameworks, not engagements. Every Data & Analytics proof point is
-   BI/MDM/data-platform work. The CoE's first delivered agent engagement is the highest-value
-   credential the firm can add.
+1. **No *completed* AI credential — but one is in flight.** Corrected 081426: the Arkema
+   engagement (KM Copilot and Energy Management at Clear Lake) is genuine agentic and data
+   work, with a Phase 1 kickoff in November 2025 and tech discovery in August 2026. Cite it as
+   **in progress**, never as a delivered outcome, and never with a claimed result.
+   The CARES governance model and "Building Trusted AI at Enterprise Scale" remain frameworks
+   rather than engagements. Every other Data & Analytics proof point is BI, MDM or
+   data-platform work. **Closing Arkema out with a measured result is the single
+   highest-value credential the firm can add** — it converts the weakest row in this table
+   into a Strong one and unlocks the CoE's whole service line.
 2. **Financial Transparency and IT Financial Mgmt. are asserted, not proven.** Two of the six
    capabilities and one of the five service areas rest on indirect evidence.
 3. **Named-client attribution is inconsistent.** The healthcare tracker anonymises to client

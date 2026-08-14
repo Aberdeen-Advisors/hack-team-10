@@ -7,12 +7,19 @@ description: >
   history, synthesize competitor and signal research, then produce a branded Point of View.
   Triggers on: "assess this target", "should we pursue", "build a POV", "pursuit brief",
   "account research", "who do we know at", "what have we done for", "competitor landscape".
-version: 1.0
+version: 1.1
 last_verified: 081426
 governs: process
 companions:
   - "SKILL.md — form: brand, layout, geometry, voice"
   - "AberdeenOfferings.md — substance: offerings, service areas, credentials"
+  - "aberdeen_brand.py — the executable brand system; install requirements.txt"
+changelog: >
+  1.1 (081426) — added the Engagement libraries source to §0 and a mandatory check for it as
+  Step 2.2 (it held the strongest fact in the Arkema build and was previously unlisted);
+  generalised the Excel file-lock rule beyond the CRM; corrected guardrail 7 (an AI engagement
+  is in flight at Arkema, so "no delivered AI credential" was stale); added the toolkit to §0.
+  1.0 (081426) — initial.
 ---
 
 # Aberdeen Pursuit Intelligence — Agent Workflow
@@ -46,7 +53,9 @@ Base path: `C:\Users\FarazSyed\Aberdeen Advisors LLC\TENacious AI - Documents\TE
 | **⚠ Synthetic** | same file → `Fake Data` | 1,000 fabricated rows (JPMorgan, Walmart, Amazon…) | **NEVER treat as real.** Test fixture only. See §5. |
 | **Revenue** | `Aberdeen Content/Aberdeen_Sales_by_Customer_2026 1.xlsx` | 2026-thru-8/6 vs 2025 by account, with delta | Has a `QA Check` sheet; row 38 is `TOTAL` — exclude from per-account loops |
 | **Credentials** | `Aberdeen Content/Quals/` | Qual decks, healthcare tracker, ERP/partner quals, Epic Qual | See `AberdeenOfferings.md` §7–§8 |
-| **Signal corpus** | `Materials - .../*.pdf`, `*.html` | Q2 2026 earnings releases: Alphabet, Arkema, Centene, Constellation, Core Natural Resources, Cornerstone, Dauch, Krispy Kreme, LPL, Loma Linda, Novant, CPK, LSF | Primary-source signal evidence |
+| **Signal corpus** | `client-data/*.pdf`, `*.html` | Q2 2026 earnings releases: Alphabet, Arkema, Centene, Constellation, Core Natural Resources, Cornerstone, Dauch, Krispy Kreme, LPL, Loma Linda, Novant, CPK, LSF | Primary-source signal evidence |
+| **Engagement libraries** ⭐ | `C:\Users\FarazSyed\Aberdeen Advisors LLC\<Client> - <Library>\` | **What Aberdeen is actually doing at a client right now** — kickoff decks, meeting minutes, dashboards, delivery artifacts. Currently synced: Arkema (KM Copilot & Energy Management), Orgill (Tech Strategy & Roadmap, 408 files incl. `00. Examples from Past AA Engagements`), Patient Square Capital | **Local only, never committed.** Level 3/4. Highest-value source in the registry — see §3.2 |
+| **Toolkit** | `aberdeen_brand.py` | Brand tokens, qual and one-page-POV builders, `check_bounds()`, `render_png()`, `export_pdf()` | Install `requirements.txt` first |
 
 **Revenue baseline (verified 081426):** 2026 thru 8/6 = **$23,378,978** · 2025 same period =
 **$17,695,338** · delta **+$5,683,640 (+32%)** across 30 accounts.
@@ -127,15 +136,28 @@ bucket, crm_row_present, revenue_2026, revenue_2025, delta}`.
 1. **Revenue trajectory.** Pull 2026, 2025, delta and percent change. State the direction in
    words — a 32% firm-level increase with a specific account down 19% is the interesting fact,
    not the absolute number.
-2. **Engagement history.** Search `Quals/` for the account. Check `AberdeenOfferings.md` §7
+2. **Check for a synced engagement library first — before anything else in this step.**
+   Look for `C:\Users\FarazSyed\Aberdeen Advisors LLC\<Client>*`. If a folder exists, Aberdeen
+   is *currently delivering* for this account and that outranks every historical credential.
+   Read the kickoff deck, the most recent meeting minutes, and any dashboard or delivery
+   artifact; record the workstream name and the latest dated activity.
+
+   This is not optional and it is easy to miss. During the Arkema build this folder held the
+   single strongest fact available — a live KM Copilot and Energy Management engagement at
+   Clear Lake, with a Phase 1 kickoff and tech discovery four months later — while the CRM
+   showed only seven populated fields and the input brief concluded "no engagement detail
+   recorded." A POV that proposes from zero when Aberdeen is already inside reads as though
+   the firm does not know its own book.
+
+3. **Engagement history.** Search `Quals/` for the account. Check `AberdeenOfferings.md` §7
    (20 healthcare engagements), §8 (ERP and partner quals), §9 (client roster), and the
    past-engagement examples folder (Constellation, JCP, Nordstrom, Patterson, Sysco, Walmart).
    For each hit, record what was delivered and any quantified outcome.
-3. **Open pipeline.** Check `Sheet4` for named opportunities against this account, with value.
-4. **Relationship position.** From the CRM: `Relationship Owner`, `Relationship Strength`,
+4. **Open pipeline.** Check `Sheet4` for named opportunities against this account, with value.
+5. **Relationship position.** From the CRM: `Relationship Owner`, `Relationship Strength`,
    `Key Contacts`, `Decision Makers`, `Executive Sponsorship`, `Last Interaction`. Most fields
    are empty on most accounts — **report the gap as a finding**, do not fabricate a name.
-5. **Select credentials.** Pick the 2–3 strongest proof points for the target's sector and
+6. **Select credentials.** Pick the 2–3 strongest proof points for the target's sector and
    likely need, preferring quantified ones. Check the §10 offering→credential map: if the row
    says **Thin**, you may sell the capability but must not imply a track record.
 
@@ -237,7 +259,8 @@ Poppins, teal top rule, client logo bottom-left and Aberdeen logo bottom-right.
    model, no external API, no exceptions.
 3. **The revenue file has a `TOTAL` row and a validation note row.** Exclude both from
    per-account loops or your totals double-count.
-4. **`CRM draft 1.xlsx` is frequently locked** by Excel. Copy to a temp path and read the copy;
+4. **Any Office file may be locked** by a colleague who has it open — `openpyxl` raises
+   `PermissionError`. Copy to a temp path and read the copy;
    do not attempt to write to the original while it is open.
 5. **Empty is a finding, not a gap to fill.** Most CRM accounts have 9–10 of 43 fields
    populated. `Key Contacts`, `Decision Makers`, `Executive Sponsorship`, `Last Interaction`
@@ -245,7 +268,8 @@ Poppins, teal top rule, client logo bottom-left and Aberdeen logo bottom-right.
    the single worst failure mode available here.
 6. **Three industry taxonomies are live.** Use the CRM list for CRM output, the Premier Health
    list for client decks, and flag the conflict.
-7. **No delivered AI credential exists yet** (`AberdeenOfferings.md` §10). Do not imply one.
+7. **AI credentials are in flight, not delivered** (`AberdeenOfferings.md` §10). The Arkema
+   Clear Lake work (KM Copilot, Energy Management) is real and citable as *in progress*.
    CARES and "Building Trusted AI at Enterprise Scale" are frameworks, not engagements.
 8. **Human-in-the-loop before anything leaves the building.** No outreach sent, no deck
    delivered, no proposal issued without explicit approval.

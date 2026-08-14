@@ -8,9 +8,10 @@ description: >
   "quals", "credential", "case study", "POV", "pitch deck", "proposal", "one-pager",
   "Aberdeen deck", "client-ready", or any request to build a .pptx / .pdf / .docx for
   Aberdeen Advisors. Contains verified colour tokens, typography with fallbacks, exact
-  slide geometry for five document classes, a nine-pattern client-deck layout library,
-  working python-pptx recipes, and voice rules.
-version: 1.1
+  slide geometry for six document classes including the one-page sales POV, a nine-pattern
+  client-deck layout library, working python-pptx recipes, a mandatory visual-QA loop, and
+  voice rules.
+version: 1.2
 last_verified: 081426
 companion: >
   AberdeenOfferings.md — the offering taxonomy, service areas, healthcare service lines,
@@ -352,19 +353,118 @@ numeral, inactive outlined grey. Signals position within a multi-topic agenda.
 > and the credential inventory extracted from this deck plus both qual trackers. Use it as the
 > content source whenever you build with the patterns above; do not re-invent offering names.
 
+### 4.6 One-page POV — the single-slide sales document
+
+The highest-frequency sales artifact: one slide that puts a client's current situation beside
+Aberdeen's capability and proof, and ends with a next step. Canvas **10.00 × 5.62 in**,
+CURRENT system, Poppins. Built by `build_one_page_pov()` — do not hand-compose it.
+
+Composition, top to bottom:
+
+```
+ 0.00, 0.05  full-width teal rule, 0.025" tall, Heritage #44B0B1
+ 0.32, 0.15  TITLE — the claim, not a label. 19pt Bold Navy, ONE line
+ 0.32, 0.52  thesis line, 10.5pt Bold Heritage Teal
+ 0.32, 0.735 subline (audience + date), 8pt Grey
+ 8.72, 0.17  PROVISIONAL badge, Amber, 0.96 × 0.20
+ 0.32, 0.94  LEFT CARD  4.52 × 2.00 — "Where [client] stands"
+ 5.16, 0.94  RIGHT CARD 4.52 × 2.00 — "Where Aberdeen already is"
+             both: white fill, Light Grey border, navy header bar 0.26" tall
+ 0.32, 3.00  THREE TOPIC COLUMNS, each 3.00 × 1.52, pitch 3.18
+             Teal Light fill, 0.045" Heritage accent rail, numbered navy square
+ 0.32, 4.62  NEXT STEP bar 9.36 × 0.34, Navy with a 0.06" Amber cap
+ 0.32, 5.06  sources line, 5.5pt  ·  0.32, 5.22  confidentiality line
+ 8.62, 5.10  Aberdeen logo
+```
+
+**Left card — the client's position.** Six metrics maximum, each `label · value · note`, the
+note coloured by sentiment: Green `#00A676` improving, Red `#D85049` deteriorating, Body
+`#404040` neutral. Close with one verbatim management quote from the filing. Numbers only —
+no interpretation in this card.
+
+**Right card — Aberdeen's position.** Three or four facts (status, revenue trajectory, live
+engagement, work in flight), then **CAPABILITIES IN PLAY** using the Pattern B highlight
+mechanic from §4.5: relevant capabilities in Signal Cyan `#03CBFF` bold, the rest greyed but
+**still present**. Deleting them loses the breadth signal.
+
+**Topic columns — the argument.** Three, no more; a fourth will not fit and a two-column
+version reads thin. Each carries a headline, two lines of filing evidence with figures, the
+Aberdeen offering it triggers, a **proof-strength badge**, and the named credential.
+
+**The proof-strength badge is the honesty mechanic and the most defensible thing on the page.**
+Take the rating from `AberdeenOfferings.md` §10 and never upgrade it to flatter the slide:
+
+| Badge | Fill | Text | Means |
+|---|---|---|---|
+| `STRONG` | Green `#00A676` | White | Multiple delivered engagements, at least one quantified |
+| `MODERATE` | Heritage `#44B0B1` | White | Real but thin evidence, or adjacent rather than identical |
+| `THIN` | Amber `#F7CE01` | Navy | Capability offered, **no delivery history implied** — say so in the proof line |
+| `NONE` | Red `#D85049` | White | No evidence. Do not put this on a client-facing page; pick another topic |
+
+A `THIN` badge with an honest proof line beats a `STRONG` badge a buyer can puncture. Sophisticated
+mid-market buyers check.
+
 ---
 
 ## 5. Working recipes (python-pptx)
 
-A ready module ships alongside this file: **`aberdeen_brand.py`**. Import it rather than
-re-deriving geometry.
+The module lives at **`aberdeen_brand.py`**. Import it rather than re-deriving geometry.
+
+### 5.0 Environment — install before you build
+
+```
+py -m pip install -r requirements.txt
+```
+
+| Need | Package | Without it |
+|---|---|---|
+| Build `.pptx` | `python-pptx` | Nothing works |
+| Read the CRM / trackers | `openpyxl` | Cannot read revenue or account data |
+| Read `.docx` sources | `python-docx` | Cannot read Epic Qual or meeting minutes |
+| Read the earnings PDFs | `PyMuPDF` | Cannot read `client-data/` |
+| Logo placement | `Pillow` | Logo omitted |
+| **Render a slide to PNG, export PDF** | **`pywin32`** (Windows) | **No visual QA and no PDF — see §5.1** |
+| Fuzzy target matching | `rapidfuzz` | Step 1 of the workflow degrades to exact match |
+
+**Brand fonts are not pip-installable.** Poppins and Roboto are free under the SIL Open Font
+License; put the `.ttf` files in `fonts/` and `pick_font()` resolves them. Without them every
+deck silently renders in Calibri / Arial — see §3.1.
+
+### 5.1 Visual QA is mandatory, not advisory
+
+Two failure classes are **invisible in the `.pptx` object model** and will ship if you skip this:
+
+- **Text overflow** — a title that wraps into its subtitle, body copy running past a card
+  border, a label colliding with the text beneath it
+- **Font substitution** — the file says Poppins, the machine renders Calibri, spacing shifts
+
+Neither is detectable by reading the file you just wrote. The required loop:
+
+```python
+prs.save(path)
+check_bounds(prs)        # geometry gate — shapes outside the canvas
+render_png(path)         # export to PNG
+#                        → then actually LOOK at the image
+```
+
+`check_bounds()` catches geometry errors. **Only looking at a rendered image catches text
+errors.** The first build of the Arkema one-pager passed every programmatic check and still had
+four defects — a wrapped title over the subtitle, a card overflowing its border, a capability
+outside the card, and a colliding offering label. All four were obvious on sight and invisible
+otherwise. Budget two or three render passes for any new layout.
+
+If `pywin32` is unavailable, open the deck in PowerPoint and inspect it by hand. Do not skip it.
+
+### 5.2 Imports
 
 ```python
 from aberdeen_brand import (
     NAVY, NAVY_DARK, NAVY_MID, TEAL_HERITAGE, TEAL_SIGNAL, TEAL_LIGHT,
     AMBER, BLUE_CTA, WHITE, GREY_LIGHT, BODY, GREY_DARK, SLATE,
-    new_qual_deck, add_qual_page, new_current_deck, add_title_slide,
-    add_divider, add_footer, pick_font, swatch_page, export_pdf,
+    GREEN, RED, CYAN, STRENGTH_COLORS,
+    new_qual_deck, add_qual_page, build_one_page_pov, new_current_deck,
+    add_title_slide, add_divider, add_footer, pick_font,
+    check_bounds, render_png, export_pdf,
 )
 
 prs = new_qual_deck()                       # 10.00 x 5.62, QUALS system
@@ -391,16 +491,27 @@ Rules the module enforces so you do not have to remember them:
 - No shadows, no 3D, no gradients unless the layout already carries one
 - Text frames set to `word_wrap=True` with a 0.05" internal margin
 
-### PDF export
+### 5.3 PDF export
 
 Two paths. Prefer the first — it preserves the real layout.
 
-1. **PowerPoint COM** (Office 16 is installed): `export_pdf("deck.pptx")` drives
-   PowerPoint to save as PDF. Highest fidelity; Windows only; PowerPoint must be closed.
-2. **`reportlab`** for documents authored directly as PDF (written quals, one-pagers).
-   Use the same tokens and the 0.5" margin grid.
+1. **PowerPoint COM** — `export_pdf("deck.pptx")`. Highest fidelity; Windows only; requires
+   `pywin32`; PowerPoint must be closed.
+2. **`reportlab`** for documents authored directly as PDF (written quals, one-pagers). Use the
+   same tokens and the 0.5" margin grid.
 
-Always open and eyeball the PDF. Font substitution is invisible until you look.
+Always open and eyeball the PDF too. Font substitution is invisible until you look.
+
+### 5.4 Reading source data safely
+
+- **Excel files are frequently locked** by a colleague who has them open. `openpyxl` raises
+  `PermissionError`. Copy to a temp path and read the copy — never write to the original.
+- **Force UTF-8 on Windows consoles.** `cp1252` cannot encode `€`, `—`, or `≥`, all of which
+  appear in the brand vocabulary and the CRM size bands. The module does this on import.
+- **Record what you read and when.** Sources change under you: the CRM lost two sheets mid-session
+  during the Arkema build, and a pipeline figure read earlier no longer existed. Note the read
+  timestamp and sheet/row counts in the sources footer, and re-verify any figure not read in the
+  current session rather than citing it from memory.
 
 ---
 
@@ -467,5 +578,10 @@ background that reduces legibility.
 8. Qual pages carry all three sections in order, with a scale figure in Client Overview?
 9. No hype language, no unsourced percentages, no unapproved client names?
 10. Marked **PROVISIONAL** if not yet human-reviewed?
-11. Opened the rendered file and **looked at it** — no overflow, no font substitution, no
-    text colliding with the corner block?
+11. **`check_bounds()` run and clean** — no shape outside the canvas?
+12. **`render_png()` run, and the image actually looked at** — no wrapped title colliding with
+    a subtitle, no copy past a card border, no label overlapping the text beneath it, no font
+    substitution? *This is the step that catches what nothing else can. Do not sign off without
+    it.* (§5.1)
+13. Every figure traced to a source read **this session**, with the source line naming it?
+14. Proof-strength badges taken from `AberdeenOfferings.md` §10 and **not upgraded**?

@@ -1,0 +1,26 @@
+# Aberdeen pursuit-intelligence toolkit
+# Python 3.13+ (developed on 3.14.3). Install:  py -m pip install -r requirements.txt
+
+# --- build and read Office documents -------------------------------------
+python-pptx>=1.0.2       # build .pptx  (aberdeen_brand.py)
+openpyxl>=3.1.5          # read the CRM and qual/revenue trackers
+python-docx>=1.2.0       # read Epic Qual.docx and meeting minutes
+PyMuPDF>=1.27.1          # read the Q2 earnings PDFs in client-data/
+Pillow>=12.0.0           # image handling for logo placement
+
+# --- visual QA and PDF export (Windows only) -----------------------------
+# Required by render_png() and export_pdf(), which drive PowerPoint via COM.
+# Without this you cannot render a slide to an image, and the mandatory visual
+# check in SKILL.md section 5 has to be done by opening the deck by hand.
+pywin32>=306 ; sys_platform == "win32"
+
+# --- account matching ----------------------------------------------------
+rapidfuzz>=3.14.5        # fuzzy target-name matching, AGENT_WORKFLOW.md Step 1
+
+# --- optional ------------------------------------------------------------
+# reportlab>=4.5.0       # author PDFs directly (written quals, one-pagers)
+# requests>=2.32.0       # fetch public filings if extending the signal corpus
+
+# Brand fonts are NOT pip-installable. Poppins and Roboto are free under the SIL
+# Open Font License; drop the .ttf files in fonts/ and pick_font() resolves them.
+# Without them every deck silently renders in Calibri / Arial.
