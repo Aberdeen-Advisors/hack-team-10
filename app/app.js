@@ -104,11 +104,28 @@ function pickCredentials(offeringId, industry, limit = 2) {
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+/* Provenance tags — the workflow's rule that every claim names its source type. */
+const PROV_TIP = {
+  "filing": "Evidence from a regulatory filing (10-Q, interim financial statements, bond disclosure) — the strongest provenance tier.",
+  "press release": "Evidence from the company's own earnings press release — company-authored disclosure.",
+  "third-party digest": "A third-party news digest, not the company's own disclosure — weakest provenance; never used as a signal source.",
+  "instruction file": "Sourced from Aberdeen's internal instruction files in this repo (workflow, offerings, brand system).",
+  "inference": "An inference, not a sourced fact — labelled as such per the workflow's provenance rule.",
+};
 function provChip(p) {
   const cls = p === "filing" ? "filing" : p === "press release" ? "pressrelease"
             : p === "third-party digest" ? "digest" : p === "instruction file" ? "instruction" : "inference";
-  return `<span class="chip ${cls}">${esc(p)}</span>`;
+  return `<span class="chip ${cls}" data-tip="${esc(PROV_TIP[p] || "")}">${esc(p)}</span>`;
 }
+
+/* Priority tiers — what the pipeline score means for action. */
+const TIER_TIP = {
+  pursue: "Priority score 72+ of 100: strong signals, relationship position and proof alignment — act on it this quarter.",
+  develop: "Score 52–71: real potential — build the relationship and sharpen the angle before proposing.",
+  qualify: "Score 30–51: interesting but unconfirmed — qualify the identity or need before investing pursuit time.",
+  monitor: "Score below 30: keep watching the filings; do not spend partner time yet.",
+};
+const tierChip = s => `<span class="tier ${s.tierClass}" data-tip="${esc(TIER_TIP[s.tierClass] || "")}">${s.tierLabel}</span>`;
 /* Plain-language tooltips for the two badge systems. Proof wording follows
    AberdeenOfferings.md §10; status wording reflects the filing language. */
 const STRENGTH_TIP = {
@@ -163,6 +180,14 @@ const TYPE_LABEL = {
   "ma-integration": "M&A / integration", "restructuring": "Restructuring",
   "capital-returns": "Capital returns", "divestiture": "Divestiture",
 };
+const TYPE_TIP = {
+  "tech-ai": "Investment in technology, data or AI capability.",
+  "capital-program": "A capital or infrastructure program — major project spend.",
+  "ma-integration": "M&A activity: acquisition, integration or conversion spend.",
+  "restructuring": "Restructuring, reorganization or cost-program spend.",
+  "capital-returns": "Capital returned to shareholders (buybacks, debt retirement) — context, not sellable work.",
+  "divestiture": "A sale, carve-out or refranchising — separation work often follows.",
+};
 
 function invSortKey(acctId) {
   const items = INVESTMENTS[acctId] || [];
@@ -174,7 +199,7 @@ function renderInvestmentItems(items, compact = false) {
     const off = i.offering ? offeringById[i.offering] : null;
     return `<div class="inv-item ${off ? "" : "ctx"}">
       <div class="row1">
-        <span class="itype ${i.type}">${TYPE_LABEL[i.type]}</span>
+        <span class="itype ${i.type}" data-tip="${esc(TYPE_TIP[i.type] || "")}">${TYPE_LABEL[i.type]}</span>
         <span class="init">${esc(i.initiative)}</span>
         <span class="istatus ${i.status}" data-tip="${esc(STATUS_TIP[i.status] || "")}">${i.status}</span>
         <span class="hzn">${esc(i.horizon)}</span>
@@ -288,7 +313,7 @@ function renderDashboard() {
             <td><div class="scorebar-wrap">
               <div class="scorebar"><div style="width:${s.total}%;background:${s.total >= 72 ? "var(--green)" : s.total >= 52 ? "var(--teal-signal)" : s.total >= 30 ? "var(--amber)" : "var(--grey-dark)"}"></div></div>
               <span class="scoreval">${s.total}</span></div></td>
-            <td><span class="tier ${s.tierClass}">${s.tierLabel}</span></td>
+            <td>${tierChip(s)}</td>
           </tr>`;
         }).join("")}
       </tbody>
@@ -326,7 +351,7 @@ function renderAccount(id) {
       <h2>${esc(a.name)}</h2>
       <div class="meta">
         <span class="chip instruction">${esc(a.industry)}</span>
-        <span class="tier ${s.tierClass}">${s.tierLabel}</span>
+        ${tierChip(s)}
         <span class="muted">${esc(BUCKET_LABEL[a.bucket])}</span>
         ${a.matchNote.flagged ? `<span class="flag">MATCH ${a.matchNote.score} — HUMAN CONFIRMATION REQUIRED</span>` : ""}
       </div>
@@ -371,7 +396,7 @@ function renderAccount(id) {
             const creds = pickCredentials(off.id, a.industry);
             return `<div class="offer-rec"${live ? ` style="border-left:4px solid var(--teal-signal)"` : ""}>
               <div class="oh"><span class="oname">${esc(off.name)}</span> ${badge(off.strength)}
-                <span class="muted small">${n} signal${n > 1 ? "s" : ""}</span>
+                <span class="muted small" data-tip="How many of this account's evidenced buying signals map to this offering — more signals, stronger fit.">${n} signal${n > 1 ? "s" : ""}</span>
                 ${live ? `<span class="chip instruction">Aberdeen already delivering here</span>` : ""}</div>
               <div class="osub">${esc(off.subServices)}</div>
               <div class="small" style="margin-top:5px">${esc(off.proofNote)}</div>
