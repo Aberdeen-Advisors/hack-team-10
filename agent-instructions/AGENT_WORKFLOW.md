@@ -11,8 +11,8 @@ version: 1.0
 last_verified: 081426
 governs: process
 companions:
-  - "Aberdeen Content/Quals/SKILL.md — form: brand, layout, geometry, voice"
-  - "Aberdeen Content/Quals/AberdeenOfferings.md — substance: offerings, service areas, credentials"
+  - "SKILL.md — form: brand, layout, geometry, voice"
+  - "AberdeenOfferings.md — substance: offerings, service areas, credentials"
 ---
 
 # Aberdeen Pursuit Intelligence — Agent Workflow
@@ -28,8 +28,8 @@ external model.
 | File | Governs | Use it for |
 |---|---|---|
 | `AGENT_WORKFLOW.md` (this) | **Process** | What to do, in what order, with which sources |
-| `Quals/SKILL.md` | **Form** | Colours, fonts, slide geometry, layout patterns, voice |
-| `Quals/AberdeenOfferings.md` | **Substance** | Offering names, service areas, credentials to cite |
+| `SKILL.md` | **Form** | Colours, fonts, slide geometry, layout patterns, voice |
+| `AberdeenOfferings.md` | **Substance** | Offering names, service areas, credentials to cite |
 
 ---
 
@@ -185,7 +185,7 @@ gaps stated, not glossed.
 
 ## 5. Step 4 — Create the Point of View
 
-**Input:** everything above. **Form governed by `Quals/SKILL.md`. Substance by
+**Input:** everything above. **Form governed by `SKILL.md`. Substance by
 `AberdeenOfferings.md`.**
 
 Build on the **Premier Health pattern** (`SKILL.md` §4.5): 10.00 × 5.62 in, CURRENT system,

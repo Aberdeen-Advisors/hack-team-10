@@ -19,10 +19,12 @@ it should say.
   references resolve; and skill auto-discovery would need `.claude/skills/aberdeen-brand/`
   anyway, which a subfolder here would not provide. To install it as a live skill rather
   than as reference documentation, copy it to `.claude/skills/aberdeen-brand/SKILL.md`.
-- **`AGENT_WORKFLOW.md` refers to the other two with a `Quals/` prefix** (e.g.
+- **`AGENT_WORKFLOW.md` originally referred to the other two with a `Quals/` prefix** (e.g.
   `Quals/SKILL.md`, and `Aberdeen Content/Quals/…` in its frontmatter). Those describe the
-  authors' local OneDrive layout, not this folder — here all three files are siblings. The
-  text is committed as written rather than rewritten.
+  authors' local OneDrive layout, not this folder — here all three files are siblings.
+  Those sibling file references were adjusted to bare `SKILL.md` and `AberdeenOfferings.md`
+  so they resolve in this flat folder layout; `Quals/` as a *source directory* (the §0 data
+  source registry, the credential searches in §3) is left as written.
 - **Files these documents reference that are not in this repo:** `aberdeen_brand.py` (the
   python-pptx helper module `SKILL.md` §5 imports from), `AI Use Policy - Draft 0.4`, the
   source `.pptx` decks, the `.xlsx` CRM and qual trackers, and `aberdeen_logo.png`.
