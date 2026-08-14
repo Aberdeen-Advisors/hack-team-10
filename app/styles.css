@@ -223,6 +223,10 @@ dl.kv dd { font-size: 12.5px; }
   background: var(--navy); color: var(--white); padding: 9px 14px; cursor: pointer;
 }
 .inv-card .inv-head:hover { background: var(--navy-mid); }
+.inv-card .inv-head:focus-visible {
+  background: var(--navy-mid);
+  outline: 2px solid var(--teal-signal); outline-offset: -2px;
+}
 .inv-card .inv-head .nm { font-weight: 600; font-size: 14px; }
 .inv-card .inv-head .bk { font-size: 11px; color: var(--grey-light); }
 .inv-card .inv-head .cnt { margin-left: auto; font-size: 11px; color: var(--teal-signal); font-weight: 600; }

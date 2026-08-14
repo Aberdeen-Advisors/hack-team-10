@@ -192,7 +192,7 @@ function renderInvestments() {
   const card = a => {
     const items = INVESTMENTS[a.id] || [];
     return `<div class="inv-card">
-      <div class="inv-head" data-acct="${a.id}">
+      <div class="inv-head" data-acct="${a.id}" tabindex="0" role="button" aria-label="Open pursuit brief for ${a.name}">
         <span class="nm">${esc(a.name)}</span>
         <span class="bk">${esc(BUCKET_LABEL[a.bucket])} · ${esc(a.industry)}</span>
         ${a.matchNote.flagged ? `<span class="flag" style="color:var(--amber);border-color:var(--amber)">confirm match</span>` : ""}
@@ -230,8 +230,15 @@ function renderInvestments() {
       Badges are never upgraded. Click a company header for the full pursuit brief and outreach generator.</p>
   `;
 
-  main.querySelectorAll(".inv-head").forEach(h =>
-    h.addEventListener("click", () => setView("dashboard", h.dataset.acct)));
+  main.querySelectorAll(".inv-head").forEach(h => {
+    const open = () => setView("dashboard", h.dataset.acct);
+    h.addEventListener("click", open);
+    // Same rule as the pipeline rows: the header is the only route into the
+    // brief, so it must work without a mouse.
+    h.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+    });
+  });
 }
 
 /* ---------- dashboard ---------- */
