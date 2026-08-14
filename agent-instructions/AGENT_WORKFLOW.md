@@ -71,8 +71,11 @@ Education · Government & Public Sector · Nonprofit & Associations · Agricultu
 **Geography:** US — Nationwide · US — Northeast · US — Midwest · US — South · US — West ·
 India · Europe · Global · Other
 
-**Relationship Owner:** Kavir Naik · David Wise · Philip Read · Alakh Patel · Simon Huleatt ·
-Marco Oropeza · Other
+**Relationship Owner:** Partner1 · Partner2 · Partner3 · Partner4 · Partner5 · Partner6 · Other
+
+> **Pseudonymised.** The live `Drop Downs` sheet lists six real Aberdeen partners in this
+> field. They are replaced here with stable `PartnerN` tokens — see §8. When reading the CRM,
+> map the real value to its token before it enters any output.
 
 **Relationship Strength:** Strong · Developing · At Risk · New
 
@@ -261,3 +264,51 @@ Poppins, teal top rule, client logo bottom-left and Aberdeen logo bottom-right.
 8. Deck on the right canvas, correct system, fonts set explicitly, brand colours by role?
 9. Marked **PROVISIONAL — PENDING REVIEW**?
 10. Open questions listed rather than quietly resolved by assumption?
+11. All personal names and contact details pseudonymised per §8?
+
+---
+
+## 8. Personal data — pseudonymisation convention
+
+These instruction files are shared across the team and may be read by agents outside the
+Microsoft tenant boundary. **No real personal name, email address, or phone number belongs in
+them.** Company names are not personal data and are handled separately (see the note at the end
+of this section).
+
+### Tokens
+
+| Real value | Token in these files |
+|---|---|
+| Aberdeen partner / employee name | `Partner1` … `PartnerN` — stable, one token per person |
+| Aberdeen email | `Partner1@aberdeenadv.com` |
+| Any phone number | `555-555-5555` |
+| Client-side individual (contact, decision maker, sponsor) | `Contact1` … `ContactN` |
+| Client-side email | `Contact1@clientdomain.com` |
+
+The `PartnerN` numbering is **stable across all files** — `Partner2` is the same person in
+`AGENT_WORKFLOW.md` and `AberdeenOfferings.md`. The real-name mapping is deliberately **not**
+stored here. It lives outside the shared library, in
+`Documents\Aberdeen Data & AI COE\Hackathon 2026\aberdeen-brand\PII-MAPPING.local.md`.
+
+### Rules for the agent
+
+1. **When reading source data, tokenise on the way in.** The CRM `Drop Downs` sheet holds real
+   partner names in `Relationship Owner`; the `Active Accounts` sheet has `Key Contacts`,
+   `Decision Makers` and `Executive Sponsorship` columns. Map each real value to its token
+   *before* it reaches any output, log, or intermediate file.
+2. **Never invent a contact.** Those three columns are empty on nearly every account today. An
+   empty field is reported as empty — see §6.5. A fabricated decision-maker name is worse than
+   no name, and pseudonymisation is not licence to make one up.
+3. **A new person gets the next free token**, recorded in the local mapping file only.
+4. **Client-facing deliverables are the exception.** A POV or proposal delivered to a client
+   naturally carries real Aberdeen names in the team section. Use real names there, in the
+   generated `.pptx` — never back in these instruction files.
+5. **Do not pseudonymise inside the source spreadsheets.** They are the system of record. This
+   convention governs the `.md` instruction set and any derived output.
+
+> **Client company names are retained.** They are not personal data, and the credential
+> inventory's value is that the engagements are real and attributable. They remain **Level 3
+> confidential** under `AI Use Policy - Draft 0.4` — never send them to an external model, and
+> anonymise to *"Client is a [size] [sector] [type]…"* in outward-facing material unless
+> approval exists. If these files ever need to leave the tenant, company names must be
+> tokenised too; say so before doing it rather than deciding unilaterally.

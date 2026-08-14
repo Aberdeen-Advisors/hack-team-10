@@ -215,15 +215,19 @@ client type and revenue band carry the credibility.
 
 ## 8. Cross-industry credentials
 
-### ERP / supply chain — named partner quals
+### ERP / supply chain — partner quals
+
+> **Names pseudonymised.** `PartnerN` tokens are stable across the instruction set — `Partner2`
+> is the same individual here and in `AGENT_WORKFLOW.md`. Mapping is held outside this library;
+> see `AGENT_WORKFLOW.md` §8. Substitute real names only in a client-facing deliverable.
 
 | Person | Role | Client | Engagement |
 |---|---|---|---|
-| **Peter Elings** | Executive Advisor | Walmart | Led ERP transformation at the world's largest retailer from roadmap definition through implementation — ERP finance (GL, AR, AP, Product Costing) and supply chain (procurement, inventory mgt, batch mgt, warehousing, production planning) for food manufacturing in Central America and Mexico; US greenfield milk plant |
-| **David Wise** | Partner | Walmart | Led design, configuration and implementation of Accounts Payable within a global financial ERP transformation — requirements, configuration, inbound/outbound interface design, integration and volume performance testing, cutover data conversion, HyperCare for a multi-lingual shared services group of 100+ |
-| **Philip Read** | Partner | *(not recorded)* | Led design, implementation and global rollout of supply chain processes for industrial, medical and food-grade gases — continuous and discrete manufacturing, batch management & traceability with recall, procurement, barcode/RFID automation; GMP-validated, lean six sigma |
-| **Alakh Patel** | Partner | Sara Lee | Led technical teams for national ERP implementation at a Chicago food & beverage company — single platform integrating front and back office, supplier promotion portal, finance and supply chain, integration with in-house and vendor systems |
-| **Arun Dingwaney** | Managing Director | Unilever | SAP supply chain — standard deployment approach across European manufacturing units; global procurement processes delivering **~$2.5M/year** in direct and indirect spend impact; project profitability turnaround via standard templates |
+| **Partner7** | Executive Advisor | Walmart | Led ERP transformation at the world's largest retailer from roadmap definition through implementation — ERP finance (GL, AR, AP, Product Costing) and supply chain (procurement, inventory mgt, batch mgt, warehousing, production planning) for food manufacturing in Central America and Mexico; US greenfield milk plant |
+| **Partner2** | Partner | Walmart | Led design, configuration and implementation of Accounts Payable within a global financial ERP transformation — requirements, configuration, inbound/outbound interface design, integration and volume performance testing, cutover data conversion, HyperCare for a multi-lingual shared services group of 100+ |
+| **Partner3** | Partner | *(not recorded)* | Led design, implementation and global rollout of supply chain processes for industrial, medical and food-grade gases — continuous and discrete manufacturing, batch management & traceability with recall, procurement, barcode/RFID automation; GMP-validated, lean six sigma |
+| **Partner4** | Partner | Sara Lee | Led technical teams for national ERP implementation at a Chicago food & beverage company — single platform integrating front and back office, supplier promotion portal, finance and supply chain, integration with in-house and vendor systems |
+| **Partner8** | Managing Director | Unilever | SAP supply chain — standard deployment approach across European manufacturing units; global procurement processes delivering **~$2.5M/year** in direct and indirect spend impact; project profitability turnaround via standard templates |
 
 **Walmart ERP (SAP)** — modules: Finance · Sales & Distribution · Production Planning ·
 Material Management · Plant Maintenance · Procurement · Inventory Management.
@@ -285,7 +289,7 @@ Which offerings can be sold with proof today, and which cannot.
    external use — otherwise every deck re-litigates it.
 4. **Energy & Industrials is thin** despite being CoE priority sector #2. Arkema is the
    visible engagement.
-5. **`Philip Read`'s client is blank** in the tracker, and the ERP Quals sheet has only
+5. **`Partner3`'s client is blank** in the tracker, and the ERP Quals sheet has only
    Walmart populated of 15 columns. The `Advisory Quals` sheet is empty.
 
 ---
