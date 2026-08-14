@@ -109,7 +109,20 @@ function provChip(p) {
             : p === "third-party digest" ? "digest" : p === "instruction file" ? "instruction" : "inference";
   return `<span class="chip ${cls}">${esc(p)}</span>`;
 }
-const badge = s => `<span class="badge ${s}">${s}</span>`;
+/* Plain-language tooltips for the two badge systems. Proof wording follows
+   AberdeenOfferings.md §10; status wording reflects the filing language. */
+const STRENGTH_TIP = {
+  STRONG: "Aberdeen's proof for this offering: multiple delivered engagements, at least one with a quantified outcome (AberdeenOfferings.md §10). Ratings are never upgraded.",
+  MODERATE: "Aberdeen's proof for this offering: real but thin or adjacent evidence — frame credentials precisely. For AI & Data, the one live engagement (Arkema) is citable as in progress only.",
+  THIN: "Aberdeen's proof for this offering: capability offered, but no delivery track record — sell the capability, never imply one.",
+  NONE: "No evidence for this offering. Not for client-facing material — pick another topic.",
+};
+const STATUS_TIP = {
+  committed: "The company's own filing shows this money already flowing or contractually locked in.",
+  announced: "Publicly declared by the company, but not yet fully funded or approved.",
+  exploratory: "An ambition surfacing in the filing (often only in risk factors) — no quantified plan yet.",
+};
+const badge = s => `<span class="badge ${s}" data-tip="${esc(STRENGTH_TIP[s] || "")}">${s}</span>`;
 const sentimentCls = s => s === "up" ? "delta-up" : s === "down" ? "delta-down" : "delta-flat";
 
 /* Lowercase a headline for mid-sentence use, but leave acronyms alone
@@ -163,7 +176,7 @@ function renderInvestmentItems(items, compact = false) {
       <div class="row1">
         <span class="itype ${i.type}">${TYPE_LABEL[i.type]}</span>
         <span class="init">${esc(i.initiative)}</span>
-        <span class="istatus ${i.status}">${i.status}</span>
+        <span class="istatus ${i.status}" data-tip="${esc(STATUS_TIP[i.status] || "")}">${i.status}</span>
         <span class="hzn">${esc(i.horizon)}</span>
         <span class="sig-src">${esc(i.sourceRef)}</span>
       </div>
