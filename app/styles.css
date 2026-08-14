@@ -216,6 +216,15 @@ dl.kv dd { font-size: 12.5px; }
 .empty-field { color: var(--grey-dark); font-style: italic; }
 .empty-field::before { content: "— "; }
 
+/* researched decision-makers (public sources, not CRM) */
+.contact { border: 1px solid var(--grey-light); border-left: 3px solid var(--teal-heritage); border-radius: 2px; padding: 9px 12px; margin-top: 8px; background: var(--white); }
+.contact .row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.contact .cname { font-weight: 600; color: var(--navy); font-size: 13px; }
+.contact .ctitle { font-size: 12px; color: var(--grey-dark); }
+.contact .cbring { margin-top: 4px; font-size: 12px; }
+.contact .cbring::first-line { color: var(--body); }
+.contact .csrc { margin-top: 3px; font-size: 10.5px; color: var(--grey-dark); }
+
 .rolechips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .rolechip { background: var(--teal-light); color: var(--navy); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
 

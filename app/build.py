@@ -50,6 +50,7 @@ body = body.split("<body>", 1)[1].split("</body>", 1)[0]
 for tag in ('  <script src="data-aberdeen.js"></script>\n',
             '  <script src="data-signals.js"></script>\n',
             '  <script src="data-investments.js"></script>\n',
+            '  <script src="data-contacts.js"></script>\n',
             '  <script src="app.js"></script>\n'):
     body = body.replace(tag, "")
 
@@ -67,6 +68,7 @@ out = (
     "<script>\n" + read("data-aberdeen.js") + "\n</script>\n"
     "<script>\n" + read("data-signals.js") + "\n</script>\n"
     "<script>\n" + read("data-investments.js") + "\n</script>\n"
+    "<script>\n" + read("data-contacts.js") + "\n</script>\n"
     "<script>\n" + read("app.js") + "\n</script>\n"
 )
 

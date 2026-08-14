@@ -425,6 +425,25 @@ function renderAccount(id) {
           ${rel.note ? `<p class="muted small" style="margin-top:8px">${esc(rel.note)}</p>` : ""}
           <div class="gap" style="margin-top:10px"><b>Guardrail §6.5:</b> empty CRM fields are findings, not gaps to fill.
             Names are never invented. Owner and contact data require the CRM at the CoE base path.</div>
+
+          ${(CONTACTS[id] && CONTACTS[id].executives.length) ? `
+          <p class="small" style="margin-top:10px"><b style="color:var(--navy)">Who to approach — researched from public sources</b>
+            <span class="muted">(${esc(CONTACTS[id].researched)}; not CRM data — verify before outreach)</span></p>
+          ${CONTACTS[id].executives.map(x => `
+            <div class="contact">
+              <div class="row1">
+                <span class="cname">${esc(x.name)}</span>
+                <span class="ctitle">${esc(x.title)}</span>
+                ${x.usBased === false ? `<span class="chip digest" data-tip="Role sits outside the US — included because no US-based equivalent exists.">non-US</span>` : ""}
+                <span class="istatus ${x.confidence === "verified-current" ? "committed" : "announced"}"
+                      data-tip="${x.confidence === "verified-current"
+                        ? "Current role verified against a public source dated within the last few months."
+                        : "Public source is older — reconfirm the person is still in the seat before outreach."}">${x.confidence === "verified-current" ? "verified" : "reconfirm"}</span>
+              </div>
+              <div class="cbring">Bring up: ${esc(x.bringUp)}</div>
+              <div class="csrc">${esc(x.source)}</div>
+            </div>`).join("")}
+          ${CONTACTS[id].notes ? `<p class="muted small" style="margin-top:6px">${esc(CONTACTS[id].notes)}</p>` : ""}` : ""}
           ${recs.length ? `
           <p class="small" style="margin-top:4px"><b style="color:var(--navy)">Buyer roles to map for ${esc(recs[0].off.name)}</b>
             <span class="muted">(role guidance only — not actual people)</span></p>
