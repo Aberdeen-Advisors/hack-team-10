@@ -27,6 +27,8 @@ it should say.
   source registry, the credential searches in §3) is left as written.
 - **Files these documents reference that are not in this repo:** `aberdeen_brand.py` (the
   python-pptx helper module `SKILL.md` §5 imports from), `AI Use Policy - Draft 0.4`, the
-  source `.pptx` decks, the `.xlsx` CRM and qual trackers, and `aberdeen_logo.png`.
+  source `.pptx` decks, the `.xlsx` CRM and qual trackers, `aberdeen_logo.png`, and
+  `PII-MAPPING.local.md` (the real-name mapping behind the `PartnerN` tokens, held outside the
+  shared library by design — see `AGENT_WORKFLOW.md` §8).
 - The Q2 2026 earnings releases that `AGENT_WORKFLOW.md` §0 calls the "signal corpus" are in
   this repo under [`client-data/`](../client-data), not at the Windows path the registry lists.
