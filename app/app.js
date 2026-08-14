@@ -132,7 +132,8 @@ function setView(view, acctId) {
   currentView = view; currentAccount = acctId || null;
   document.querySelectorAll(".tab").forEach(t =>
     t.classList.toggle("active", t.dataset.view === view));
-  if (view === "dashboard" && !acctId) renderDashboard();
+  if (view === "invest") renderInvestments();
+  else if (view === "dashboard" && !acctId) renderDashboard();
   else if (view === "dashboard" && acctId) renderAccount(acctId);
   else if (view === "offerings") renderOfferings();
   else if (view === "sources") renderSources();
@@ -142,6 +143,96 @@ function setView(view, acctId) {
 document.getElementById("tabs").addEventListener("click", e => {
   const t = e.target.closest(".tab"); if (t) setView(t.dataset.view);
 });
+
+/* ---------- investment radar ---------- */
+const ABERDEEN_BOOK = new Set(["existing-live", "roster-active", "new-2026", "dormant"]);
+const TYPE_LABEL = {
+  "tech-ai": "Tech & AI", "capital-program": "Capital program",
+  "ma-integration": "M&A / integration", "restructuring": "Restructuring",
+  "capital-returns": "Capital returns", "divestiture": "Divestiture",
+};
+
+function invSortKey(acctId) {
+  const items = INVESTMENTS[acctId] || [];
+  return items.reduce((m, i) => Math.max(m, i.amountUSD || 0), 0);
+}
+
+function renderInvestmentItems(items) {
+  return items.map(i => {
+    const off = i.offering ? offeringById[i.offering] : null;
+    return `<div class="inv-item ${off ? "" : "ctx"}">
+      <div class="row1">
+        <span class="itype ${i.type}">${TYPE_LABEL[i.type]}</span>
+        <span class="init">${esc(i.initiative)}</span>
+        <span class="istatus ${i.status}">${i.status}</span>
+        <span class="hzn">${esc(i.horizon)}</span>
+        <span class="sig-src">${esc(i.sourceRef)}</span>
+      </div>
+      <div class="row1" style="margin-top:3px"><span class="amt">${esc(i.amount)}</span></div>
+      <div class="angle">${off
+        ? `&rarr; <b>${esc(off.name)}</b> ${badge(off.strength)} <span class="muted">${esc(i.angle)}</span>`
+        : `<span class="muted">${esc(i.angle)}</span>`}</div>
+      <div class="ev">${esc(i.evidence)}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderInvestments() {
+  const withItems = a => (INVESTMENTS[a.id] || []).length > 0 || a.dataQualityFlag;
+  const book = ABERDEEN.accounts.filter(a => ABERDEEN_BOOK.has(a.bucket))
+    .sort((x, y) => invSortKey(y.id) - invSortKey(x.id));
+  const expansion = ABERDEEN.accounts.filter(a => !ABERDEEN_BOOK.has(a.bucket))
+    .sort((x, y) => invSortKey(y.id) - invSortKey(x.id));
+
+  const allItems = Object.values(INVESTMENTS).flat();
+  const addressable = allItems.filter(i => i.offering);
+  const committed = allItems.filter(i => i.status === "committed").length;
+  const bookItems = book.reduce((n, a) => n + (INVESTMENTS[a.id] || []).length, 0);
+
+  const card = a => {
+    const items = INVESTMENTS[a.id] || [];
+    return `<div class="inv-card">
+      <div class="inv-head" data-acct="${a.id}">
+        <span class="nm">${esc(a.name)}</span>
+        <span class="bk">${esc(BUCKET_LABEL[a.bucket])} · ${esc(a.industry)}</span>
+        ${a.matchNote.flagged ? `<span class="flag" style="color:var(--amber);border-color:var(--amber)">confirm match</span>` : ""}
+        <span class="cnt">${items.length ? `${items.length} initiative${items.length > 1 ? "s" : ""} · open brief →` : "open brief →"}</span>
+      </div>
+      ${items.length ? renderInvestmentItems(items)
+        : `<div class="inv-item ctx"><div class="ev">${a.dataQualityFlag
+            ? esc(a.dataQualityFlag)
+            : "No forward-investment disclosure in the corpus for this account."} </div></div>`}
+    </div>`;
+  };
+
+  main.innerHTML = `
+    <h2 class="viewtitle">Investment radar</h2>
+    <p class="viewsub">Where each company is diverting capital in the coming quarters, from their own quarterly releases —
+      each initiative mapped to the Aberdeen service area that can sell against it (About Aberdeen, p.2).
+      Pure financial moves are kept as context, never force-fit to an offering. Amounts stay in their filing currency; no cross-currency totals.</p>
+
+    <div class="statrow">
+      <div class="stat"><div class="v">${allItems.length}</div><div class="l">Forward initiatives tracked</div></div>
+      <div class="stat"><div class="v">${addressable.length}</div><div class="l">Addressable by an Aberdeen offering</div></div>
+      <div class="stat"><div class="v">${committed}</div><div class="l">Committed (vs announced / exploratory)</div></div>
+      <div class="stat"><div class="v">${bookItems}</div><div class="l">In Aberdeen's existing book</div></div>
+    </div>
+
+    <div class="phasehead"><h3>Phase 1 — Aberdeen's book</h3>
+      <span class="muted">existing, new-2026 and former clients: the rollout starts here</span></div>
+    ${book.map(card).join("")}
+
+    <div class="phasehead"><h3>Phase 2 — expansion universe</h3>
+      <span class="muted">no confirmed relationship yet: qualify the match before pursuing</span></div>
+    ${expansion.map(card).join("")}
+
+    <p class="muted small" style="margin-top:10px">Offering names and proof badges from AberdeenOfferings.md §2/§10 (compiled from the About Aberdeen overview).
+      Badges are never upgraded. Click a company header for the full pursuit brief and outreach generator.</p>
+  `;
+
+  main.querySelectorAll(".inv-head").forEach(h =>
+    h.addEventListener("click", () => setView("dashboard", h.dataset.acct)));
+}
 
 /* ---------- dashboard ---------- */
 function renderDashboard() {
@@ -253,6 +344,12 @@ function renderAccount(id) {
           ${doc.managementQuote ? `<div class="signal" style="border-left-color:var(--amber);margin-top:10px;margin-bottom:0">
             <div class="quote" style="margin-top:0">&ldquo;${esc(doc.managementQuote)}&rdquo;</div></div>` : ""}
           <p class="muted small" style="margin-top:8px">Source: ${esc(doc.docFile)} (${esc(doc.docType)})</p>
+        </div>` : ""}
+
+        ${(INVESTMENTS[id] || []).length ? `
+        <div class="card">
+          <h3>Forward investments — where the money is going</h3>
+          ${renderInvestmentItems(INVESTMENTS[id])}
         </div>` : ""}
 
         <div class="card">
@@ -554,4 +651,4 @@ function renderSources() {
 }
 
 /* ---------- boot ---------- */
-renderDashboard();
+renderInvestments();

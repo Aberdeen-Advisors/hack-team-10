@@ -206,6 +206,60 @@ dl.kv dd { font-size: 12.5px; }
 .rolechips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .rolechip { background: var(--teal-light); color: var(--navy); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
 
+/* ---------- investment radar ---------- */
+.phasehead {
+  display: flex; align-items: baseline; gap: 10px; margin: 22px 0 10px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--teal-heritage);
+}
+.phasehead h3 { color: var(--navy); font-size: 15px; font-weight: 600; }
+.phasehead .muted { font-size: 12px; }
+
+.inv-card {
+  background: var(--white); border: 1px solid var(--grey-light); border-radius: 3px;
+  margin-bottom: 12px; overflow: hidden;
+}
+.inv-card .inv-head {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--navy); color: var(--white); padding: 9px 14px; cursor: pointer;
+}
+.inv-card .inv-head:hover { background: var(--navy-mid); }
+.inv-card .inv-head .nm { font-weight: 600; font-size: 14px; }
+.inv-card .inv-head .bk { font-size: 11px; color: var(--grey-light); }
+.inv-card .inv-head .cnt { margin-left: auto; font-size: 11px; color: var(--teal-signal); font-weight: 600; }
+
+.inv-item { padding: 11px 14px; border-bottom: 1px dotted var(--grey-light); }
+.inv-item:last-child { border-bottom: none; }
+.inv-item .row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.inv-item .init { font-weight: 600; color: var(--navy); font-size: 13px; }
+.inv-item .amt { color: var(--navy-mid); font-weight: 700; font-size: 12.5px; }
+.inv-item .angle { margin-top: 4px; font-size: 12px; }
+.inv-item .angle b { color: var(--navy-mid); }
+.inv-item .ev { margin-top: 3px; font-size: 11.5px; color: var(--grey-dark); }
+.inv-item.ctx { background: var(--bg); }
+.inv-item.ctx .init { color: var(--grey-dark); font-weight: 500; }
+
+.itype {
+  display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .4px;
+  padding: 2px 7px; border-radius: 2px; text-transform: uppercase; white-space: nowrap;
+}
+.itype.tech-ai         { background: var(--cyan); color: var(--navy-dark); }
+.itype.capital-program { background: var(--navy-mid); color: var(--white); }
+.itype.ma-integration  { background: var(--purple); color: var(--navy-dark); }
+.itype.restructuring   { background: var(--amber); color: var(--navy); }
+.itype.capital-returns { background: var(--green); color: var(--white); }
+.itype.divestiture     { background: var(--grey-light); color: var(--body); }
+
+.istatus {
+  display: inline-block; font-size: 9.5px; font-weight: 600; letter-spacing: .3px;
+  padding: 1px 7px; border-radius: 2px; text-transform: uppercase;
+}
+.istatus.committed   { border: 1px solid var(--green); color: var(--green); }
+.istatus.announced   { border: 1px solid var(--amber); color: #9a8000; }
+.istatus.exploratory { border: 1px dashed var(--grey-dark); color: var(--grey-dark); }
+
+.hzn { font-size: 10.5px; color: var(--grey-dark); white-space: nowrap; }
+.hzn::before { content: "◷ "; color: var(--teal-heritage); }
+
 /* ---------- outreach ---------- */
 .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; align-items: flex-end; }
 .control label { display: block; font-size: 10.5px; color: var(--grey-dark); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }

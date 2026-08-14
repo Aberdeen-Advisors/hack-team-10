@@ -210,6 +210,60 @@ dl.kv dd { font-size: 12.5px; }
 .rolechips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .rolechip { background: var(--teal-light); color: var(--navy); font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
 
+/* ---------- investment radar ---------- */
+.phasehead {
+  display: flex; align-items: baseline; gap: 10px; margin: 22px 0 10px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--teal-heritage);
+}
+.phasehead h3 { color: var(--navy); font-size: 15px; font-weight: 600; }
+.phasehead .muted { font-size: 12px; }
+
+.inv-card {
+  background: var(--white); border: 1px solid var(--grey-light); border-radius: 3px;
+  margin-bottom: 12px; overflow: hidden;
+}
+.inv-card .inv-head {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--navy); color: var(--white); padding: 9px 14px; cursor: pointer;
+}
+.inv-card .inv-head:hover { background: var(--navy-mid); }
+.inv-card .inv-head .nm { font-weight: 600; font-size: 14px; }
+.inv-card .inv-head .bk { font-size: 11px; color: var(--grey-light); }
+.inv-card .inv-head .cnt { margin-left: auto; font-size: 11px; color: var(--teal-signal); font-weight: 600; }
+
+.inv-item { padding: 11px 14px; border-bottom: 1px dotted var(--grey-light); }
+.inv-item:last-child { border-bottom: none; }
+.inv-item .row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.inv-item .init { font-weight: 600; color: var(--navy); font-size: 13px; }
+.inv-item .amt { color: var(--navy-mid); font-weight: 700; font-size: 12.5px; }
+.inv-item .angle { margin-top: 4px; font-size: 12px; }
+.inv-item .angle b { color: var(--navy-mid); }
+.inv-item .ev { margin-top: 3px; font-size: 11.5px; color: var(--grey-dark); }
+.inv-item.ctx { background: var(--bg); }
+.inv-item.ctx .init { color: var(--grey-dark); font-weight: 500; }
+
+.itype {
+  display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .4px;
+  padding: 2px 7px; border-radius: 2px; text-transform: uppercase; white-space: nowrap;
+}
+.itype.tech-ai         { background: var(--cyan); color: var(--navy-dark); }
+.itype.capital-program { background: var(--navy-mid); color: var(--white); }
+.itype.ma-integration  { background: var(--purple); color: var(--navy-dark); }
+.itype.restructuring   { background: var(--amber); color: var(--navy); }
+.itype.capital-returns { background: var(--green); color: var(--white); }
+.itype.divestiture     { background: var(--grey-light); color: var(--body); }
+
+.istatus {
+  display: inline-block; font-size: 9.5px; font-weight: 600; letter-spacing: .3px;
+  padding: 1px 7px; border-radius: 2px; text-transform: uppercase;
+}
+.istatus.committed   { border: 1px solid var(--green); color: var(--green); }
+.istatus.announced   { border: 1px solid var(--amber); color: #9a8000; }
+.istatus.exploratory { border: 1px dashed var(--grey-dark); color: var(--grey-dark); }
+
+.hzn { font-size: 10.5px; color: var(--grey-dark); white-space: nowrap; }
+.hzn::before { content: "◷ "; color: var(--teal-heritage); }
+
 /* ---------- outreach ---------- */
 .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; align-items: flex-end; }
 .control label { display: block; font-size: 10.5px; color: var(--grey-dark); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 3px; }
@@ -290,7 +344,8 @@ table.accounts, table.srcs { min-width: 720px; }
       <span class="level3">LEVEL 3 &middot; LOCAL ONLY &middot; NO EXTERNAL CALLS</span>
     </div>
     <nav class="tabs" id="tabs">
-      <button class="tab active" data-view="dashboard">Pipeline</button>
+      <button class="tab active" data-view="invest">Investment Radar</button>
+      <button class="tab" data-view="dashboard">Pipeline</button>
       <button class="tab" data-view="offerings">Offerings &amp; Proof</button>
       <button class="tab" data-view="sources">Sources &amp; Guardrails</button>
     </nav>
@@ -456,11 +511,11 @@ const ABERDEEN = {
     {
       id: "constellation", name: "Constellation Energy", industry: "Energy & Utilities",
       bucket: "new-2026", play: "Land-and-expand — deepen a first-year relationship",
-      matchNote: { score: 88, basis: "\"Constellation\" is listed as a new-2026 account (AGENT_WORKFLOW.md §2) and in past-engagement examples. The filing is Constellation Energy Corp. — probable but unconfirmed match. Flagged per §2.4.", flagged: true },
+      matchNote: { score: 100, basis: "CONFIRMED against the CRM account list (081426): the account is \"Constellation Energy Generation LLC\", the merchant-generation subsidiary that files these results. Earlier 88-score flag is resolved." },
       relationship: {
-        status: "New client in 2026 (if match holds)",
+        status: "New client in 2026 — identity confirmed",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
-        note: "Match must be confirmed against the CRM before outreach. Do not proceed on a wrong match (§2.4).",
+        note: "Identity confirmed; owner, strength and contacts still require the CRM's populated fields.",
       },
       rosterEvidence: "\"Constellation\" evidenced in engagement folders / past-engagement examples (§9).",
     },
@@ -489,7 +544,7 @@ const ABERDEEN = {
     {
       id: "alphabet", name: "Alphabet (Google)", industry: "Technology & Software",
       bucket: "roster-active", play: "Targeted expansion — scope a beachhead, not the enterprise",
-      matchNote: { score: 90, basis: "\"Google\" is on the client roster (§9). Scale mismatch with Aberdeen's mid-market motion — treat as a niche/team-level relationship until CRM confirms scope.", flagged: true },
+      matchNote: { score: 100, basis: "CONFIRMED against the CRM account list (081426): \"Google\" is a named account. Identity is settled; the open question is SCOPE — nothing says which Google organisation or what was delivered, and the scale sits well outside Aberdeen's mid-market motion.", flagged: true },
       relationship: {
         status: "Roster client — scope of relationship unknown from this repo",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
@@ -499,19 +554,19 @@ const ABERDEEN = {
     },
     {
       id: "core", name: "Core Natural Resources", industry: "Energy & Utilities",
-      bucket: "flagged-match", play: "Qualify the match first",
-      matchNote: { score: 72, basis: "Roster lists \"Core\" (§9) — could be Core Natural Resources or a different company. Score in the 60–85 band → per §2.4 the workflow requires asking which account is meant before proceeding.", flagged: true },
+      bucket: "cold", play: "Cold — no Aberdeen relationship (earlier roster match was wrong)",
+      matchNote: { score: 0, basis: "RESOLVED AGAINST THE CRM ACCOUNT LIST (081426): the Aberdeen account abbreviated \"Core\" on the roster slide is CORE COVERS, a spa/hot-tub cover manufacturer — not Core Natural Resources, the Appalachian coal producer whose filing is in client-data/. Two unrelated companies. The §2.4 flag was correct to hold; the answer is no relationship.", flagged: true },
       relationship: {
-        status: "Unconfirmed — possible roster match",
+        status: "No Aberdeen relationship — distinct from the CRM account 'Core Covers'",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
-        note: "Do not build outreach on an unconfirmed identity.",
+        note: "Keep these records separate. Core Covers is the client; Core Natural Resources is a cold prospect that happens to share a first word.",
       },
-      rosterEvidence: "\"Core\" appears on the roster (§9) with no further detail.",
+      rosterEvidence: "None. The roster's \"Core\" is Core Covers.",
     },
     {
       id: "cornerstone", name: "Cornerstone Building Brands", industry: "Manufacturing & Industrial",
       bucket: "prospect", play: "Qualify — near-name collision with a different dormant account",
-      matchNote: { score: 55, basis: "The dormant account in AGENT_WORKFLOW.md §2 is \"Cornerstone Care\" — a DIFFERENT company. Below the 60 threshold → treated as new prospect, collision flagged so no one merges the records.", flagged: true },
+      matchNote: { score: 55, basis: "CONFIRMED against the CRM account list (081426): the Aberdeen account is \"Cornerstone Care\", a community health provider — a DIFFERENT company from Cornerstone Building Brands, the CD&R-owned building-products manufacturer whose 10-Q is in client-data/. Below the 60 threshold → treated as a new prospect, collision flagged so no one merges the records.", flagged: true },
       relationship: {
         status: "No documented Aberdeen relationship",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
@@ -522,10 +577,11 @@ const ABERDEEN = {
     {
       id: "cpk", name: "Chesapeake Utilities Corporation", industry: "Energy & Utilities",
       bucket: "prospect", play: "Qualify — fits CoE priority sector #2 (Energy & Industrials)",
-      matchNote: { score: 0, basis: "No match in roster or instruction files. Cold prospect; Energy & Industrials is a CoE priority sector where credentials are thin — Arkema is the visible engagement." },
+      matchNote: { score: 0, basis: "No match. CONFIRMED against the CRM account list (081426) — and note the near-miss: the CRM holds \"Chesapeake Spice\", a seasoning blender, which is a DIFFERENT company. Cold prospect; Energy & Industrials is a CoE priority sector where credentials are thin — Arkema is the visible engagement.", flagged: true },
       relationship: {
         status: "No documented Aberdeen relationship",
-        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Do not merge with the CRM account 'Chesapeake Spice' — unrelated company, shared first word only.",
       },
       rosterEvidence: "None.",
     },
@@ -542,10 +598,11 @@ const ABERDEEN = {
     {
       id: "lsf", name: "Livestock Feeds Plc", industry: "Agriculture & Food",
       bucket: "cold", play: "Deprioritize — outside geographic focus",
-      matchNote: { score: 0, basis: "No match. Nigerian-listed company (figures in ₦'000); Aberdeen's geography vocabulary covers US regions, India, Europe, Global — no African footprint documented." },
+      matchNote: { score: 0, basis: "No match. CONFIRMED against the CRM account list (081426) — and note the near-miss: the CRM holds \"Livestock Nutrition Center\", a US animal-feed business, which is a DIFFERENT company. This one is Nigerian-listed (figures in ₦'000); Aberdeen's geography vocabulary covers US regions, India, Europe and Global, with no African footprint documented.", flagged: true },
       relationship: {
         status: "No documented Aberdeen relationship",
-        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Do not merge with the CRM account 'Livestock Nutrition Center' — unrelated company on a different continent.",
       },
       rosterEvidence: "None.",
     },
@@ -588,13 +645,14 @@ const ABERDEEN = {
 
   dataCoverage: {
     available: [
+      "CRM account NAME list — 30 accounts, supplied 081426. Resolved four identity questions and exposed three near-miss name collisions (Core, Chesapeake, Livestock)",
       "Signal corpus: 13 public documents in client-data/ (12 usable, 1 flagged)",
       "Offering taxonomy, credential inventory and proof-strength map (AberdeenOfferings.md)",
       "Account classification facts and revenue baseline (AGENT_WORKFLOW.md)",
       "Brand system for generated collateral (SKILL.md)",
     ],
     missing: [
-      "CRM 'Active Accounts' (43 fields × 30 accounts) — lives at the CoE base path, not in this repo",
+      "CRM 'Active Accounts' FIELD data (43 fields × 30 accounts) — the account names are now known, but Status, Industry, Size, Owner, Strength and the rest still live at the CoE base path",
       "Revenue file (2026 vs 2025 by account) — only the firm-level baseline is documented",
       "Pipeline sheet (named opportunities with values)",
       "Engagement libraries (kickoff decks, minutes) — local-only by policy, never committed",
@@ -1235,6 +1293,333 @@ const SIGNALS = [
 </script>
 <script>
 /* ============================================================
+   Aberdeen Pursuit Intelligence — forward investment tracker
+   Where each company is committing capital in the coming quarters,
+   extracted from the same quarterly releases in client-data/.
+
+   Alignment: every item carries `offering` — the Aberdeen service
+   area (About Aberdeen p.2 / AberdeenOfferings.md §2) that can sell
+   against it — plus `angle`, the one-line Aberdeen play. Items that
+   are pure financial engineering (buybacks, debt retirement) carry
+   offering: null and are shown as context, never force-fit.
+
+   amountUSD is a rough USD-millions figure used ONLY for sorting;
+   totals are never shown across currencies.
+   type: tech-ai | capital-program | ma-integration | restructuring |
+         capital-returns | divestiture
+   status: committed | announced | exploratory
+   ============================================================ */
+
+const INVESTMENTS = {
+
+  alphabet: [
+    { initiative: "AI infrastructure & global compute capex",
+      amount: "$44.9B in Q2 alone (+100% YoY); $80.6B YTD", amountUSD: 80600,
+      horizon: "FY2026, continuing", type: "tech-ai", status: "committed",
+      offering: "itfm",
+      angle: "Capex at this scale needs cost governance and investment ROI tracking — Aberdeen's Cost Transparency / FP&A line.",
+      evidence: "Purchases of property and equipment doubled YoY; capex pace turned Q2 free cash flow negative ($-5.9B).",
+      sourceRef: "pp. 7, 9 (cash flow; FCF reconciliation)" },
+    { initiative: "$70B capital raise earmarked for AI build-out",
+      amount: "$49.6B equity + $20.3B notes + $40B ATM standing by", amountUSD: 70000,
+      horizon: "2026 onward", type: "capital-program", status: "committed",
+      offering: "lpa",
+      angle: "Funding secured ahead of a multi-year build-out — the delivery-assurance conversation starts before the spend does.",
+      evidence: "Stated use: 'capital expenditures to scale AI infrastructure and global compute'.",
+      sourceRef: "p. 2 (Equity Capital Raise; Senior Notes)" },
+    { initiative: "Acquisition spree",
+      amount: "$33.7B YTD (vs $353M in H1 2025)", amountUSD: 33700,
+      horizon: "Integration through 2026–27", type: "ma-integration", status: "committed",
+      offering: "ma",
+      angle: "Post-merger technology integration follows deals of this size for several quarters — IT due diligence and integration planning.",
+      evidence: "Goodwill up $33.4B → $57.8B since December.",
+      sourceRef: "pp. 5, 7 (balance sheet; investing)" },
+    { initiative: "Shared AI research & development",
+      amount: "$18.2B/quarter R&D (+32% YoY); central AI R&D +72%", amountUSD: 18200,
+      horizon: "Ongoing run-rate", type: "tech-ai", status: "committed",
+      offering: "tso",
+      angle: "Rapidly scaling central R&D cost pools need portfolio prioritization and value tracking.",
+      evidence: "Unallocated Alphabet-level AI research grew to $5.8B in the quarter.",
+      sourceRef: "pp. 2, 6, 8" },
+  ],
+
+  arkema: [
+    { initiative: "Major-projects ramp: Dow adhesives, PA11 Singapore, PVDF Calvert City, acrylics France, HF Nutrien",
+      amount: "~€50M incremental EBITDA committed for 2026", amountUSD: 55,
+      horizon: "H2 2026 ramp", type: "capital-program", status: "committed",
+      offering: "lpa",
+      angle: "Five simultaneous global ramp-ups with a public EBITDA commitment — program assurance and benefits tracking, extending the live Clear Lake relationship.",
+      evidence: "~€25M delivered in H1; the CEO names the ramp-up of these projects as the H2 priority alongside cost discipline.",
+      sourceRef: "pp. 2, 5 (business performance; Outlook)" },
+    { initiative: "2026 capital expenditure envelope",
+      amount: "Capped at €600M (Q2 ran €117M, down from €152M)", amountUSD: 650,
+      horizon: "FY2026", type: "capital-program", status: "committed",
+      offering: "itfm",
+      angle: "A hard capex ceiling with 2.9x leverage — cost transparency decides what fits under it.",
+      evidence: "Every internal spend line competes for room under the cap.",
+      sourceRef: "pp. 3, 5, 16" },
+    { initiative: "Site reorganizations (Jarrie, Pierre-Bénite) and streamlining",
+      amount: "€46M exceptional charges in Q2", amountUSD: 50,
+      horizon: "In execution", type: "restructuring", status: "committed",
+      offering: "itfm",
+      angle: "The streamlining target extends to technology cost baselines — IT financial management supports the savings agenda.",
+      evidence: "Target of fully offsetting fixed-cost inflation over the year.",
+      sourceRef: "pp. 1–3" },
+  ],
+
+  centene: [
+    { initiative: "Enterprise optimization — third-party vendor spend",
+      amount: "$85–115M in FY2026", amountUSD: 100,
+      horizon: "FY2026", type: "tech-ai", status: "committed",
+      offering: "itfm",
+      angle: "A named program already buying ~$100M of external help — the clearest 'budget exists for firms like Aberdeen' line in the corpus. Win-back entry point.",
+      evidence: "Q2 included $37M of enterprise optimization costs.",
+      sourceRef: "pp. 4–5 (guidance footnotes)" },
+    { initiative: "Workforce restructuring incl. voluntary separation program",
+      amount: "$355–405M severance in FY2026", amountUSD: 380,
+      horizon: "FY2026", type: "restructuring", status: "committed",
+      offering: "tso",
+      angle: "Restructuring at this scale reshapes the operating model — org design and value tracking follow the separations.",
+      evidence: "Severance tied to enterprise optimization and contract exits; workforce already down to 59,800.",
+      sourceRef: "pp. 4–5" },
+    { initiative: "Debt repurchases",
+      amount: "$260M of 2027/2028 notes retired in Q2", amountUSD: 260,
+      horizon: "Continuing", type: "capital-returns", status: "committed",
+      offering: null,
+      angle: "Context only — deleveraging competes with transformation spend for every dollar; not directly addressable.",
+      evidence: "Debt-to-cap improved 46.5% → 41.6%.",
+      sourceRef: "pp. 3, 11" },
+  ],
+
+  constellation: [
+    { initiative: "Calpine integration",
+      amount: "$84M integration costs in Q2 (vs $9M a year ago), rising", amountUSD: 340,
+      horizon: "Through 2027", type: "ma-integration", status: "committed",
+      offering: "ma",
+      angle: "Mid-flight mega-merger with accelerating costs — integration planning and synergy capture, Aberdeen's strongest-rated offering.",
+      evidence: "CFO names integrating Calpine and capturing fleet value as the top priority.",
+      sourceRef: "pp. 2, 6" },
+    { initiative: "Crane Clean Energy Center nuclear restart",
+      amount: "Not disclosed in this release", amountUSD: null,
+      horizon: "Restart 2027", type: "capital-program", status: "committed",
+      offering: "lpa",
+      angle: "First-of-its-kind restart on a hard external clock — independent program assurance and schedule/risk governance.",
+      evidence: "FERC waiver and NRC fuel license amendment both cleared this quarter.",
+      sourceRef: "pp. 1–3" },
+    { initiative: "Dresden capacity expansion backed by Walmart PPA",
+      amount: "30 MW expansion; 920 MW of new 15–20yr PPAs signed", amountUSD: null,
+      horizon: "Deliveries 2029–2032", type: "capital-program", status: "announced",
+      offering: "tso",
+      angle: "The commercial platform is the growth engine — commercial operations and contract-management technology strategy.",
+      evidence: "Long-term contracted revenue justifying new plant investment.",
+      sourceRef: "pp. 1–3" },
+    { initiative: "Brazos Valley divestiture (regulatory commitment)",
+      amount: "$860M proceeds expected", amountUSD: 860,
+      horizon: "Close by year-end 2026", type: "divestiture", status: "committed",
+      offering: "ma",
+      angle: "Separation and TSA work between now and close — sell-side is still M&A Enablement.",
+      evidence: "Last asset sale required under the Calpine deal, pending DOJ.",
+      sourceRef: "p. 3" },
+  ],
+
+  core: [
+    { initiative: "Share repurchase acceleration",
+      amount: "$670.8M remaining of $1.0B authorization", amountUSD: 671,
+      horizon: "Accelerated H2 2026", type: "capital-returns", status: "committed",
+      offering: null,
+      angle: "Context only — the ~75%-of-FCF return framework is where the cash goes instead of programs; not addressable.",
+      evidence: "Management signals 'even stronger capital returns' in H2.",
+      sourceRef: "p. 3 (Capital Return Update)" },
+    { initiative: "Rare earth elements / critical minerals extraction",
+      amount: "Not quantified — early", amountUSD: null,
+      horizon: "Exploratory", type: "capital-program", status: "exploratory",
+      offering: "lpa",
+      angle: "Standing up a new extraction business line is a major program needing business-case validation before capital commits.",
+      evidence: "Risk factors newly reference the ability to 'mine, upgrade, process, and extract rare earth elements' from existing mines.",
+      sourceRef: "p. 13 (forward-looking statements)" },
+    { initiative: "Per-ton cost reduction program",
+      amount: "Thermal cash cost down 9% QoQ; met down 7%", amountUSD: null,
+      horizon: "Continuing", type: "restructuring", status: "committed",
+      offering: "itfm",
+      angle: "A company-wide unit-cost agenda extends to G&A and technology spend transparency.",
+      evidence: "Management frames a 'step-change in operational execution'.",
+      sourceRef: "pp. 1–3" },
+  ],
+
+  cpk: [
+    { initiative: "Florida Energy Pathway pipeline",
+      amount: "$1.2B project", amountUSD: 1200,
+      horizon: "In service 2030; spend starts now", type: "capital-program", status: "announced",
+      offering: "lpa",
+      angle: "The company's largest-ever program, at day zero — governance, partner management and delivery assurance from the start.",
+      evidence: "Initial investments already inside the raised 2026 capex guidance; partner discussions underway.",
+      sourceRef: "pp. 1–2 (Highlights; guidance)" },
+    { initiative: "Five-year capital program step-up",
+      amount: "2026 capex raised $100M to $550–600M; >$2.2B through 2028", amountUSD: 2200,
+      horizon: "2024–2028", type: "capital-program", status: "committed",
+      offering: "lpa",
+      angle: "A multi-project portfolio above original guidance — portfolio-level prioritization and benefits tracking.",
+      evidence: "Reaffirming 2028 EPS targets makes delivery discipline the constraint.",
+      sourceRef: "p. 2" },
+    { initiative: "Growth funding: revolver expansion and equity issuance",
+      amount: "Revolver to $650M; ~0.6M shares via ATM/DRIP", amountUSD: 650,
+      horizon: "FY2026", type: "capital-program", status: "committed",
+      offering: "itfm",
+      angle: "Debt-and-equity-funded growth heightens scrutiny of every cost line — cost transparency for a regulated-returns model.",
+      evidence: "Short-term borrowing rose to $238.1M; CWIP up to $376.6M.",
+      sourceRef: "pp. 1, 8–9" },
+  ],
+
+  dauch: [
+    { initiative: "Dowlais synergy implementation",
+      amount: "$95–110M cash payments in 2026; >$100M run-rate target", amountUSD: 103,
+      horizon: "Year one of integration", type: "ma-integration", status: "committed",
+      offering: "ma",
+      angle: "A public synergy commitment the program must now deliver — integration management and synergy tracking.",
+      evidence: "Synergy benefit guidance raised to $60–75M for 2026.",
+      sourceRef: "pp. 2, 13 (outlook)" },
+    { initiative: "Restructuring the combined footprint",
+      amount: "$115–150M restructuring cash payments in 2026", amountUSD: 133,
+      horizon: "FY2026", type: "restructuring", status: "committed",
+      offering: "lpa",
+      angle: "Multi-hundred-million restructuring across 24 countries — program assurance keeps public targets on track.",
+      evidence: "$148.7M of restructuring/acquisition costs already booked in H1 across 175+ locations.",
+      sourceRef: "pp. 1, 7–8, 14" },
+    { initiative: "Segment realignment (Metal Forming → Driveline)",
+      amount: "Not separately quantified", amountUSD: null,
+      horizon: "In execution", type: "restructuring", status: "committed",
+      offering: "tso",
+      angle: "ERP and reporting structures follow the re-segmentation — operating-model harmonization across the combined estate.",
+      evidence: "Plants moved between segments 'to better align our product and process technologies'.",
+      sourceRef: "pp. 4, 14" },
+  ],
+
+  krispykreme: [
+    { initiative: "Refranchising program — international deals",
+      amount: "$111.4M net proceeds YTD; 2–3 more international deals planned", amountUSD: 111,
+      horizon: "Through fiscal 2027 (~50% franchised target)", type: "divestiture", status: "committed",
+      offering: "ma",
+      angle: "Each refranchising deal is a carve-out with systems separation and TSA work — a concrete win-back opening with a former client.",
+      evidence: "Japan and western-US JV completed in March.",
+      sourceRef: "pp. 5–6, 14" },
+    { initiative: "Capex discipline under the turnaround plan",
+      amount: "Capex cut 70% in H1 2026", amountUSD: null,
+      horizon: "FY2026", type: "restructuring", status: "committed",
+      offering: "itfm",
+      angle: "Every remaining investment dollar is scrutinized against the 5.4x deleveraging goal — cost transparency earns its keep here.",
+      evidence: "$10.3M YTD of strategic-initiative costs.",
+      sourceRef: "pp. 1–2, 16" },
+    { initiative: "Digital & delivery expansion",
+      amount: "448 fresh delivery doors added in H1; digital at 19.8% of retail sales", amountUSD: null,
+      horizon: "Continuing", type: "tech-ai", status: "committed",
+      offering: "aidata",
+      angle: "The growth investment inside a shrinking envelope — channel data and analytics to sustain it.",
+      evidence: "US average revenue per door per week up 33.2% to ~$697.",
+      sourceRef: "pp. 2–3" },
+  ],
+
+  lpl: [
+    { initiative: "Commonwealth conversion",
+      amount: "$435M run-rate EBITDA target (raised from $410M)", amountUSD: 435,
+      horizon: "Q4 2026", type: "ma-integration", status: "committed",
+      offering: "lpa",
+      angle: "A single-quarter conversion of an entire broker-dealer with a ~90% retention target — exactly the migration that demands assurance.",
+      evidence: "Onboarding delay flagged as a top risk in the release.",
+      sourceRef: "pp. 1, 3–4" },
+    { initiative: "Technology platform build-out",
+      amount: "$199.4M capex in Q2 (+46% YoY)", amountUSD: 800,
+      horizon: "Ongoing run-rate", type: "tech-ai", status: "committed",
+      offering: "tso",
+      angle: "A scaling advisor platform for 32,475 advisors — technology strategy and value tracking on the build-out.",
+      evidence: "Occupancy/equipment +54% and data processing +22%.",
+      sourceRef: "pp. 2, 5, 15" },
+    { initiative: "Share repurchases",
+      amount: "$309M in Q2; ~$300M planned Q3; authorization raised $2.5B", amountUSD: 2500,
+      horizon: "2026–27", type: "capital-returns", status: "committed",
+      offering: null,
+      angle: "Context only — signals capital discipline pressure on every internal program; not directly addressable.",
+      evidence: "Board approved the increase July 23, 2026 with leverage at 1.91x.",
+      sourceRef: "pp. 1–2, 14" },
+    { initiative: "Liquidity & Succession acquisitions",
+      amount: "~$21M deployed on four deals in Q2", amountUSD: 21,
+      horizon: "Continuing cadence", type: "ma-integration", status: "committed",
+      offering: "ma",
+      angle: "A serial-acquirer cadence needs repeatable integration playbooks — diligence through Day-2.",
+      evidence: "Plus Mariner Advisor Network closed (367 advisors, ~$31B assets); acquisition costs ran $49.0M in the quarter.",
+      sourceRef: "pp. 1, 19" },
+  ],
+
+  cornerstone: [
+    { initiative: "ERP remediation and SDLC governance rebuild",
+      amount: "Outside firm retained; not separately quantified", amountUSD: null,
+      horizon: "Active remediation", type: "tech-ai", status: "committed",
+      offering: "lpa",
+      angle: "An SEC-disclosed material weakness from a failed ERP go-live — the most direct Large Program Assurance trigger in the corpus, and they are already paying an outside firm.",
+      evidence: "New SDLC policy, governance structure and training being implemented after the Metal Solutions go-live failure.",
+      sourceRef: "Item 4, pp. 30–31" },
+    { initiative: "Sale-leaseback of Metal Solutions real estate",
+      amount: "$147.0M of land and buildings held for sale", amountUSD: 147,
+      horizon: "Judged probable in Q1 2026", type: "divestiture", status: "announced",
+      offering: null,
+      angle: "Context only — a liquidity lever that signals how constrained the transformation budget is.",
+      evidence: "Facility closure charges rose to $5.2M in the quarter.",
+      sourceRef: "MD&A p. 27; assets held for sale" },
+    { initiative: "IT-controls integration at Harvey and Mueller (2024 acquisitions)",
+      amount: "Remediation plans defined; spend not disclosed", amountUSD: null,
+      horizon: "Multi-quarter", type: "ma-integration", status: "committed",
+      offering: "ma",
+      angle: "Post-merger IT integration incomplete two years after close — M&A technology-integration enablement.",
+      evidence: "Second material weakness: ITGCs and journal-entry controls never effectively implemented at either acquired company.",
+      sourceRef: "Item 4, p. 31" },
+  ],
+
+  novant: [
+    { initiative: "Capital projects program",
+      amount: "$277.7M in Q1 alone (+50% YoY)", amountUSD: 1100,
+      horizon: "FY2026 run-rate", type: "capital-program", status: "committed",
+      offering: "lpa",
+      angle: "A surging capital program across 19 medical centers — PMO and delivery governance, in Aberdeen's credential-strongest sector.",
+      evidence: "D&A up 14.8% as projects enter service across 900+ locations.",
+      sourceRef: "MD&A p. 8; cash flows p. 3" },
+    { initiative: "Energy-efficiency infrastructure upgrades",
+      amount: "$172M over four years + up to $200M elective", amountUSD: 372,
+      horizon: "2025–2029, fixed schedule", type: "capital-program", status: "committed",
+      offering: "lpa",
+      angle: "A third-party-operated, staged-funding program — independent delivery assurance and vendor governance.",
+      evidence: "$102.6M advanced by March 31; funded from the $839M 30-year Energy Services Agreement monetization.",
+      sourceRef: "MD&A pp. 8–9" },
+    { initiative: "Acquisition-led expansion in South Carolina",
+      amount: "$175.5M paid for consolidated entities (prior-year Q1)", amountUSD: 175,
+      horizon: "Continuing", type: "ma-integration", status: "committed",
+      offering: "ma",
+      angle: "Each added medical center brings systems integration — where Aberdeen's healthcare M&A credentials are strongest ($4B-transaction DMO qual).",
+      evidence: "East Cooper, SC Coastal and Hilton Head medical centers recently added.",
+      sourceRef: "MD&A p. 7; statistics p. 4" },
+  ],
+
+  lsf: [
+    { initiative: "Raw-material stockpiling",
+      amount: "Inventories up 68% to ₦11.28bn", amountUSD: null,
+      horizon: "H2 2026", type: "capital-program", status: "committed",
+      offering: null,
+      angle: "Context only — and the account is outside Aberdeen's documented geographic footprint.",
+      evidence: "A deliberate working-capital bet on input costs, straining liquidity.",
+      sourceRef: "Note 18; Note 7" },
+    { initiative: "Technology and R&D step-up",
+      amount: "R&D up 6x to ₦44.0M; IT spend ₦116.9M incl. SAP", amountUSD: null,
+      horizon: "FY2026", type: "tech-ai", status: "committed",
+      offering: "aidata",
+      angle: "Directionally an ERP value-optimization candidate — but geography rules this account out; tracked for pattern completeness only.",
+      evidence: "An SAP-running manufacturer investing through its turnaround.",
+      sourceRef: "Notes 8, 20" },
+  ],
+
+  lomalinda: [],
+};
+
+</script>
+<script>
+/* ============================================================
    Aberdeen Pursuit Intelligence — application logic
    Zero network calls. All data is embedded locally (Level 3).
    ============================================================ */
@@ -1368,7 +1753,8 @@ function setView(view, acctId) {
   currentView = view; currentAccount = acctId || null;
   document.querySelectorAll(".tab").forEach(t =>
     t.classList.toggle("active", t.dataset.view === view));
-  if (view === "dashboard" && !acctId) renderDashboard();
+  if (view === "invest") renderInvestments();
+  else if (view === "dashboard" && !acctId) renderDashboard();
   else if (view === "dashboard" && acctId) renderAccount(acctId);
   else if (view === "offerings") renderOfferings();
   else if (view === "sources") renderSources();
@@ -1378,6 +1764,96 @@ function setView(view, acctId) {
 document.getElementById("tabs").addEventListener("click", e => {
   const t = e.target.closest(".tab"); if (t) setView(t.dataset.view);
 });
+
+/* ---------- investment radar ---------- */
+const ABERDEEN_BOOK = new Set(["existing-live", "roster-active", "new-2026", "dormant"]);
+const TYPE_LABEL = {
+  "tech-ai": "Tech & AI", "capital-program": "Capital program",
+  "ma-integration": "M&A / integration", "restructuring": "Restructuring",
+  "capital-returns": "Capital returns", "divestiture": "Divestiture",
+};
+
+function invSortKey(acctId) {
+  const items = INVESTMENTS[acctId] || [];
+  return items.reduce((m, i) => Math.max(m, i.amountUSD || 0), 0);
+}
+
+function renderInvestmentItems(items) {
+  return items.map(i => {
+    const off = i.offering ? offeringById[i.offering] : null;
+    return `<div class="inv-item ${off ? "" : "ctx"}">
+      <div class="row1">
+        <span class="itype ${i.type}">${TYPE_LABEL[i.type]}</span>
+        <span class="init">${esc(i.initiative)}</span>
+        <span class="istatus ${i.status}">${i.status}</span>
+        <span class="hzn">${esc(i.horizon)}</span>
+        <span class="sig-src">${esc(i.sourceRef)}</span>
+      </div>
+      <div class="row1" style="margin-top:3px"><span class="amt">${esc(i.amount)}</span></div>
+      <div class="angle">${off
+        ? `&rarr; <b>${esc(off.name)}</b> ${badge(off.strength)} <span class="muted">${esc(i.angle)}</span>`
+        : `<span class="muted">${esc(i.angle)}</span>`}</div>
+      <div class="ev">${esc(i.evidence)}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderInvestments() {
+  const withItems = a => (INVESTMENTS[a.id] || []).length > 0 || a.dataQualityFlag;
+  const book = ABERDEEN.accounts.filter(a => ABERDEEN_BOOK.has(a.bucket))
+    .sort((x, y) => invSortKey(y.id) - invSortKey(x.id));
+  const expansion = ABERDEEN.accounts.filter(a => !ABERDEEN_BOOK.has(a.bucket))
+    .sort((x, y) => invSortKey(y.id) - invSortKey(x.id));
+
+  const allItems = Object.values(INVESTMENTS).flat();
+  const addressable = allItems.filter(i => i.offering);
+  const committed = allItems.filter(i => i.status === "committed").length;
+  const bookItems = book.reduce((n, a) => n + (INVESTMENTS[a.id] || []).length, 0);
+
+  const card = a => {
+    const items = INVESTMENTS[a.id] || [];
+    return `<div class="inv-card">
+      <div class="inv-head" data-acct="${a.id}">
+        <span class="nm">${esc(a.name)}</span>
+        <span class="bk">${esc(BUCKET_LABEL[a.bucket])} · ${esc(a.industry)}</span>
+        ${a.matchNote.flagged ? `<span class="flag" style="color:var(--amber);border-color:var(--amber)">confirm match</span>` : ""}
+        <span class="cnt">${items.length ? `${items.length} initiative${items.length > 1 ? "s" : ""} · open brief →` : "open brief →"}</span>
+      </div>
+      ${items.length ? renderInvestmentItems(items)
+        : `<div class="inv-item ctx"><div class="ev">${a.dataQualityFlag
+            ? esc(a.dataQualityFlag)
+            : "No forward-investment disclosure in the corpus for this account."} </div></div>`}
+    </div>`;
+  };
+
+  main.innerHTML = `
+    <h2 class="viewtitle">Investment radar</h2>
+    <p class="viewsub">Where each company is diverting capital in the coming quarters, from their own quarterly releases —
+      each initiative mapped to the Aberdeen service area that can sell against it (About Aberdeen, p.2).
+      Pure financial moves are kept as context, never force-fit to an offering. Amounts stay in their filing currency; no cross-currency totals.</p>
+
+    <div class="statrow">
+      <div class="stat"><div class="v">${allItems.length}</div><div class="l">Forward initiatives tracked</div></div>
+      <div class="stat"><div class="v">${addressable.length}</div><div class="l">Addressable by an Aberdeen offering</div></div>
+      <div class="stat"><div class="v">${committed}</div><div class="l">Committed (vs announced / exploratory)</div></div>
+      <div class="stat"><div class="v">${bookItems}</div><div class="l">In Aberdeen's existing book</div></div>
+    </div>
+
+    <div class="phasehead"><h3>Phase 1 — Aberdeen's book</h3>
+      <span class="muted">existing, new-2026 and former clients: the rollout starts here</span></div>
+    ${book.map(card).join("")}
+
+    <div class="phasehead"><h3>Phase 2 — expansion universe</h3>
+      <span class="muted">no confirmed relationship yet: qualify the match before pursuing</span></div>
+    ${expansion.map(card).join("")}
+
+    <p class="muted small" style="margin-top:10px">Offering names and proof badges from AberdeenOfferings.md §2/§10 (compiled from the About Aberdeen overview).
+      Badges are never upgraded. Click a company header for the full pursuit brief and outreach generator.</p>
+  `;
+
+  main.querySelectorAll(".inv-head").forEach(h =>
+    h.addEventListener("click", () => setView("dashboard", h.dataset.acct)));
+}
 
 /* ---------- dashboard ---------- */
 function renderDashboard() {
@@ -1489,6 +1965,12 @@ function renderAccount(id) {
           ${doc.managementQuote ? `<div class="signal" style="border-left-color:var(--amber);margin-top:10px;margin-bottom:0">
             <div class="quote" style="margin-top:0">&ldquo;${esc(doc.managementQuote)}&rdquo;</div></div>` : ""}
           <p class="muted small" style="margin-top:8px">Source: ${esc(doc.docFile)} (${esc(doc.docType)})</p>
+        </div>` : ""}
+
+        ${(INVESTMENTS[id] || []).length ? `
+        <div class="card">
+          <h3>Forward investments — where the money is going</h3>
+          ${renderInvestmentItems(INVESTMENTS[id])}
         </div>` : ""}
 
         <div class="card">
@@ -1790,6 +2272,6 @@ function renderSources() {
 }
 
 /* ---------- boot ---------- */
-renderDashboard();
+renderInvestments();
 
 </script>

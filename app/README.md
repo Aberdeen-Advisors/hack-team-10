@@ -28,12 +28,27 @@ python -m http.server 8777
 | File | What it is |
 |---|---|
 | `pursuit-intelligence.html` | The app as one self-contained file. This is the one to open. |
-| `index.html` | Source entry point — loads the CSS and the three scripts separately. |
+| `index.html` | Source entry point — loads the CSS and the four scripts separately. |
 | `styles.css` | The CURRENT brand system from [`SKILL.md`](../agent-instructions/SKILL.md) §2.1 as CSS tokens. |
 | `data-aberdeen.js` | Offering taxonomy, credential inventory with §10 proof ratings, and the 13 account records. |
 | `data-signals.js` | 59 buying signals extracted from `client-data/`, each with evidence, a source reference and a provenance tag. |
-| `app.js` | Scoring, the three views, and the outreach generator. |
+| `data-investments.js` | 38 forward investments — where each company is diverting capital in coming quarters — each mapped to the Aberdeen service area that can sell against it, or honestly marked context-only. |
+| `app.js` | Scoring, the four views, and the outreach generator. |
 | `build.py` | Inlines the CSS and scripts into `pursuit-intelligence.html`. |
+
+## The Investment Radar (lead view)
+
+The opening view answers one question per company: **where is the money going next quarter?**
+Every initiative comes from the company's own quarterly release — amount, horizon, and
+commitment status (committed / announced / exploratory) — and is mapped to the Aberdeen
+service area from the About Aberdeen overview that can sell against it, with the §10 proof
+badge shown unmodified. Pure financial engineering (buybacks, debt retirement) is kept
+visible as context but never force-fit to an offering.
+
+Companies are grouped to match the rollout plan: **Phase 1 — Aberdeen's book** (existing,
+new-2026 and former clients) first, **Phase 2 — expansion universe** (no confirmed
+relationship) second. Amounts stay in their filing currency; the app never totals across
+currencies.
 
 ## How an account is scored
 

@@ -151,11 +151,11 @@ const ABERDEEN = {
     {
       id: "constellation", name: "Constellation Energy", industry: "Energy & Utilities",
       bucket: "new-2026", play: "Land-and-expand — deepen a first-year relationship",
-      matchNote: { score: 88, basis: "\"Constellation\" is listed as a new-2026 account (AGENT_WORKFLOW.md §2) and in past-engagement examples. The filing is Constellation Energy Corp. — probable but unconfirmed match. Flagged per §2.4.", flagged: true },
+      matchNote: { score: 100, basis: "CONFIRMED against the CRM account list (081426): the account is \"Constellation Energy Generation LLC\", the merchant-generation subsidiary that files these results. Earlier 88-score flag is resolved." },
       relationship: {
-        status: "New client in 2026 (if match holds)",
+        status: "New client in 2026 — identity confirmed",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
-        note: "Match must be confirmed against the CRM before outreach. Do not proceed on a wrong match (§2.4).",
+        note: "Identity confirmed; owner, strength and contacts still require the CRM's populated fields.",
       },
       rosterEvidence: "\"Constellation\" evidenced in engagement folders / past-engagement examples (§9).",
     },
@@ -184,7 +184,7 @@ const ABERDEEN = {
     {
       id: "alphabet", name: "Alphabet (Google)", industry: "Technology & Software",
       bucket: "roster-active", play: "Targeted expansion — scope a beachhead, not the enterprise",
-      matchNote: { score: 90, basis: "\"Google\" is on the client roster (§9). Scale mismatch with Aberdeen's mid-market motion — treat as a niche/team-level relationship until CRM confirms scope.", flagged: true },
+      matchNote: { score: 100, basis: "CONFIRMED against the CRM account list (081426): \"Google\" is a named account. Identity is settled; the open question is SCOPE — nothing says which Google organisation or what was delivered, and the scale sits well outside Aberdeen's mid-market motion.", flagged: true },
       relationship: {
         status: "Roster client — scope of relationship unknown from this repo",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
@@ -194,19 +194,19 @@ const ABERDEEN = {
     },
     {
       id: "core", name: "Core Natural Resources", industry: "Energy & Utilities",
-      bucket: "flagged-match", play: "Qualify the match first",
-      matchNote: { score: 72, basis: "Roster lists \"Core\" (§9) — could be Core Natural Resources or a different company. Score in the 60–85 band → per §2.4 the workflow requires asking which account is meant before proceeding.", flagged: true },
+      bucket: "cold", play: "Cold — no Aberdeen relationship (earlier roster match was wrong)",
+      matchNote: { score: 0, basis: "RESOLVED AGAINST THE CRM ACCOUNT LIST (081426): the Aberdeen account abbreviated \"Core\" on the roster slide is CORE COVERS, a spa/hot-tub cover manufacturer — not Core Natural Resources, the Appalachian coal producer whose filing is in client-data/. Two unrelated companies. The §2.4 flag was correct to hold; the answer is no relationship.", flagged: true },
       relationship: {
-        status: "Unconfirmed — possible roster match",
+        status: "No Aberdeen relationship — distinct from the CRM account 'Core Covers'",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
-        note: "Do not build outreach on an unconfirmed identity.",
+        note: "Keep these records separate. Core Covers is the client; Core Natural Resources is a cold prospect that happens to share a first word.",
       },
-      rosterEvidence: "\"Core\" appears on the roster (§9) with no further detail.",
+      rosterEvidence: "None. The roster's \"Core\" is Core Covers.",
     },
     {
       id: "cornerstone", name: "Cornerstone Building Brands", industry: "Manufacturing & Industrial",
       bucket: "prospect", play: "Qualify — near-name collision with a different dormant account",
-      matchNote: { score: 55, basis: "The dormant account in AGENT_WORKFLOW.md §2 is \"Cornerstone Care\" — a DIFFERENT company. Below the 60 threshold → treated as new prospect, collision flagged so no one merges the records.", flagged: true },
+      matchNote: { score: 55, basis: "CONFIRMED against the CRM account list (081426): the Aberdeen account is \"Cornerstone Care\", a community health provider — a DIFFERENT company from Cornerstone Building Brands, the CD&R-owned building-products manufacturer whose 10-Q is in client-data/. Below the 60 threshold → treated as a new prospect, collision flagged so no one merges the records.", flagged: true },
       relationship: {
         status: "No documented Aberdeen relationship",
         engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
@@ -217,10 +217,11 @@ const ABERDEEN = {
     {
       id: "cpk", name: "Chesapeake Utilities Corporation", industry: "Energy & Utilities",
       bucket: "prospect", play: "Qualify — fits CoE priority sector #2 (Energy & Industrials)",
-      matchNote: { score: 0, basis: "No match in roster or instruction files. Cold prospect; Energy & Industrials is a CoE priority sector where credentials are thin — Arkema is the visible engagement." },
+      matchNote: { score: 0, basis: "No match. CONFIRMED against the CRM account list (081426) — and note the near-miss: the CRM holds \"Chesapeake Spice\", a seasoning blender, which is a DIFFERENT company. Cold prospect; Energy & Industrials is a CoE priority sector where credentials are thin — Arkema is the visible engagement.", flagged: true },
       relationship: {
         status: "No documented Aberdeen relationship",
-        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Do not merge with the CRM account 'Chesapeake Spice' — unrelated company, shared first word only.",
       },
       rosterEvidence: "None.",
     },
@@ -237,10 +238,11 @@ const ABERDEEN = {
     {
       id: "lsf", name: "Livestock Feeds Plc", industry: "Agriculture & Food",
       bucket: "cold", play: "Deprioritize — outside geographic focus",
-      matchNote: { score: 0, basis: "No match. Nigerian-listed company (figures in ₦'000); Aberdeen's geography vocabulary covers US regions, India, Europe, Global — no African footprint documented." },
+      matchNote: { score: 0, basis: "No match. CONFIRMED against the CRM account list (081426) — and note the near-miss: the CRM holds \"Livestock Nutrition Center\", a US animal-feed business, which is a DIFFERENT company. This one is Nigerian-listed (figures in ₦'000); Aberdeen's geography vocabulary covers US regions, India, Europe and Global, with no African footprint documented.", flagged: true },
       relationship: {
         status: "No documented Aberdeen relationship",
-        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null, note: null,
+        engagement: null, owner: null, strengthField: null, contacts: null, lastInteraction: null,
+        note: "Do not merge with the CRM account 'Livestock Nutrition Center' — unrelated company on a different continent.",
       },
       rosterEvidence: "None.",
     },
@@ -283,13 +285,14 @@ const ABERDEEN = {
 
   dataCoverage: {
     available: [
+      "CRM account NAME list — 30 accounts, supplied 081426. Resolved four identity questions and exposed three near-miss name collisions (Core, Chesapeake, Livestock)",
       "Signal corpus: 13 public documents in client-data/ (12 usable, 1 flagged)",
       "Offering taxonomy, credential inventory and proof-strength map (AberdeenOfferings.md)",
       "Account classification facts and revenue baseline (AGENT_WORKFLOW.md)",
       "Brand system for generated collateral (SKILL.md)",
     ],
     missing: [
-      "CRM 'Active Accounts' (43 fields × 30 accounts) — lives at the CoE base path, not in this repo",
+      "CRM 'Active Accounts' FIELD data (43 fields × 30 accounts) — the account names are now known, but Status, Industry, Size, Owner, Strength and the rest still live at the CoE base path",
       "Revenue file (2026 vs 2025 by account) — only the firm-level baseline is documented",
       "Pipeline sheet (named opportunities with values)",
       "Engagement libraries (kickoff decks, minutes) — local-only by policy, never committed",
