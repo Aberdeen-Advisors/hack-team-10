@@ -17,6 +17,13 @@ for tag in ('  <script src="data-aberdeen.js"></script>\n',
     body = body.replace(tag, "")
 
 out = (
+    # The Artifact host supplies its own <head>, but this file is also opened
+    # directly and served over http.server, where a missing charset renders all
+    # 937 non-ASCII bytes as mojibake and a missing viewport blocks responsive
+    # scaling. Browsers honour both anywhere in the first 1024 bytes and imply
+    # the <head>; in the Artifact host they are harmless duplicates.
+    '<meta charset="utf-8" />\n'
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n'
     "<title>Aberdeen Pursuit Intelligence</title>\n"
     "<style>\n" + read("styles.css") + "\n</style>\n"
     + body.strip() + "\n"

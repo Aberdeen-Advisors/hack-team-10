@@ -165,7 +165,7 @@ function renderDashboard() {
       <div class="stat"><div class="v">${flagged}</div><div class="l">Flagged for human confirmation</div></div>
     </div>
 
-    <table class="accounts">
+    <div class="table-scroll"><table class="accounts">
       <thead><tr>
         <th>Account</th><th>Industry</th><th>Relationship</th><th>Signals</th>
         <th>Leading offering</th><th>Score</th><th>Priority</th>
@@ -173,7 +173,7 @@ function renderDashboard() {
       <tbody>
         ${rows.map(({ a, s }) => {
           const off = topOffering(a);
-          return `<tr class="acct-row" data-acct="${a.id}">
+          return `<tr class="acct-row" data-acct="${a.id}" tabindex="0" role="button" aria-label="Open pursuit brief for ${a.name}">
             <td><div class="acct-name">${esc(a.name)}</div>
                 ${a.matchNote.flagged ? `<span class="flag">match ${a.matchNote.score} — confirm</span>` : ""}
                 ${a.dataQualityFlag ? `<span class="flag">signal doc unusable</span>` : ""}</td>
@@ -188,13 +188,21 @@ function renderDashboard() {
           </tr>`;
         }).join("")}
       </tbody>
-    </table>
+    </table></div>
     <p class="muted small" style="margin-top:10px">Score = signal evidence (0–40) + relationship position (0–30) + proof-strength fit (0–30).
       Proof ratings come from AberdeenOfferings.md §10 and are never upgraded. Accounts with flagged matches must be confirmed against the CRM before any outreach (workflow §2.4).</p>
   `;
 
   main.querySelectorAll(".acct-row").forEach(r =>
-    r.addEventListener("click", () => setView("dashboard", r.dataset.acct)));
+    {
+      const open = () => setView("dashboard", r.dataset.acct);
+      r.addEventListener("click", open);
+      // Rows are the only route into a pursuit brief, so they must work without
+      // a mouse. Enter and Space match native button behaviour.
+      r.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+      });
+    });
 }
 
 /* ---------- account detail ---------- */
@@ -514,7 +522,7 @@ function renderSources() {
 
     <div class="card">
       <h3>Signal corpus — client-data/ (${SIGNALS.length} documents)</h3>
-      <table class="srcs">
+      <div class="table-scroll"><table class="srcs">
         <thead><tr><th>Company</th><th>Document</th><th>Type</th><th>Period</th><th>Signals</th><th>Notes</th></tr></thead>
         <tbody>${SIGNALS.map(d => `<tr>
           <td><b>${esc(d.company)}</b></td>
@@ -524,7 +532,7 @@ function renderSources() {
           <td>${d.signals.length}</td>
           <td class="small">${esc(d.notes || "")}</td></tr>`).join("")}
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="grid2">

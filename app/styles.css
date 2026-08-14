@@ -250,3 +250,27 @@ footer.confid {
   margin-top: 30px; padding: 10px 28px; background: var(--navy-dark); color: var(--grey-light);
   font-size: 10.5px; letter-spacing: .5px; display: flex; justify-content: space-between;
 }
+
+/* --- focus visibility -----------------------------------------------------
+   There were no :focus rules at all, so a keyboard user had no way to tell
+   where they were. Teal outline, offset so it reads against both the white
+   table and the teal-light hover state. */
+:focus-visible {
+  outline: 2px solid var(--teal-signal, #03C0C1);
+  outline-offset: 2px;
+}
+table.accounts tr.acct-row:focus-visible {
+  outline: 2px solid var(--teal-signal, #03C0C1);
+  outline-offset: -2px;
+}
+table.accounts tr.acct-row:focus-visible td { background: var(--teal-light); }
+
+/* --- wide tables scroll instead of breaking the page ----------------------
+   The pipeline table is 7 columns with long offering names. Below roughly
+   900px it forced horizontal overflow on <body>; now it scrolls in its own
+   box and the page never does. */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.accounts, table.srcs { min-width: 720px; }
+@media (max-width: 720px) {
+  table.accounts, table.srcs { min-width: 640px; }
+}
