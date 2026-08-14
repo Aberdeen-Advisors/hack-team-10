@@ -33,7 +33,7 @@ python -m http.server 8777
 | `data-aberdeen.js` | Offering taxonomy, credential inventory with §10 proof ratings, and the 13 account records. |
 | `data-signals.js` | 59 buying signals extracted from `client-data/`, each with evidence, a source reference and a provenance tag. |
 | `data-investments.js` | 38 forward investments — where each company is diverting capital in coming quarters — each mapped to the Aberdeen service area that can sell against it, or honestly marked context-only. |
-| `app.js` | Scoring, the four views, and the outreach generator. |
+| `app.js` | Scoring, the three views (Investment Radar, Pipeline, Sources & Guardrails), and the outreach generator. |
 | `build.py` | Inlines the CSS and scripts into `pursuit-intelligence.html`. |
 
 ## The Investment Radar (lead view)
